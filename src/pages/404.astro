@@ -1,0 +1,50 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+
+const title = "404 - Página no encontrada";
+const description = "La página que buscas no existe o ha sido movida.";
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="min-h-[80vh] flex items-center justify-center px-6">
+    <div class="text-center max-w-md">
+      <h1
+        class="text-6xl md:text-8xl font-bold text-accent mb-4"
+        aria-label="Error 404"
+      >
+        404
+      </h1>
+      <h2 class="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+        Página no encontrada
+      </h2>
+      <p class="text-muted mb-8 leading-relaxed">
+        La página que buscas no existe o ha sido movida a otra ubicación.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 rounded-lg transition-all duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        Volver al inicio
+      </a>
+    </div>
+  </main>
+</Layout>

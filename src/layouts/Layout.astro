@@ -1,0 +1,66 @@
+---
+import { ClientRouter } from "astro:transitions";
+import { fade } from "astro:transitions";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Nande - Desarrollador Pragmático",
+  description = "Portfolio de un desarrollador digital especializado en crear experiencias web únicas.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Nande" />
+    <meta name="theme-color" content="#0a0f1c" />
+
+    {/* Open Graph / Social Media */}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_ES" />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {/* Favicon */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {/* Canonical URL */}
+    <link rel="canonical" href={canonicalURL} />
+
+    {/* Preconnect a dominios externos para performance */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    {/* Fonts optimizadas con display=swap */}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+
+    {/* View Transitions Router */}
+    <ClientRouter />
+  </head>
+  <body class="min-h-screen">
+    <div transition:animate={fade({ duration: "0.25s" })}>
+      <slot />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "title": "nndsk-hyprtask",
+  "description": "Herramienta de productividad personal. TypeScript.",
+  "tags": ["TypeScript", "Node.js"],
+  "github": "https://github.com/Nandem1/nndsk-hyprtask",
+  "featured": false,
+  "order": 2
+}

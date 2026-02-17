@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colores personalizados */
+  --color-background: #0a0f1c;
+  --color-foreground: #e0e0e0;
+  --color-accent: #81a1c1;
+  --color-accent-hover: #88c0d0;
+  --color-muted: #616e88;
+  --color-card: #111827;
+  --color-border: #1e293b;
+
+  /* Contenedores - necesarios para max-w-* */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+}
+
+/* Estilos base globales */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0a0f1c;
+    color: #e0e0e0;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background-color: rgba(129, 161, 193, 0.3);
+    color: #e0e0e0;
+  }
+}
+
+/* Scrollbar personalizada */
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0f1c;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3b3b3b;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #616e88;
+  }
+}
+
+/* Estilos para contenido markdown (prose) */
+@layer components {
+  .prose {
+    @apply text-muted;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    @apply text-foreground font-bold mt-8 mb-4;
+  }
+
+  .prose h1 {
+    @apply text-3xl;
+  }
+
+  .prose h2 {
+    @apply text-2xl border-b border-border pb-2;
+  }
+
+  .prose h3 {
+    @apply text-xl;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  .prose a {
+    @apply text-accent no-underline hover:underline;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 pl-6;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li {
+    @apply mb-1;
+  }
+
+  .prose code {
+    @apply text-accent bg-card px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+
+  .prose pre {
+    @apply bg-card border border-border rounded-lg p-4 mb-4 overflow-x-auto;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-muted;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-accent pl-4 italic my-6;
+  }
+
+  .prose hr {
+    @apply border-border my-8;
+  }
+
+  .prose strong {
+    @apply text-foreground font-semibold;
+  }
+
+  /* Tablas */
+  .prose table {
+    @apply w-full border-collapse mb-6 text-sm;
+  }
+
+  .prose thead {
+    @apply bg-card border-b border-border;
+  }
+
+  .prose th {
+    @apply text-left text-foreground font-semibold py-3 px-4;
+  }
+
+  .prose tbody tr {
+    @apply border-b border-border/50;
+  }
+
+  .prose tbody tr:last-child {
+    @apply border-b-0;
+  }
+
+  .prose td {
+    @apply py-3 px-4 text-muted;
+  }
+
+  .prose tbody tr:hover {
+    @apply bg-card/50;
+  }
+}

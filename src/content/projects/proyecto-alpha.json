@@ -1,0 +1,8 @@
+{
+  "title": "nndsk-gisan-astro",
+  "description": "Sitio para artista de lettering y caligrafía. Astro, diseño minimalista, deployed en Vercel.",
+  "tags": ["Astro", "TypeScript", "Tailwind", "Vercel"],
+  "link": "https://nndsk-gisan-astro.vercel.app",
+  "featured": true,
+  "order": 1
+}

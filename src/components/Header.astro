@@ -1,0 +1,62 @@
+---
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+const navLinks: NavLink[] = [
+  { href: "/", label: "Inicio" },
+  { href: "/blog/", label: "Blog" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 px-6 py-4"
+  transition:persist="header"
+>
+  <nav
+    class="max-w-3xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border/50"
+    aria-label="Navegación principal"
+  >
+    {/* Logo */}
+    <a
+      href="/"
+      class="text-foreground font-bold text-lg hover:text-accent transition-colors"
+      aria-label="Inicio"
+    >
+      Nande
+    </a>
+
+    {/* Navigation Links */}
+    <ul class="flex items-center gap-6" role="list">
+      {
+        navLinks.map((link) => {
+          const isActive =
+            link.href === "/"
+              ? currentPath === "/"
+              : currentPath.startsWith(link.href);
+          return (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "text-sm font-medium transition-colors duration-300",
+                  "hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded px-2 py-1",
+                  isActive ? "text-accent" : "text-muted",
+                ]}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</header>
+
+{/* Spacer for fixed header */}
+<div class="h-20" aria-hidden="true"></div>

@@ -1,0 +1,60 @@
+---
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import LinkedInIcon from "./icons/LinkedInIcon.astro";
+import EmailIcon from "./icons/EmailIcon.astro";
+
+interface SocialLink {
+  name: string;
+  url: string;
+  icon: typeof GitHubIcon;
+}
+
+const socialLinks: SocialLink[] = [
+  {
+    name: "GitHub",
+    url: "https://github.com/Nandem1",
+    icon: GitHubIcon,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/vicente-aguirre-developer/",
+    icon: LinkedInIcon,
+  },
+  {
+    name: "Email",
+    url: "mailto:vicenteignacioac22@gmail.com",
+    icon: EmailIcon,
+  },
+];
+---
+
+<section id="contact" class="py-24 px-6" aria-labelledby="contact-heading">
+  <div class="max-w-2xl mx-auto text-center">
+    <h2 id="contact-heading" class="text-3xl font-bold mb-4 text-foreground">
+      <span class="border-b-2 border-accent/30 pb-2">En la web</span>
+    </h2>
+    <p class="text-muted mb-12">
+      Conecta conmigo en mis redes sociales o envíame un correo.
+    </p>
+
+    <nav aria-label="Redes sociales">
+      <ul class="flex justify-center gap-6 flex-wrap" role="list">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-2 px-4 py-2 rounded-lg text-muted hover:text-accent hover:bg-accent/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
+              >
+                <link.icon class="w-5 h-5" />
+                <span class="font-medium">{link.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+---
+import { getCollection } from "astro:content";
+
+let sortedProjects: Awaited<ReturnType<typeof getCollection<"projects">>> = [];
+
+try {
+  const projects = await getCollection("projects");
+  sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
+} catch (error) {
+  console.error("Error loading projects:", error);
+}
+---
+
+<section id="work" class="py-24 px-6" aria-labelledby="work-heading">
+  <div class="max-w-3xl mx-auto">
+    <h2
+      id="work-heading"
+      class="text-3xl font-bold mb-12 text-center text-foreground"
+    >
+      <span class="border-b-2 border-accent/30 pb-2">Trabajos</span>
+    </h2>
+
+    {
+      sortedProjects.length > 0 ? (
+        <ul class="grid md:grid-cols-2 gap-6" role="list">
+          {sortedProjects.map((project) => (
+            <li>
+              <article>
+                <a
+                  href={project.data.link || project.data.github || "#"}
+                  target={project.data.link ? "_blank" : undefined}
+                  rel={project.data.link ? "noopener noreferrer" : undefined}
+                  class="group block p-6 rounded-xl bg-card border border-border hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 h-full focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
+                >
+                  <div class="flex items-start justify-between mb-2">
+                    <h3 class="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
+                      {project.data.title}
+                    </h3>
+                    {project.data.featured && (
+                      <span class="text-accent" aria-label="Proyecto destacado">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
+                  <p class="text-muted text-sm leading-relaxed mb-4">
+                    {project.data.description}
+                  </p>
+                  <footer>
+                    <ul
+                      class="flex flex-wrap gap-2"
+                      aria-label="Tecnologías utilizadas"
+                    >
+                      {project.data.tags.map((tag) => (
+                        <li>
+                          <span class="px-3 py-1 text-xs rounded-full bg-background text-muted border border-border">
+                            {tag}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </footer>
+                </a>
+              </article>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-muted">
+            No hay proyectos disponibles en este momento.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>

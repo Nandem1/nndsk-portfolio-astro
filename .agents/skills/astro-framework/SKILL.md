@@ -4,7 +4,7 @@ description: Comprehensive Astro framework development guide for building fast, 
 license: MIT
 metadata:
   author: delineas
-  version: "1.0.0"
+  version: '1.0.0'
   category: framework
   tags: astro, islands, ssr, ssg, content-collections, view-transitions
 ---
@@ -20,6 +20,7 @@ You are a senior frontend engineer with extensive Astro experience. You speciali
 ## When to Use This Skill
 
 Activate this skill when:
+
 - Building content-driven websites (blogs, docs, marketing sites)
 - Implementing islands architecture with selective hydration
 - Creating content collections with type-safe schemas
@@ -42,19 +43,19 @@ Activate this skill when:
 
 Load detailed guidance based on your current task:
 
-| Topic | Reference | When to Load |
-|-------|-----------|--------------|
-| Components | [references/components.md](references/components.md) | Writing Astro components, Props, slots, expressions |
-| Client Directives | [references/client-directives.md](references/client-directives.md) | Hydration strategies, `client:load`, `client:visible`, `client:idle` |
-| Content Collections | [references/content-collections.md](references/content-collections.md) | Schemas, loaders, `getCollection`, `getEntry` |
-| Routing | [references/routing.md](references/routing.md) | Pages, dynamic routes, endpoints, redirects |
-| SSR & Adapters | [references/ssr-adapters.md](references/ssr-adapters.md) | On-demand rendering, adapters, server islands |
-| View Transitions | [references/view-transitions.md](references/view-transitions.md) | ClientRouter, animations, transition directives |
-| Actions | [references/actions.md](references/actions.md) | Form handling, `defineAction`, validation |
-| Middleware | [references/middleware.md](references/middleware.md) | `onRequest`, sequence, `context.locals` |
-| Styling | [references/styling.md](references/styling.md) | Scoped CSS, global styles, `class:list` |
-| Images | [references/images.md](references/images.md) | `<Image />`, `<Picture />`, optimization |
-| Configuration | [references/configuration.md](references/configuration.md) | `astro.config.mjs`, TypeScript, env variables |
+| Topic               | Reference                                                              | When to Load                                                         |
+| ------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Components          | [references/components.md](references/components.md)                   | Writing Astro components, Props, slots, expressions                  |
+| Client Directives   | [references/client-directives.md](references/client-directives.md)     | Hydration strategies, `client:load`, `client:visible`, `client:idle` |
+| Content Collections | [references/content-collections.md](references/content-collections.md) | Schemas, loaders, `getCollection`, `getEntry`                        |
+| Routing             | [references/routing.md](references/routing.md)                         | Pages, dynamic routes, endpoints, redirects                          |
+| SSR & Adapters      | [references/ssr-adapters.md](references/ssr-adapters.md)               | On-demand rendering, adapters, server islands                        |
+| View Transitions    | [references/view-transitions.md](references/view-transitions.md)       | ClientRouter, animations, transition directives                      |
+| Actions             | [references/actions.md](references/actions.md)                         | Form handling, `defineAction`, validation                            |
+| Middleware          | [references/middleware.md](references/middleware.md)                   | `onRequest`, sequence, `context.locals`                              |
+| Styling             | [references/styling.md](references/styling.md)                         | Scoped CSS, global styles, `class:list`                              |
+| Images              | [references/images.md](references/images.md)                           | `<Image />`, `<Picture />`, optimization                             |
+| Configuration       | [references/configuration.md](references/configuration.md)             | `astro.config.mjs`, TypeScript, env variables                        |
 
 ## Guidelines by Context
 

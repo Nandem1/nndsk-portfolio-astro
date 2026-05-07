@@ -14,11 +14,11 @@ Tengo buena capacidad de adaptación. Actualmente estoy enfocado en migrar mi st
 
 ## Stack actual
 
-| Dominio actual | En progreso |
-|----------------|-------------|
-| TypeScript / Node.js | **Go** |
-| Next.js / React / Astro | **Rust** |
-| PostgreSQL | — |
+| Dominio actual          | En progreso |
+| ----------------------- | ----------- |
+| TypeScript / Node.js    | **Go**      |
+| Next.js / React / Astro | **Rust**    |
+| PostgreSQL              | —           |
 
 ---
 

@@ -1,6 +1,8 @@
 ---
-import { ClientRouter } from "astro:transitions";
-import { fade } from "astro:transitions";
+/**
+ * Layout principal con metadatos y accesibilidad.
+ * Incluye skip link y optimizaciones de performance.
+ */
 import "../styles/global.css";
 
 interface Props {
@@ -54,13 +56,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
 
     <title>{title}</title>
-
-    {/* View Transitions Router */}
-    <ClientRouter />
   </head>
   <body class="min-h-screen">
-    <div transition:animate={fade({ duration: "0.25s" })}>
+    <!-- Skip to content link para accesibilidad -->
+    <a href="#main-content" class="skip-link">
+      Saltar al contenido principal
+    </a>
+    
+    <main id="main-content">
       <slot />
-    </div>
+    </main>
   </body>
 </html>

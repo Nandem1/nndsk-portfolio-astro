@@ -46,10 +46,12 @@ const authorsCollection = defineCollection({
     email: z.string().email(),
     bio: z.string(),
     avatar: z.string().url(),
-    social: z.object({
-      twitter: z.string().optional(),
-      github: z.string().optional(),
-    }).optional(),
+    social: z
+      .object({
+        twitter: z.string().optional(),
+        github: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 
@@ -67,9 +69,9 @@ For Markdown and MDX files with frontmatter:
 
 ```markdown
 ---
-title: "My First Post"
+title: 'My First Post'
 pubDate: 2024-01-15
-author: "john"
+author: 'john'
 ---
 
 # Hello World
@@ -149,11 +151,12 @@ import { image } from 'astro:schema';
 
 const blog = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    cover: image(), // Validates and optimizes images
-    coverAlt: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      cover: image(), // Validates and optimizes images
+      coverAlt: z.string(),
+    }),
 });
 ```
 
@@ -308,7 +311,7 @@ import { glob, file } from 'astro/loaders';
 
 // Glob loader for multiple files
 const blog = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/data/blog" }),
+  loader: glob({ pattern: '**/*.md', base: './src/data/blog' }),
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),
@@ -317,7 +320,7 @@ const blog = defineCollection({
 
 // File loader for single JSON/YAML
 const settings = defineCollection({
-  loader: file("./src/data/settings.json"),
+  loader: file('./src/data/settings.json'),
   schema: z.object({
     siteName: z.string(),
     siteUrl: z.string().url(),

@@ -1,18 +1,25 @@
 ---
 export const prerender = true;
 
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry, render } from "astro:content";
 import { Image } from "astro:assets";
+import { formatDateLong } from '@/utils/date';
+import { AVATAR_URL } from '@/utils/constants';
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 
-const avatarUrl = "https://avatars.githubusercontent.com/u/103139553?v=4";
+const avatarUrl = AVATAR_URL;
 
 export async function getStaticPaths() {
   try {
     const posts = await getCollection("blog");
+    
+    function cleanSlug(id: string): string {
+      return id.replace(/\.md$/, '');
+    }
+    
     return posts.map((post) => ({
-      params: { slug: post.slug },
+      params: { slug: cleanSlug(post.id) },
       props: { post },
     }));
   } catch (error) {
@@ -26,16 +33,9 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
-// Formatear fecha
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
+
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
@@ -48,9 +48,9 @@ const formatDate = (date: Date) => {
         <div
           class="flex items-center justify-center gap-3 text-sm text-muted font-mono mb-4"
         >
-          <time datetime={post.data.pubDate.toISOString()}>
-            {formatDate(post.data.pubDate)}
-          </time>
+           <time datetime={post.data.pubDate.toISOString()}>
+             {formatDateLong(post.data.pubDate)}
+           </time>
           {
             post.data.readTime && (
               <>

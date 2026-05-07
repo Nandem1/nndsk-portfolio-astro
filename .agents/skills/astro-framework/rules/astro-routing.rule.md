@@ -1,7 +1,7 @@
 ---
 description: Rules for Astro routing and pages
 globs:
-  - "src/pages/**/*"
+  - 'src/pages/**/*'
 ---
 
 # Astro Routing Rules

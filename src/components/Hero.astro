@@ -1,11 +1,12 @@
 ---
+/**
+ * Componente hero con avatar, título, descripción y llamadas a acción.
+ * Utiliza imagen optimizada de GitHub avatar con formato WebP.
+ */
 import { Image } from "astro:assets";
+import { AVATAR_URL, AUTHOR } from '@/utils/constants';
 
-// Opciones para el avatar:
-// 1. Usar una imagen local: import avatar from "../assets/avatar.jpg";
-// 2. Usar una imagen remota con URL
-
-const avatarUrl = "https://avatars.githubusercontent.com/u/103139553?v=4";
+const avatarUrl = AVATAR_URL;
 ---
 
 <section

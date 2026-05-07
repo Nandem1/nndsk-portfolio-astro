@@ -1,11 +1,11 @@
 ---
-title: "De 97% de Errores a 99% de Precisión: La Historia Que Descubrí Buscando Estadísticas de Cheques"
-description: "De query simple a arqueología de datos: cómo descubrí la historia completa de nuestro sistema de facturas mediante análisis SQL."
+title: 'De 97% de Errores a 99% de Precisión: La Historia Que Descubrí Buscando Estadísticas de Cheques'
+description: 'De query simple a arqueología de datos: cómo descubrí la historia completa de nuestro sistema de facturas mediante análisis SQL.'
 pubDate: 2026-02-05
-tags: ["postgresql", "data-analysis", "sql", "learning"]
-author: "Nande"
-role: "Fullstack Developer"
-readTime: "8 min"
+tags: ['postgresql', 'data-analysis', 'sql', 'learning']
+author: 'Nande'
+role: 'Fullstack Developer'
+readTime: '8 min'
 draft: false
 ---
 
@@ -28,7 +28,7 @@ En PostgreSQL, NULL es especial. No puedes compararlo con operadores normales:
 -- Incorrecto
 WHERE monto != null
 
--- Correcto  
+-- Correcto
 WHERE monto IS NOT NULL
 ```
 
@@ -50,9 +50,9 @@ Busqué la primera factura con monto:
 
 ```sql
 SELECT id, folio, monto, created_at, nombre_proveedor
-FROM facturas 
-WHERE monto > 0 
-ORDER BY created_at ASC 
+FROM facturas
+WHERE monto > 0
+ORDER BY created_at ASC
 LIMIT 1;
 
 -- ID: 2, Monto: $1.00, Fecha: 2025-04-29 18:42:18
@@ -71,7 +71,7 @@ La primera era claramente una prueba. La implementación real comenzó el 29 de 
 Aquí es donde se puso interesante. Decidí ver cómo había evolucionado esto mes a mes:
 
 ```sql
-SELECT 
+SELECT
     DATE_TRUNC('month', created_at) as mes,
     COUNT(*) as total,
     COUNT(CASE WHEN monto = 0 THEN 1 END) as sin_monto,
@@ -135,7 +135,7 @@ Durante la investigación encontré algo medio vergonzoso. Teníamos DOS campos 
 - `id_proveedor` (FK)
 
 ```sql
-SELECT 
+SELECT
     DATE_TRUNC('month', created_at) as mes,
     COUNT(CASE WHEN nombre_proveedor IS NOT NULL AND nombre_proveedor != '' THEN 1 END) as con_nombre,
     COUNT(CASE WHEN id_proveedor IS NOT NULL THEN 1 END) as con_id
@@ -154,14 +154,14 @@ En agosto, `nombre_proveedor` desapareció. Sin migracion, sin documentación, n
 
 La verdad es que siempre supe que `id_proveedor` como FK era lo correcto. Pero en ese momento, optimicé para la velocidad de iteración, no para la pureza del esquema. Y funcionó para validar la idea.
 
-La lección no es "nunca hagas esto", sino "sé consciente de cuándo lo estás haciendo". El **vibe coding** es genial para descubrir *qué* construir, pero el planning es obligatorio para mantenerlo vivo. Ese campo fantasma es el impuesto que pagué por moverme rápido en mayo.
+La lección no es "nunca hagas esto", sino "sé consciente de cuándo lo estás haciendo". El **vibe coding** es genial para descubrir _qué_ construir, pero el planning es obligatorio para mantenerlo vivo. Ese campo fantasma es el impuesto que pagué por moverme rápido en mayo.
 
 ## El Misterio del Usuario 10
 
 Revisando por usuario encontré algo curioso:
 
 ```sql
-SELECT 
+SELECT
     id_usuario,
     COUNT(*) as total,
     COUNT(CASE WHEN monto = 0 THEN 1 END) as errores,

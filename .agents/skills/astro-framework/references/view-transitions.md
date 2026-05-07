@@ -24,6 +24,7 @@ import { ClientRouter } from 'astro:transitions';
 ## How It Works
 
 With `<ClientRouter />` enabled:
+
 1. User clicks a link
 2. Astro intercepts the navigation
 3. New page content is fetched
@@ -300,6 +301,7 @@ Forms work with view transitions:
 ## Fallback Behavior
 
 Browsers without View Transitions API get:
+
 - Full page navigation (no JavaScript errors)
 - Graceful degradation
 

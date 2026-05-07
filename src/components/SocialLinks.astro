@@ -1,31 +1,14 @@
 ---
+/**
+ * Componente de enlaces sociales con iconos SVG personalizados.
+ * Los enlaces se centralizan en utils/constants para consistencia.
+ */
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import LinkedInIcon from "./icons/LinkedInIcon.astro";
 import EmailIcon from "./icons/EmailIcon.astro";
+import { SOCIAL_LINKS } from '@/utils/constants';
 
-interface SocialLink {
-  name: string;
-  url: string;
-  icon: typeof GitHubIcon;
-}
-
-const socialLinks: SocialLink[] = [
-  {
-    name: "GitHub",
-    url: "https://github.com/Nandem1",
-    icon: GitHubIcon,
-  },
-  {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/vicente-aguirre-developer/",
-    icon: LinkedInIcon,
-  },
-  {
-    name: "Email",
-    url: "mailto:vicenteignacioac22@gmail.com",
-    icon: EmailIcon,
-  },
-];
+const socialLinks = SOCIAL_LINKS;
 ---
 
 <section id="contact" class="py-24 px-6" aria-labelledby="contact-heading">
@@ -42,13 +25,15 @@ const socialLinks: SocialLink[] = [
         {
           socialLinks.map((link) => (
             <li>
-              <a
+               <a
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="group flex items-center gap-2 px-4 py-2 rounded-lg text-muted hover:text-accent hover:bg-accent/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
               >
-                <link.icon class="w-5 h-5" />
+                {link.icon === 'GitHubIcon' && <GitHubIcon class="w-5 h-5" />}
+                {link.icon === 'LinkedInIcon' && <LinkedInIcon class="w-5 h-5" />}
+                {link.icon === 'EmailIcon' && <EmailIcon class="w-5 h-5" />}
                 <span class="font-medium">{link.name}</span>
               </a>
             </li>

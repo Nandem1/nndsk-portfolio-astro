@@ -210,6 +210,7 @@ export const server = {
 ### Error Codes
 
 Available error codes:
+
 - `BAD_REQUEST` - Invalid input
 - `UNAUTHORIZED` - Authentication required
 - `FORBIDDEN` - Permission denied
@@ -238,20 +239,19 @@ import { defineAction, z } from 'astro:actions';
 export const server = {
   updateProfile: defineAction({
     input: z.object({
-      username: z.string()
+      username: z
+        .string()
         .min(3, 'Username must be at least 3 characters')
         .max(20, 'Username must be at most 20 characters')
         .regex(/^[a-z0-9_]+$/, 'Only lowercase letters, numbers, and underscores'),
 
       bio: z.string().max(500).optional(),
 
-      birthdate: z.coerce.date()
-        .min(new Date('1900-01-01'))
-        .max(new Date()),
+      birthdate: z.coerce.date().min(new Date('1900-01-01')).max(new Date()),
 
       tags: z.array(z.string()).max(5).default([]),
     }),
-    handler: async (data) => {
+    handler: async data => {
       return await db.profiles.update(data);
     },
   }),

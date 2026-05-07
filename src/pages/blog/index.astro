@@ -2,8 +2,13 @@
 export const prerender = true;
 
 import { getCollection } from "astro:content";
+import { formatDateShort } from '@/utils/date';
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
+
+function cleanSlug(id: string): string {
+  return id.replace(/\.md$/, '');
+}
 
 let sortedPosts: Awaited<ReturnType<typeof getCollection<"blog">>> = [];
 
@@ -15,6 +20,8 @@ try {
   sortedPosts = posts.sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
+  
+
 } catch (error) {
   console.error("Error loading blog posts:", error);
 }
@@ -44,19 +51,15 @@ try {
             {sortedPosts.map((post) => (
               <li>
                 <article class="group">
-                  <a
-                    href={`/blog/${post.slug}/`}
+                   <a
+                     href={`/blog/${cleanSlug(post.id)}/`}
                     class="block p-6 rounded-xl bg-card border border-border hover:border-accent/50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
                   >
                     <header class="mb-3">
                       <div class="flex items-center gap-3 text-sm text-muted font-mono mb-2">
-                        <time datetime={post.data.pubDate.toISOString()}>
-                          {post.data.pubDate.toLocaleDateString("es-ES", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </time>
+                         <time datetime={post.data.pubDate.toISOString()}>
+                           {formatDateShort(post.data.pubDate)}
+                         </time>
                         {post.data.readTime && (
                           <>
                             <span aria-hidden="true">·</span>

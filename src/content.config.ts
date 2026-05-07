@@ -1,7 +1,7 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z } from 'astro:content';
 
 const projects = defineCollection({
-  type: "data",
+  type: 'data',
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -14,7 +14,7 @@ const projects = defineCollection({
 });
 
 const timeline = defineCollection({
-  type: "data",
+  type: 'data',
   schema: z.object({
     year: z.string(),
     title: z.string(),
@@ -24,7 +24,7 @@ const timeline = defineCollection({
 });
 
 const blog = defineCollection({
-  type: "content",
+  type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string().max(160),
@@ -32,8 +32,8 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
-    author: z.string().default("Nande"),
-    role: z.string().default("Fullstack Developer"),
+    author: z.string().default('Nande'),
+    role: z.string().default('Fullstack Developer'),
     readTime: z.string().optional(),
   }),
 });

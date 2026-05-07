@@ -1,10 +1,10 @@
 ---
 description: Rules for TypeScript configuration in Astro projects
 globs:
-  - "tsconfig.json"
-  - "src/env.d.ts"
-  - "**/*.ts"
-  - "**/*.astro"
+  - 'tsconfig.json'
+  - 'src/env.d.ts'
+  - '**/*.ts'
+  - '**/*.astro'
 ---
 
 # Astro TypeScript Rules

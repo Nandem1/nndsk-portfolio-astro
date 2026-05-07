@@ -1,11 +1,11 @@
 ---
-title: "Devlog: Cómo consolidé 4 sistemas de Auth en 1"
-description: "De un caos de 4 hooks de autenticación a un sistema unificado y tipado. Reduciendo deuda técnica acumulada durante el lanzamiento acelerado."
+title: 'Devlog: Cómo consolidé 4 sistemas de Auth en 1'
+description: 'De un caos de 4 hooks de autenticación a un sistema unificado y tipado. Reduciendo deuda técnica acumulada durante el lanzamiento acelerado.'
 pubDate: 2026-02-07
-tags: ["typescript", "react", "refactoring", "auth"]
-author: "Nande"
-role: "Fullstack Developer"
-readTime: "6 min"
+tags: ['typescript', 'react', 'refactoring', 'auth']
+author: 'Nande'
+role: 'Fullstack Developer'
+readTime: '6 min'
 draft: false
 ---
 
@@ -37,10 +37,10 @@ Decidí **no migrar a NextAuth.js** porque el backend ya maneja cookies HTTP-onl
 
 Borrar código da un poco de miedo, pero también satisfacción. Eliminamos abstracciones que solo añadían ruido:
 
--   **`src/hooks/useAuthStatus.ts`**: Eliminado completamente. (0 usos reales).
--   **`src/hooks/useCajaChicaAuth.ts`**: Lógica movida a `usePermissions`.
--   **`AuthContext`**: Reemplazado totalmente por React Query state.
--   **Roles Hardcodeados**: Se eliminaron 15 instancias de `user.rol_id === 1`.
+- **`src/hooks/useAuthStatus.ts`**: Eliminado completamente. (0 usos reales).
+- **`src/hooks/useCajaChicaAuth.ts`**: Lógica movida a `usePermissions`.
+- **`AuthContext`**: Reemplazado totalmente por React Query state.
+- **Roles Hardcodeados**: Se eliminaron 15 instancias de `user.rol_id === 1`.
 
 ### Unificado (Single Source of Truth)
 
@@ -69,12 +69,12 @@ En lugar de verificar IDs de roles dispersos por los componentes, centralizamos 
 ```typescript
 export const usePermissions = () => {
   const { user } = useAuth();
-  
+
   return {
     isAdmin: user?.rol_id === 1,
     isSupervisor: user?.rol_id === 2,
     canManageUsers: [1, 2].includes(user?.rol_id),
-    canAccessNominas: user?.rol_id === 1 || (user?.rol_id === 2 && user?.id_local === 1)
+    canAccessNominas: user?.rol_id === 1 || (user?.rol_id === 2 && user?.id_local === 1),
   };
 };
 ```

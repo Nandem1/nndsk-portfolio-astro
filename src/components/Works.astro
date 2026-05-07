@@ -1,4 +1,8 @@
 ---
+/**
+ * Componente que muestra una grilla de proyectos desde content collections.
+ * Incluye manejo de errores y ordenamiento por campo `order`.
+ */
 import { getCollection } from "astro:content";
 
 let sortedProjects: Awaited<ReturnType<typeof getCollection<"projects">>> = [];

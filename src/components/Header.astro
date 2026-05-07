@@ -1,20 +1,21 @@
 ---
+/**
+ * Componente de cabecera con navegación principal.
+ * Incluye transiciones persistentes y estado activo para enlaces.
+ */
+import { NAV_LINKS } from '@/utils/constants';
+
 interface NavLink {
   href: string;
   label: string;
 }
 
-const navLinks: NavLink[] = [
-  { href: "/", label: "Inicio" },
-  { href: "/blog/", label: "Blog" },
-];
-
+const navLinks: NavLink[] = NAV_LINKS;
 const currentPath = Astro.url.pathname;
 ---
 
 <header
   class="fixed top-0 left-0 right-0 z-50 px-6 py-4"
-  transition:persist="header"
 >
   <nav
     class="max-w-3xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border/50"

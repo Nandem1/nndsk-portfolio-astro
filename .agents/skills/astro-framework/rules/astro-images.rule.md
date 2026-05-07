@@ -1,9 +1,9 @@
 ---
 description: Rules for image optimization in Astro
 globs:
-  - "**/*.astro"
-  - "**/*.mdx"
-  - "src/content/**/*"
+  - '**/*.astro'
+  - '**/*.mdx'
+  - 'src/content/**/*'
 ---
 
 # Astro Image Rules
@@ -94,11 +94,12 @@ import hero from '../images/hero.jpg';
 // src/content/config.ts
 const blog = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    cover: image(),           // Validates and optimizes
-    coverAlt: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      cover: image(), // Validates and optimizes
+      coverAlt: z.string(),
+    }),
 });
 ```
 
@@ -136,9 +137,7 @@ const optimizedBg = await getImage({
 export default defineConfig({
   image: {
     domains: ['cdn.example.com'],
-    remotePatterns: [
-      { protocol: 'https', hostname: '**.unsplash.com' },
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: '**.unsplash.com' }],
   },
 });
 ```

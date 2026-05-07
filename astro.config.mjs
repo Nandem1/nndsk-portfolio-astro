@@ -1,44 +1,52 @@
 // @ts-check
-import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel";
-import tailwindcss from "@tailwindcss/vite";
-import sitemap from "@astrojs/sitemap";
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
+import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
-  site: "https://nande.dev", // Actualizar con tu dominio real cuando esté disponible
+  output: 'static',
 
-  prefetch: {
-    prefetchAll: true,
-    defaultStrategy: "viewport",
+  legacy: {
+    collectionsBackwardsCompat: true,
   },
+
+  // Dominio del sitio
+  site: 'https://nande.dev',
+
+  // Configuración de trailing slash para consistencia en URLs
+  trailingSlash: 'always',
+
+  prefetch: false,
 
   image: {
     service: {
-      entrypoint: "astro/assets/services/sharp",
+      entrypoint: 'astro/assets/services/sharp',
       config: {
         quality: 80,
+        format: 'webp',
+        avif: true,
       },
     },
-    domains: ["avatars.githubusercontent.com", "images.unsplash.com"],
+    domains: ['avatars.githubusercontent.com', 'images.unsplash.com'],
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "**.githubusercontent.com",
+        protocol: 'https',
+        hostname: '**.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
     ],
   },
 
-  vite: {
-    plugins: [tailwindcss()],
-  },
-
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/draft"),
+      filter: page => !page.includes('/draft'),
       customPages: [],
-      changefreq: "weekly",
+      changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
     }),
@@ -47,15 +55,19 @@ export default defineConfig({
   compressHTML: true,
 
   build: {
-    inlineStylesheets: "auto",
-    format: "directory",
+    inlineStylesheets: 'auto',
+    format: 'directory',
   },
 
   devToolbar: {
     enabled: false,
   },
 
-  adapter: vercel({
-    imageService: true,
-  }),
+  // Nota: Sin adapter para output: 'static' puro
+  // El sitio se despliega como archivos estáticos estáticos
+
+  vite: {
+    // @ts-expect-error - Plugin version mismatch between Astro and Vite
+    plugins: [tailwindcss()],
+  },
 });

@@ -89,9 +89,9 @@ Output:
 
 ```html
 <picture>
-  <source srcset="..." type="image/avif" sizes="...">
-  <source srcset="..." type="image/webp" sizes="...">
-  <img src="..." alt="Responsive image" loading="lazy" decoding="async">
+  <source srcset="..." type="image/avif" sizes="..." />
+  <source srcset="..." type="image/webp" sizes="..." />
+  <img src="..." alt="Responsive image" loading="lazy" decoding="async" />
 </picture>
 ```
 
@@ -176,11 +176,12 @@ import { defineCollection, z } from 'astro:content';
 
 const blog = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    cover: image(),
-    coverAlt: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      cover: image(),
+      coverAlt: z.string(),
+    }),
 });
 
 export const collections = { blog };
@@ -190,9 +191,9 @@ export const collections = { blog };
 
 ```markdown
 ---
-title: "My Post"
-cover: "./images/cover.jpg"
-coverAlt: "Post cover image"
+title: 'My Post'
+cover: './images/cover.jpg'
+coverAlt: 'Post cover image'
 ---
 
 Content here...
@@ -214,6 +215,7 @@ const post = await getEntry('blog', 'my-post');
 ## Image Formats
 
 Supported output formats:
+
 - `webp` (default for optimization)
 - `avif` (best compression, slower)
 - `png` (lossless)
@@ -324,6 +326,7 @@ export default defineConfig({
 
 ```markdown
 <!-- src/content/blog/post.md -->
+
 ![Alt text](./images/image.jpg)
 ```
 

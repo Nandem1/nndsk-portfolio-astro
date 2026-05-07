@@ -60,6 +60,7 @@ const posts = await getCollection('blog');
 ### Rules
 
 **MUST DO:**
+
 - Define `interface Props` for type safety
 - Use destructuring with defaults for optional props
 - Keep frontmatter logic minimal and focused
@@ -68,6 +69,7 @@ const posts = await getCollection('blog');
 - Import components and assets at the top
 
 **MUST NOT DO:**
+
 - Access browser APIs (window, document) in frontmatter - runs on server
 - Use side effects in frontmatter - runs on every render
 - Mix UI framework components without client directives
@@ -139,6 +141,7 @@ Does the component need interactivity?
 ### Rules
 
 **MUST DO:**
+
 - Default to no hydration - question every `client:` directive
 - Use `client:visible` for below-the-fold interactive content
 - Use `client:idle` for non-critical above-the-fold interactions
@@ -147,6 +150,7 @@ Does the component need interactivity?
 - Test that pages work without JavaScript
 
 **MUST NOT DO:**
+
 - Use `client:load` on everything - defeats islands purpose
 - Hydrate static content (navbars, footers without interactions)
 - Use `client:only` without the framework string
@@ -209,17 +213,18 @@ import { defineCollection, z, reference } from 'astro:content';
 
 const blog = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    description: z.string().max(160),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    draft: z.boolean().default(false),
-    cover: image(),
-    coverAlt: z.string(),
-    author: reference('authors'),
-    tags: z.array(z.string()).default([]),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().max(160),
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      draft: z.boolean().default(false),
+      cover: image(),
+      coverAlt: z.string(),
+      author: reference('authors'),
+      tags: z.array(z.string()).default([]),
+    }),
 });
 
 export const collections = { blog };
@@ -228,6 +233,7 @@ export const collections = { blog };
 ### Rules
 
 **MUST DO:**
+
 - Use `z.coerce.date()` for date fields - handles string dates from frontmatter
 - Use `image()` helper for optimized images
 - Use `reference()` for cross-collection relationships
@@ -237,6 +243,7 @@ export const collections = { blog };
 - Export all collections from the config
 
 **MUST NOT DO:**
+
 - Use plain `z.date()` - won't parse frontmatter strings
 - Skip schema validation
 - Store sensitive data in content collections
@@ -247,9 +254,11 @@ export const collections = { blog };
 
 ```typescript
 // Get all published posts, sorted by date
-const posts = (await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = (
+  await getCollection('blog', ({ data }) => {
+    return import.meta.env.PROD ? !data.draft : true;
+  })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // Get single entry
 const post = await getEntry('blog', 'my-post-slug');
@@ -312,6 +321,7 @@ src/pages/
 ### Rules
 
 **MUST DO:**
+
 - Use `getStaticPaths()` for dynamic routes in static mode
 - Return proper status codes from API endpoints
 - Validate params in SSR routes
@@ -319,6 +329,7 @@ src/pages/
 - Handle 404 cases explicitly
 
 **MUST NOT DO:**
+
 - Access `Astro.request` in prerendered pages
 - Forget `getStaticPaths()` in static output mode
 - Return sensitive data in API responses without auth
@@ -440,9 +451,9 @@ export default defineConfig({
 ```javascript
 // astro.config.mjs
 export default defineConfig({
-  output: 'static',  // Default - all prerendered
-  output: 'server',  // All server-rendered
-  output: 'hybrid',  // Static default, opt-in SSR
+  output: 'static', // Default - all prerendered
+  output: 'server', // All server-rendered
+  output: 'hybrid', // Static default, opt-in SSR
   adapter: vercel(), // Required for server/hybrid
 });
 ```
@@ -450,6 +461,7 @@ export default defineConfig({
 ### Rules
 
 **MUST DO:**
+
 - Use `hybrid` mode when only some pages need SSR
 - Install appropriate adapter for deployment target
 - Use `export const prerender = false` to opt into SSR (hybrid mode)
@@ -458,6 +470,7 @@ export default defineConfig({
 - Validate and sanitize all user input
 
 **MUST NOT DO:**
+
 - Forget to install an adapter for server/hybrid output
 - Access request/cookies in prerendered pages
 - Trust user input without validation
@@ -584,6 +597,7 @@ import heroImage from '../images/hero.jpg';
 ### Rules
 
 **MUST DO:**
+
 - Import local images - enables optimization
 - Always provide meaningful alt text
 - Use `<Image>` component for local images
@@ -593,6 +607,7 @@ import heroImage from '../images/hero.jpg';
 - Use the image() schema helper in content collections
 
 **MUST NOT DO:**
+
 - Use string paths for local images: `src="/images/hero.jpg"`
 - Skip alt text (accessibility requirement)
 - Use `<img>` tags for local images (misses optimization)
@@ -649,11 +664,12 @@ import hero from '../images/hero.jpg';
 // src/content/config.ts
 const blog = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    cover: image(),           // Validates and optimizes
-    coverAlt: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      cover: image(), // Validates and optimizes
+      coverAlt: z.string(),
+    }),
 });
 ```
 
@@ -691,9 +707,7 @@ const optimizedBg = await getImage({
 export default defineConfig({
   image: {
     domains: ['cdn.example.com'],
-    remotePatterns: [
-      { protocol: 'https', hostname: '**.unsplash.com' },
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: '**.unsplash.com' }],
   },
 });
 ```
@@ -724,6 +738,7 @@ export default defineConfig({
 ### Rules
 
 **MUST DO:**
+
 - Use `astro/tsconfigs/strict` or `strictest` preset
 - Define path aliases for cleaner imports
 - Type Props interface in all components
@@ -731,6 +746,7 @@ export default defineConfig({
 - Type environment variables
 
 **MUST NOT DO:**
+
 - Use `any` type - use `unknown` and narrow
 - Skip typing Props interface
 - Ignore TypeScript errors
@@ -842,16 +858,16 @@ import Layout from '../../../layouts/Layout.astro';
 
 ## Quick Reference Card
 
-| Category | Key Rule |
-|----------|----------|
-| **Components** | Always define `interface Props` |
-| **Hydration** | Default to no directive; question every `client:` |
-| **Collections** | Use `z.coerce.date()` for dates |
-| **Routing** | Use `getStaticPaths()` for dynamic routes |
-| **SSR** | Use `hybrid` mode when only some pages need SSR |
-| **Images** | Import local images; use `<Image>` component |
-| **TypeScript** | Extend `astro/tsconfigs/strict` |
+| Category        | Key Rule                                          |
+| --------------- | ------------------------------------------------- |
+| **Components**  | Always define `interface Props`                   |
+| **Hydration**   | Default to no directive; question every `client:` |
+| **Collections** | Use `z.coerce.date()` for dates                   |
+| **Routing**     | Use `getStaticPaths()` for dynamic routes         |
+| **SSR**         | Use `hybrid` mode when only some pages need SSR   |
+| **Images**      | Import local images; use `<Image>` component      |
+| **TypeScript**  | Extend `astro/tsconfigs/strict`                   |
 
 ---
 
-*Generated from rules in the `rules/` directory. For individual rule files, see the `rules/` folder.*
+_Generated from rules in the `rules/` directory. For individual rule files, see the `rules/` folder._

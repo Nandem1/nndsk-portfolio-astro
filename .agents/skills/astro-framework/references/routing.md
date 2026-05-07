@@ -138,10 +138,12 @@ import { getCollection } from 'astro:content';
 export const GET: APIRoute = async () => {
   const posts = await getCollection('blog');
   return new Response(
-    JSON.stringify(posts.map(p => ({
-      title: p.data.title,
-      slug: p.slug,
-    }))),
+    JSON.stringify(
+      posts.map(p => ({
+        title: p.data.title,
+        slug: p.slug,
+      }))
+    ),
     {
       status: 200,
       headers: {
@@ -164,18 +166,12 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Validate and process
   if (!email) {
-    return new Response(
-      JSON.stringify({ error: 'Email required' }),
-      { status: 400 }
-    );
+    return new Response(JSON.stringify({ error: 'Email required' }), { status: 400 });
   }
 
   // Save to database, send email, etc.
 
-  return new Response(
-    JSON.stringify({ success: true }),
-    { status: 200 }
-  );
+  return new Response(JSON.stringify({ success: true }), { status: 200 });
 };
 ```
 

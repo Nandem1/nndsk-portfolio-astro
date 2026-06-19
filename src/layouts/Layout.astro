@@ -4,6 +4,7 @@
  * Incluye skip link y optimizaciones de performance.
  */
 import "../styles/global.css";
+import { SITE_METADATA } from "@/utils/constants";
 
 interface Props {
   title?: string;
@@ -11,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "Nande - Desarrollador Pragmático",
-  description = "Portfolio de un desarrollador digital especializado en crear experiencias web únicas.",
+  title = SITE_METADATA.title,
+  description = SITE_METADATA.description,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);

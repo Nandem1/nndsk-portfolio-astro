@@ -1,8 +1,8 @@
 {
   "title": "nndsk-hyprtask",
-  "description": "Herramienta de productividad personal. TypeScript.",
+  "description": "Task manager personal. Pipelines de dev, notas con formato, emotes de 7TV. TypeScript.",
   "tags": ["TypeScript", "Node.js"],
   "github": "https://github.com/Nandem1/nndsk-hyprtask",
   "featured": false,
-  "order": 2
+  "order": 3
 }

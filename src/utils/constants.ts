@@ -43,7 +43,7 @@ export const SOCIAL_LINKS = [
 export const SITE_METADATA = {
   title: 'Nande - Desarrollador Pragmático',
   description:
-    'Portfolio de un desarrollador digital especializado en crear experiencias web únicas.',
+    'Portfolio de Nande. Fullstack dev, TypeScript, Go y Rust.',
   url: 'https://nande.dev',
   locale: 'es_ES',
 };

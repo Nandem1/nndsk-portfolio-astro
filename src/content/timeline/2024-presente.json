@@ -1,6 +1,6 @@
 {
   "year": "2026",
   "title": "El presente",
-  "description": "Sigo codeando, sigo rompiendo cosas y arreglándolas. Rust me está haciendo sudar, pero me gusta el desafío. Nunca se termina de aprender.",
+  "description": "A cargo del ERP de Mercado House. Facturas, cheques, cartelería, nómina. Go en producción, Rust en progreso.",
   "order": 1
 }

@@ -1,8 +1,0 @@
-{
-  "title": "rust-christmas-extract",
-  "description": "Parser/extractor. Mi punto de partida en Rust.",
-  "tags": ["Rust"],
-  "github": "https://github.com/Nandem1/rust-christmas-extract",
-  "featured": false,
-  "order": 5
-}

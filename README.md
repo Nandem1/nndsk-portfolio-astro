@@ -24,13 +24,11 @@ Tengo buena capacidad de adaptación. Actualmente estoy enfocado en migrar mi st
 
 ## Proyectos que me definen
 
+**[nndsk-ro-launcher](https://github.com/Nandem1/nndsk-ro-launcher)** — Launcher para Ragnarok Online en Linux. Gestiona Wine y arma un prefix configurado, soporta dgVoodoo integrado, e incluye tools de competitivo como Autopot y Spammer. Tauri.
+
 **[nndsk-gisan-astro](https://nndsk-gisan-astro.vercel.app)** — Sitio para artista de lettering y caligrafía. Astro, diseño minimalista, deployed en Vercel.
 
 **[nndsk-hyprtask](https://github.com/Nandem1/nndsk-hyprtask)** — Herramienta de productividad. TypeScript.
-
-**[nndsk-DTAP](https://github.com/Nandem1/nndsk-DTAP)** — Migración de tools de Ragnarok Online de C# a Go. GUI en React, acceso a memoria, scheduler optimizado. Código funcional, en refactorización.
-
-**[rust-christmas-extract](https://github.com/Nandem1/rust-christmas-extract)** — Parser/extractor. Mi punto de partida en Rust.
 
 ---
 
@@ -45,5 +43,5 @@ Tengo buena capacidad de adaptación. Actualmente estoy enfocado en migrar mi st
 ## Contacto
 
 - 📧 vicenteignacioac22@gmail.com
-- 💼 [LinkedIn](https://www.linkedin.com/in/vicente-ignacio-aguirre-rivera-552660257/)
+- 💼 [LinkedIn](https://www.linkedin.com/in/vicente-nandev/)
 - 🐙 [GitHub](https://github.com/Nandem1)

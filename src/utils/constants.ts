@@ -11,7 +11,7 @@ export const AUTHOR = {
   role: 'Fullstack Developer',
   email: 'vicenteignacioac22@gmail.com',
   github: 'https://github.com/Nandem1',
-  linkedin: 'https://www.linkedin.com/in/vicente-aguirre-developer/',
+  linkedin: 'https://www.linkedin.com/in/vicente-nandev/',
 };
 
 // Enlaces de navegación
@@ -42,8 +42,7 @@ export const SOCIAL_LINKS = [
 // Metadata del sitio
 export const SITE_METADATA = {
   title: 'Nande - Desarrollador Pragmático',
-  description:
-    'Portfolio de Nande. Fullstack dev, TypeScript, Go y Rust.',
+  description: 'Portfolio de Nande. Fullstack dev, TypeScript, Go y Rust.',
   url: 'https://nande.dev',
   locale: 'es_ES',
 };

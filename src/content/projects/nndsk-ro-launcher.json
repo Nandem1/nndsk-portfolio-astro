@@ -1,0 +1,8 @@
+{
+  "title": "nndsk-ro-launcher",
+  "description": "Launcher para Ragnarok Online en Linux. Gestiona Wine y arma un prefix configurado, soporta dgVoodoo integrado, e incluye tools de competitivo como Autopot y Spammer.",
+  "tags": ["Tauri", "Rust", "TypeScript"],
+  "github": "https://github.com/Nandem1/nndsk-ro-launcher",
+  "featured": false,
+  "order": 2
+}

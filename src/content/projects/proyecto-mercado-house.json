@@ -1,7 +1,0 @@
-{
-  "title": "Mercado House",
-  "description": "ERP interno de un supermercado. Facturas, cheques, nómina, cartelería, bot de WhatsApp para ingreso de facturas. Next.js, Go/Gin, PostgreSQL, Wails.",
-  "tags": ["Next.js", "Go", "PostgreSQL", "Wails"],
-  "featured": true,
-  "order": 1
-}

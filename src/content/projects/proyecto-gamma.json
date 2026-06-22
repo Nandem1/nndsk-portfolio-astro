@@ -1,8 +1,0 @@
-{
-  "title": "nndsk-DTAP",
-  "description": "Migración de tools de Ragnarok Online de C# a Go. GUI en React, acceso a memoria, scheduler optimizado. Código funcional, en refactorización.",
-  "tags": ["Go", "React", "TypeScript", "Wails"],
-  "github": "https://github.com/Nandem1/nndsk-DTAP",
-  "featured": false,
-  "order": 4
-}

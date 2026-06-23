@@ -1,8 +1,17 @@
 {
   "title": "nndsk-ro-launcher",
-  "description": "Launcher para Ragnarok Online en Linux. Gestiona Wine y arma un prefix configurado, soporta dgVoodoo integrado, e incluye tools de competitivo como Autopot y Spammer.",
-  "tags": ["Tauri", "Rust", "TypeScript"],
+  "description": "Launcher para Ragnarok Online en Linux. Gestiona WINEPREFIX, DXVK y dgVoodoo con pipeline gráfico a Vulkan. Incluye AutoPot por lectura de memoria del cliente y Spammer con sidecar evdev, multi-servidor y runners Proton/Wine.",
+  "tags": ["Gaming", "Desktop", "Linux"],
+  "stack": ["Tauri v2", "Rust", "React", "Wine", "DXVK", "dgVoodoo"],
+  "highlights": [
+    "AutoPot por lectura de memoria del cliente con perfiles 4RTools",
+    "Spammer con sidecar evdev + ydotool, hotkeys F1–F9 / 0–9",
+    "Pipeline dgVoodoo → DXVK → Vulkan con proton-cachyos-slr"
+  ],
+  "thumbnail": "./nndsk-ro-launcher/rolauncher1.png",
+  "gallery": ["./nndsk-ro-launcher/rolauncher2.png"],
   "github": "https://github.com/Nandem1/nndsk-ro-launcher",
   "featured": false,
-  "order": 2
+  "year": "2026",
+  "order": 3
 }

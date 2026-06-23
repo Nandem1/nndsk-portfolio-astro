@@ -1,0 +1,21 @@
+{
+  "title": "EcoRetirosRM",
+  "description": "Landing de conversión para servicio de retiro de escombros en Santiago. SEO local con schema.org JSON-LD, formulario de cotización con compresión HEIC y email transaccional vía Resend. Startup propia en producción.",
+  "tags": ["Startup", "Web", "SEO"],
+  "stack": ["Next.js", "React", "Tailwind v4", "shadcn/ui", "Resend", "Zod"],
+  "highlights": [
+    "SEO local con schema.org HomeAndConstructionBusiness + FAQPage",
+    "Formulario con rate limiting, honeypot y compresión HEIC→WebP",
+    "FSD estricto con eslint-plugin-boundaries y tests Vitest+RTL"
+  ],
+  "thumbnail": "./ecoretirosrm/ecoretirosrm1.png",
+  "gallery": [
+    "./ecoretirosrm/ecoretirosrm2.png",
+    "./ecoretirosrm/ecoretirosrm3.png",
+    "./ecoretirosrm/ecoretirosrm4.png"
+  ],
+  "link": "https://ecoretirosrm.cl",
+  "featured": true,
+  "year": "2026",
+  "order": 1
+}

@@ -1,8 +1,18 @@
 {
   "title": "nndsk-hyprtask",
-  "description": "Task manager personal. Pipelines de dev, notas con formato, emotes de 7TV. TypeScript.",
-  "tags": ["TypeScript", "Node.js"],
+  "description": "Task manager con arquitectura Feature-Sliced. Kanban con dnd-kit, notas rich-text con emotes 7TV, Pomodoro con focus sessions, sleep tracker y work timer. Atajos globales y UI con Radix.",
+  "tags": ["Productividad", "Web", "ADHD"],
+  "stack": ["Next.js", "React", "Zustand", "TanStack Query", "Radix UI", "dnd-kit"],
+  "highlights": [
+    "5 entidades FSD con hooks/lib/model/ui cada una",
+    "Kanban dnd-kit + notas rich-text con emotes 7TV",
+    "Pomodoro, sleep tracker y work timer con atajos globales"
+  ],
+  "thumbnail": "./nndsk-hyprtask/hyprtask1.png",
+  "gallery": ["./nndsk-hyprtask/hyprtask2.png", "./nndsk-hyprtask/hyprtask3.png"],
+  "link": "https://nndsk-hyprtask.vercel.app",
   "github": "https://github.com/Nandem1/nndsk-hyprtask",
   "featured": false,
-  "order": 4
+  "year": "2025",
+  "order": 5
 }

@@ -1,8 +1,22 @@
 {
   "title": "nndsk-gisan-astro",
-  "description": "Sitio para artista de lettering y caligrafía. Astro, diseño minimalista, deployed en Vercel.",
-  "tags": ["Astro", "TypeScript", "Tailwind", "Vercel"],
+  "description": "Portafolio de lettering y caligrafía con scroll-driven animations, cursor de tinta y parallax. Astro + GSAP + Lenis sincronizado con ScrollTrigger.",
+  "tags": ["Portfolio", "Web", "Comisión"],
+  "stack": ["Astro", "GSAP", "Lenis", "TypeScript"],
+  "highlights": [
+    "Cursor de tinta y TextSplit custom",
+    "Helpers DRY: createRevealTrigger y createParallax",
+    "Lenis sincronizado con GSAP ScrollTrigger"
+  ],
+  "thumbnail": "./nndsk-gisan-astro/gisan1.png",
+  "gallery": [
+    "./nndsk-gisan-astro/gisan2.png",
+    "./nndsk-gisan-astro/gisan3.png",
+    "./nndsk-gisan-astro/gisan4.png"
+  ],
   "link": "https://nndsk-gisan-astro.vercel.app",
+  "github": "https://github.com/Nandem1/nndsk-gisan-astro",
   "featured": false,
-  "order": 3
+  "year": "2026",
+  "order": 4
 }

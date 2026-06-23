@@ -1,8 +1,17 @@
 {
   "title": "Mercado House",
   "description": "ERP interno de un supermercado. Facturas, cheques, nóminas, cartelería, bot de WhatsApp para ingreso de facturas. Next.js, Go/Gin, PostgreSQL, Wails.",
-  "tags": ["Next.js", "Go", "PostgreSQL", "Wails"],
+  "tags": ["ERP", "Web", "Desktop"],
+  "stack": ["Next.js", "Go", "PostgreSQL", "Wails"],
+  "highlights": [
+    "Bot de WhatsApp para ingreso de facturas",
+    "Cartelería digital integrada",
+    "Backend Go/Gin + frontend Wails desktop"
+  ],
+  "thumbnail": "./mercado-house/mh1.png",
+  "gallery": ["./mercado-house/mh2.png", "./mercado-house/mh3.png"],
   "link": "https://www.mercadohouse.cl",
   "featured": true,
-  "order": 1
+  "year": "2024",
+  "order": 2
 }

@@ -1,7 +1,11 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import ExternalLinkIcon from "./icons/ExternalLinkIcon.astro";
 
-let sortedProjects: Awaited<ReturnType<typeof getCollection<"projects">>> = [];
+let sortedProjects: CollectionEntry<"projects">[] = [];
 
 try {
   const projects = await getCollection("projects");
@@ -9,84 +13,437 @@ try {
 } catch (error) {
   console.error("Error loading projects:", error);
 }
+
+const featured = sortedProjects.filter((p) => p.data.featured);
+const rest = sortedProjects.filter((p) => !p.data.featured);
+
+const years = sortedProjects
+  .map((p) => p.data.year)
+  .filter((y): y is string => Boolean(y));
+const yearRange =
+  years.length > 0
+    ? new Set(years).size === 1
+      ? years[0]
+      : `${[...new Set(years)].sort().join("–")}`
+    : null;
+
+const totalCount = sortedProjects.length;
+
+function initial(title: string): string {
+  const clean = title.replace(/^nndsk-/i, "").trim();
+  return (clean[0] ?? title[0] ?? "?").toUpperCase();
+}
+
+function allImages(project: CollectionEntry<"projects">) {
+  const thumbs = project.data.thumbnail ? [project.data.thumbnail] : [];
+  const gallery = project.data.gallery ?? [];
+  return [...thumbs, ...gallery];
+}
 ---
 
 <section id="work" class="py-24 px-6" aria-labelledby="work-heading">
-  <div class="max-w-3xl mx-auto">
-    <h2
-      id="work-heading"
-      class="text-3xl font-bold mb-12 text-center text-foreground"
-    >
-      <span class="border-b-2 border-accent/30 pb-2">Trabajos</span>
-    </h2>
+  <div class="max-w-5xl mx-auto">
+    <header class="text-center mb-16">
+      <h2
+        id="work-heading"
+        class="text-3xl font-bold mb-3 text-foreground"
+      >
+        <span class="border-b-2 border-accent/30 pb-2">Trabajos</span>
+      </h2>
+      <p class="text-muted text-sm">
+        {totalCount > 0 && (
+          <span>
+            {totalCount} proyecto{totalCount !== 1 ? "s" : ""}
+            {yearRange && <span> · {yearRange}</span>}
+          </span>
+        )}
+      </p>
+    </header>
 
-    {
-      sortedProjects.length > 0 ? (
-        <ul class="grid md:grid-cols-2 gap-6" role="list">
-          {sortedProjects.map((project) => {
-            const url = project.data.link || project.data.github;
-            return (
-              <li>
-                <article>
-                  <a
-                    href={url || undefined}
-                    target={url ? "_blank" : undefined}
-                    rel={url ? "noopener noreferrer" : undefined}
-                    class={
-                      url
-                        ? "group block p-6 rounded-xl bg-card border border-border hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 h-full focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
-                        : "block p-6 rounded-xl bg-card border border-border h-full cursor-default"
-                    }
-                  >
-                    <div class="flex items-start justify-between mb-2">
-                      <h3 class="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
-                        {project.data.title}
-                      </h3>
-                      {project.data.featured && (
-                        <span class="text-accent" aria-label="Proyecto destacado">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                          </svg>
-                        </span>
-                      )}
-                    </div>
-                    <p class="text-muted text-sm leading-relaxed mb-4">
-                      {project.data.description}
-                    </p>
-                    <footer>
-                      <ul
-                        class="flex flex-wrap gap-2"
-                        aria-label="Tecnologías utilizadas"
+    {sortedProjects.length > 0 ? (
+      <div class="space-y-8">
+        {/* Featured — cards grandes con strip */}
+        {featured.length > 0 && (
+          <ul class="grid md:grid-cols-2 gap-6" role="list">
+            {featured.map((project) => {
+              const hasLive = Boolean(project.data.link);
+              const hasRepo = Boolean(project.data.github);
+              const images = allImages(project);
+              const dialogId = `lightbox-${project.id}`;
+              return (
+                <li>
+                  <article class="group h-full rounded-xl bg-card border border-border overflow-hidden flex flex-col transition-all duration-300 hover:border-accent/50 hover:-translate-y-1">
+                    {/* Hero + strip clickable → lightbox */}
+                    {project.data.thumbnail ? (
+                      <button
+                        type="button"
+                        data-dialog-open={dialogId}
+                        class="block w-full text-left focus:outline-none focus:ring-2 focus:ring-accent/50"
+                        aria-label={`Abrir galería de ${project.data.title}`}
                       >
-                        {project.data.tags.map((tag) => (
-                          <li>
-                            <span class="px-3 py-1 text-xs rounded-full bg-background text-muted border border-border">
-                              {tag}
-                            </span>
-                          </li>
+                        <div class="aspect-video overflow-hidden bg-card border-b border-border">
+                          <Image
+                            src={project.data.thumbnail}
+                            alt={`Captura de ${project.data.title}`}
+                            width={800}
+                            height={450}
+                            format="webp"
+                            quality={80}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </div>
+                      </button>
+                    ) : (
+                      <div
+                        class="relative aspect-video overflow-hidden bg-gradient-to-br from-accent/10 via-card to-background border-b border-border"
+                        aria-hidden="true"
+                      >
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <span class="text-7xl font-bold text-accent/20 font-mono select-none">
+                            {initial(project.data.title)}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Strip de miniaturas */}
+                    {images.length > 1 && (
+                      <div class="flex gap-1.5 p-3 bg-card/50 border-b border-border">
+                        {images.map((img, i) => (
+                          <button
+                            type="button"
+                            data-dialog-open={dialogId}
+                            class="w-16 h-10 rounded overflow-hidden border border-border hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+                            aria-label={`Ver foto ${i + 1} de ${project.data.title}`}
+                          >
+                            <Image
+                              src={img}
+                              alt=""
+                              width={128}
+                              height={80}
+                              format="webp"
+                              quality={70}
+                              loading="lazy"
+                              decoding="async"
+                              class="w-full h-full object-cover"
+                            />
+                          </button>
                         ))}
-                      </ul>
-                    </footer>
-                  </a>
-                </article>
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <div class="text-center py-16">
-          <p class="text-muted">
-            No hay proyectos disponibles en este momento.
-          </p>
-        </div>
-      )
-    }
+                      </div>
+                    )}
+
+                    {/* Cuerpo */}
+                    <div class="p-6 flex flex-col flex-1">
+                      <div class="flex items-baseline justify-between gap-3 mb-2">
+                        <h3 class="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
+                          {project.data.title}
+                        </h3>
+                        {project.data.year && (
+                          <span class="text-xs font-mono text-muted shrink-0">
+                            {project.data.year}
+                          </span>
+                        )}
+                      </div>
+
+                      <p class="text-muted text-sm leading-relaxed mb-4">
+                        {project.data.description}
+                      </p>
+
+                      {project.data.highlights && project.data.highlights.length > 0 && (
+                        <ul class="space-y-1.5 mb-4" aria-label="Características destacadas">
+                          {project.data.highlights.map((h) => (
+                            <li class="flex gap-2 text-sm text-muted">
+                              <span class="text-accent mt-0.5 shrink-0" aria-hidden="true">▸</span>
+                              <span>{h}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {project.data.stack && project.data.stack.length > 0 && (
+                        <ul
+                          class="flex flex-wrap gap-2 mb-5"
+                          aria-label="Stack técnico"
+                        >
+                          {project.data.stack.map((tech) => (
+                            <li>
+                              <span class="px-2.5 py-0.5 text-xs rounded-full bg-accent/10 text-accent border border-accent/30 font-mono">
+                                {tech}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      <div class="flex items-center gap-3 mt-auto pt-2">
+                        {hasLive && (
+                          <a
+                            href={project.data.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            aria-label={`Ver en vivo: ${project.data.title}`}
+                          >
+                            <ExternalLinkIcon class="w-4 h-4" />
+                            <span>Live</span>
+                          </a>
+                        )}
+                        {hasRepo && (
+                          <a
+                            href={project.data.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            aria-label={`Ver código en GitHub: ${project.data.title}`}
+                          >
+                            <GitHubIcon class="w-4 h-4" />
+                            <span>Repo</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+
+                  {/* Lightbox del proyecto */}
+                  {images.length > 0 && (
+                    <dialog
+                      id={dialogId}
+                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-xl p-4 backdrop:bg-background/80"
+                      aria-label={`Galería de ${project.data.title}`}
+                    >
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {images.map((img, i) => (
+                          <Image
+                            src={img}
+                            alt={`Captura ${i + 1} de ${project.data.title}`}
+                            width={800}
+                            height={450}
+                            format="webp"
+                            quality={85}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-auto rounded-lg border border-border"
+                          />
+                        ))}
+                      </div>
+                      <form method="dialog" class="mt-4 text-center">
+                        <button
+                          type="submit"
+                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-lg hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+                        >
+                          Cerrar (ESC)
+                        </button>
+                      </form>
+                    </dialog>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
+        {/* No-featured — cards compactas */}
+        {rest.length > 0 && (
+          <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-4" role="list">
+            {rest.map((project) => {
+              const hasLive = Boolean(project.data.link);
+              const hasRepo = Boolean(project.data.github);
+              const images = allImages(project);
+              const dialogId = `lightbox-${project.id}`;
+              return (
+                <li>
+                  <article class="group h-full rounded-lg bg-card border border-border overflow-hidden flex flex-col transition-all duration-300 hover:border-accent/40 hover:-translate-y-0.5">
+                    {project.data.thumbnail ? (
+                      images.length > 1 ? (
+                        <button
+                          type="button"
+                          data-dialog-open={dialogId}
+                          class="block w-full text-left focus:outline-none focus:ring-2 focus:ring-accent/50"
+                          aria-label={`Abrir galería de ${project.data.title}`}
+                        >
+                          <div class="aspect-video overflow-hidden bg-card border-b border-border">
+                            <Image
+                              src={project.data.thumbnail}
+                              alt={`Captura de ${project.data.title}`}
+                              width={600}
+                              height={338}
+                              format="webp"
+                              quality={75}
+                              loading="lazy"
+                              decoding="async"
+                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                        </button>
+                      ) : (
+                        <div class="aspect-video overflow-hidden bg-card border-b border-border">
+                          <Image
+                            src={project.data.thumbnail}
+                            alt={`Captura de ${project.data.title}`}
+                            width={600}
+                            height={338}
+                            format="webp"
+                            quality={75}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </div>
+                      )
+                    ) : (
+                      <div
+                        class="relative aspect-video overflow-hidden bg-gradient-to-br from-accent/10 via-card to-background border-b border-border"
+                        aria-hidden="true"
+                      >
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <span class="text-4xl font-bold text-accent/20 font-mono select-none">
+                            {initial(project.data.title)}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    <div class="p-4 flex flex-col flex-1">
+                      <div class="flex items-baseline justify-between gap-2 mb-1.5">
+                        <h3 class="text-base font-semibold text-foreground group-hover:text-accent transition-colors">
+                          {project.data.title}
+                        </h3>
+                        {project.data.year && (
+                          <span class="text-xs font-mono text-muted shrink-0">
+                            {project.data.year}
+                          </span>
+                        )}
+                      </div>
+
+                      <p class="text-muted text-xs leading-relaxed mb-3 line-clamp-3">
+                        {project.data.description}
+                      </p>
+
+                      {project.data.stack && project.data.stack.length > 0 && (
+                        <ul
+                          class="flex flex-wrap gap-1.5 mb-3"
+                          aria-label="Stack técnico"
+                        >
+                          {project.data.stack.slice(0, 4).map((tech) => (
+                            <li>
+                              <span class="px-2 py-0.5 text-[10px] rounded-full bg-accent/10 text-accent border border-accent/30 font-mono">
+                                {tech}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      <div class="flex items-center gap-3 mt-auto pt-1">
+                        {hasLive && (
+                          <a
+                            href={project.data.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            aria-label={`Ver en vivo: ${project.data.title}`}
+                          >
+                            <ExternalLinkIcon class="w-3.5 h-3.5" />
+                            <span>Live</span>
+                          </a>
+                        )}
+                        {hasRepo && (
+                          <a
+                            href={project.data.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            aria-label={`Ver código en GitHub: ${project.data.title}`}
+                          >
+                            <GitHubIcon class="w-3.5 h-3.5" />
+                            <span>Repo</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+
+                  {/* Lightbox */}
+                  {images.length > 1 && (
+                    <dialog
+                      id={dialogId}
+                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-xl p-4 backdrop:bg-background/80"
+                      aria-label={`Galería de ${project.data.title}`}
+                    >
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {images.map((img, i) => (
+                          <Image
+                            src={img}
+                            alt={`Captura ${i + 1} de ${project.data.title}`}
+                            width={800}
+                            height={450}
+                            format="webp"
+                            quality={85}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-auto rounded-lg border border-border"
+                          />
+                        ))}
+                      </div>
+                      <form method="dialog" class="mt-4 text-center">
+                        <button
+                          type="submit"
+                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-lg hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+                        >
+                          Cerrar (ESC)
+                        </button>
+                      </form>
+                    </dialog>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    ) : (
+      <div class="text-center py-16">
+        <p class="text-muted">
+          No hay proyectos disponibles en este momento.
+        </p>
+      </div>
+    )}
   </div>
 </section>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const opener = (e.target as HTMLElement).closest('[data-dialog-open]');
+    if (!opener) return;
+    const id = opener.getAttribute('data-dialog-open');
+    if (!id) return;
+    const dialog = document.getElementById(id) as HTMLDialogElement | null;
+    if (dialog) {
+      dialog.showModal();
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const dialog = (e.target as HTMLElement).closest('dialog.lightbox');
+    if (dialog && e.target === dialog) {
+      dialog.close();
+    }
+  });
+</script>
+
+<style>
+  dialog.lightbox {
+    margin: auto;
+    color: var(--color-foreground);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  dialog.lightbox::backdrop {
+    background-color: rgba(10, 15, 28, 0.8);
+    backdrop-filter: blur(4px);
+  }
+</style>

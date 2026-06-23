@@ -13,7 +13,7 @@ export default defineConfig({
   },
 
   // Dominio del sitio
-  site: 'https://nande.dev',
+  site: 'https://nndsk.dev',
 
   // Configuración de trailing slash para consistencia en URLs
   trailingSlash: 'always',

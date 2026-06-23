@@ -9,13 +9,17 @@ export const AVATAR_URL = 'https://avatars.githubusercontent.com/u/103139553?v=4
 export const AUTHOR = {
   name: 'Nande',
   role: 'Fullstack Developer',
-  email: 'vicenteignacioac22@gmail.com',
+  email: 'nande@nndsk.dev',
   github: 'https://github.com/Nandem1',
   linkedin: 'https://www.linkedin.com/in/vicente-nandev/',
 };
 
 // Enlaces de navegación
-export const NAV_LINKS = [{ href: '/', label: 'Inicio' }];
+export const NAV_LINKS = [
+  { href: '/#bio', label: 'Bio' },
+  { href: '/#work', label: 'Proyectos' },
+  { href: '/#contact', label: 'Contacto' },
+];
 
 // Enlaces sociales
 export const SOCIAL_LINKS = [
@@ -38,10 +42,11 @@ export const SOCIAL_LINKS = [
 
 // Metadata del sitio
 export const SITE_METADATA = {
-  title: 'Nande - Desarrollador Pragmático',
-  description: 'Portfolio de Nande. Fullstack dev, TypeScript, Go y Rust.',
-  url: 'https://nande.dev',
-  locale: 'es_ES',
+  title: 'nndsk — Nande · Fullstack Developer',
+  description:
+    'nndsk — portfolio de Nande (Vicente Aguirre). Fullstack developer con TypeScript, Go y Rust. ERP Mercado House, ingeniero de software en EcoRetirosRM y proyectos open source.',
+  url: 'https://nndsk.dev',
+  locale: 'es_CL',
 };
 
 // Configuración de estilos

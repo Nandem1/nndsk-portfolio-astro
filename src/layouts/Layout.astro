@@ -20,12 +20,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es-CL">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="author" content="Nande" />
+    <meta name="author" content="Nande (nndsk)" />
     <meta name="theme-color" content="#0a0f1c" />
 
     {/* Open Graph / Social Media */}
@@ -33,18 +33,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="nndsk" />
 
     {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/og.png" />
 
     {/* Favicon */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     {/* Canonical URL */}
     <link rel="canonical" href={canonicalURL} />
+
+    {/* Identity verification (IndieAuth / Mastodon) */}
+    <link rel="me" href="https://github.com/Nandem1" />
+    <link rel="me" href="https://www.linkedin.com/in/vicente-nandev/" />
+    <link rel="me" href="mailto:nande@nndsk.dev" />
 
     {/* Preconnect a dominios externos para performance */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,6 +66,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+    />
+
+    {/* JSON-LD Person schema */}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Nande',
+        alternateName: 'Vicente Aguirre',
+        jobTitle: 'Fullstack Developer',
+        url: 'https://nndsk.dev',
+        image: 'https://avatars.githubusercontent.com/u/103139553?v=4',
+        email: 'mailto:nande@nndsk.dev',
+        sameAs: [
+          'https://github.com/Nandem1',
+          'https://www.linkedin.com/in/vicente-nandev/',
+        ],
+        knowsAbout: [
+          'TypeScript',
+          'Go',
+          'Rust',
+          'Next.js',
+          'Astro',
+          'Tauri',
+          'PostgreSQL',
+        ],
+      })}
     />
 
     <title>{title}</title>

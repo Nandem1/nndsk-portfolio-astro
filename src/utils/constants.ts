@@ -44,7 +44,7 @@ export const SOCIAL_LINKS = [
 export const SITE_METADATA = {
   title: 'nndsk — Nande · Fullstack Developer',
   description:
-    'nndsk — portfolio de Nande (Vicente Aguirre). Fullstack developer con TypeScript, Go y Rust. ERP Mercado House, ingeniero de software en EcoRetirosRM y proyectos open source.',
+    'Fullstack developer desde Chile. Trabajo con TypeScript, Go y Rust construyendo ERPs, herramientas open source y productos web.',
   url: 'https://nndsk.dev',
   locale: 'es_CL',
 };

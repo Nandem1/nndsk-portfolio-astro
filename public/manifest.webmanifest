@@ -1,0 +1,25 @@
+{
+  "name": "nndsk — Nande · Fullstack Developer",
+  "short_name": "nndsk",
+  "description": "Portfolio de Nande (Vicente Aguirre), fullstack developer.",
+  "lang": "es-CL",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1c",
+  "theme_color": "#0a0f1c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

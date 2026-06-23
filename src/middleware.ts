@@ -16,9 +16,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const csp = [
     "default-src 'self'",
     "script-src 'self'",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "style-src 'self' 'unsafe-inline'",
+    "font-src 'self'",
     "img-src 'self' data: https://avatars.githubusercontent.com https://images.unsplash.com",
+    "manifest-src 'self'",
     "connect-src 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",
@@ -38,8 +39,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // Headers de cache para assets estáticos
   const url = new URL(context.request.url);
-  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|avif)$/)) {
+  if (
+    url.pathname.match(
+      /^\/(?:_astro|fonts)\/.*\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|avif|woff|woff2)$/
+    )
+  ) {
     newResponse.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+  } else if (url.pathname.match(/^\/scripts\/.*\.js$/)) {
+    newResponse.headers.set('Cache-Control', 'public, max-age=3600, must-revalidate');
   } else if (url.pathname.match(/\.(html|xml|txt)$/)) {
     newResponse.headers.set('Cache-Control', 'public, max-age=3600');
   } else {

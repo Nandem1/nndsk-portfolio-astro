@@ -9,14 +9,18 @@ import { SITE_METADATA } from "@/utils/constants";
 interface Props {
   title?: string;
   description?: string;
+  robots?: string;
 }
 
 const {
   title = SITE_METADATA.title,
   description = SITE_METADATA.description,
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL('/og.png', Astro.site);
+const personId = `${Astro.site!.origin}/#person`;
 ---
 
 <!doctype html>
@@ -27,6 +31,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <meta name="author" content="Nande (nndsk)" />
     <meta name="theme-color" content="#0a0f1c" />
+    <meta name="robots" content={robots} />
 
     {/* Open Graph / Social Media */}
     <meta property="og:type" content="website" />
@@ -34,21 +39,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_CL" />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="nndsk — Nande · Fullstack Developer" />
     <meta property="og:site_name" content="nndsk" />
 
     {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/og.png" />
+    <meta name="twitter:image" content={ogImageURL} />
 
     {/* Favicon */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    {/* Web App Manifest */}
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     {/* Canonical URL */}
     <link rel="canonical" href={canonicalURL} />
@@ -58,42 +67,52 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="me" href="https://www.linkedin.com/in/vicente-nandev/" />
     <link rel="me" href="mailto:nande@nndsk.dev" />
 
-    {/* Preconnect a dominios externos para performance */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    {/* Fonts optimizadas con display=swap */}
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    {/* JSON-LD Person schema */}
+    {/* JSON-LD: Person + WebSite */}
     <script
+      is:inline
       type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: 'Nande',
-        alternateName: 'Vicente Aguirre',
-        jobTitle: 'Fullstack Developer',
-        url: 'https://nndsk.dev',
-        image: 'https://avatars.githubusercontent.com/u/103139553?v=4',
-        email: 'mailto:nande@nndsk.dev',
-        sameAs: [
-          'https://github.com/Nandem1',
-          'https://www.linkedin.com/in/vicente-nandev/',
-        ],
-        knowsAbout: [
-          'TypeScript',
-          'Go',
-          'Rust',
-          'Next.js',
-          'Astro',
-          'Tauri',
-          'PostgreSQL',
-        ],
-      })}
+      set:html={JSON.stringify([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          '@id': personId,
+          name: 'Nande',
+          alternateName: 'Vicente Aguirre',
+          jobTitle: 'Fullstack Developer',
+          url: 'https://nndsk.dev',
+          image: 'https://avatars.githubusercontent.com/u/103139553?v=4',
+          email: 'mailto:nande@nndsk.dev',
+          nationality: { '@type': 'Country', name: 'Chile' },
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'CL',
+            addressRegion: 'Región Metropolitana',
+          },
+          knowsLanguage: ['es', 'en'],
+          sameAs: [
+            'https://github.com/Nandem1',
+            'https://www.linkedin.com/in/vicente-nandev/',
+          ],
+          knowsAbout: [
+            'TypeScript',
+            'Go',
+            'Rust',
+            'Next.js',
+            'Astro',
+            'Tauri',
+            'PostgreSQL',
+          ],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          '@id': `${Astro.site!.origin}/#website`,
+          url: 'https://nndsk.dev',
+          name: 'nndsk',
+          inLanguage: 'es-CL',
+          publisher: { '@id': personId },
+        },
+      ])}
     />
 
     <title>{title}</title>
@@ -106,24 +125,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <slot />
 
-    <script>
-      const reveals = document.querySelectorAll('[data-reveal]');
-      if (reveals.length > 0 && 'IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-              }
-            }
-          },
-          { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
-        );
-        reveals.forEach((el) => observer.observe(el));
-      } else {
-        reveals.forEach((el) => el.classList.add('is-visible'));
-      }
-    </script>
+    <script is:inline src="/scripts/site.js" defer></script>
   </body>
 </html>

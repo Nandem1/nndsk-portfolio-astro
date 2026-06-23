@@ -4,7 +4,7 @@
  * Utiliza imagen optimizada de GitHub avatar con formato WebP.
  */
 import { Image } from "astro:assets";
-import { AVATAR_URL, AUTHOR } from '@/utils/constants';
+import { AVATAR_URL } from '@/utils/constants';
 
 const avatarUrl = AVATAR_URL;
 ---
@@ -29,6 +29,7 @@ const avatarUrl = AVATAR_URL;
           class="w-full h-full object-cover"
           loading="eager"
           decoding="async"
+          fetchpriority="high"
         />
       </div>
     </div>

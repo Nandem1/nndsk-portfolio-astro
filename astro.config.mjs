@@ -48,7 +48,6 @@ export default defineConfig({
       customPages: [],
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
     }),
   ],
 
@@ -67,7 +66,6 @@ export default defineConfig({
   // El sitio se despliega como archivos estáticos estáticos
 
   vite: {
-    // @ts-expect-error - Plugin version mismatch between Astro and Vite
     plugins: [tailwindcss()],
   },
 });

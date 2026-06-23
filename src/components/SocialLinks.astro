@@ -1,12 +1,10 @@
 ---
-/**
- * Componente de enlaces sociales con iconos SVG personalizados.
- * Los enlaces se centralizan en utils/constants para consistencia.
- */
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import LinkedInIcon from "./icons/LinkedInIcon.astro";
 import EmailIcon from "./icons/EmailIcon.astro";
-import { SOCIAL_LINKS } from '@/utils/constants';
+import InstagramIcon from "./icons/InstagramIcon.astro";
+import DiscordIcon from "./icons/DiscordIcon.astro";
+import { SOCIAL_LINKS, AUTHOR } from '@/utils/constants';
 
 const socialLinks = SOCIAL_LINKS;
 ---
@@ -17,7 +15,7 @@ const socialLinks = SOCIAL_LINKS;
       <span class="border-b-2 border-accent/30 pb-2">En la web</span>
     </h2>
     <p class="text-muted mb-12">
-      GitHub, LinkedIn o por correo.
+      GitHub, LinkedIn, Instagram, Discord o por correo.
     </p>
 
     <nav aria-label="Redes sociales" data-reveal style="--reveal-delay: 100ms">
@@ -33,13 +31,39 @@ const socialLinks = SOCIAL_LINKS;
               >
                 {link.icon === 'GitHubIcon' && <GitHubIcon class="w-5 h-5" />}
                 {link.icon === 'LinkedInIcon' && <LinkedInIcon class="w-5 h-5" />}
+                {link.icon === 'InstagramIcon' && <InstagramIcon class="w-5 h-5" />}
                 {link.icon === 'EmailIcon' && <EmailIcon class="w-5 h-5" />}
                 <span class="font-medium">{link.name}</span>
               </a>
             </li>
           ))
         }
+        <li>
+          <button
+            id="discord-copy-btn"
+            class="group flex items-center gap-2 px-4 py-2 rounded-lg text-muted hover:text-accent hover:bg-accent/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background cursor-pointer"
+            data-username={AUTHOR.discord}
+            title={`Discord: ${AUTHOR.discord}`}
+          >
+            <DiscordIcon class="w-5 h-5" />
+            <span class="font-medium" id="discord-label">Discord</span>
+          </button>
+        </li>
       </ul>
     </nav>
   </div>
 </section>
+
+<script>
+  const btn = document.getElementById('discord-copy-btn');
+  const label = document.getElementById('discord-label');
+  if (btn && label) {
+    btn.addEventListener('click', () => {
+      const username = btn.getAttribute('data-username') ?? '';
+      navigator.clipboard.writeText(username).then(() => {
+        label.textContent = '¡Copiado!';
+        setTimeout(() => { label.textContent = 'Discord'; }, 2000);
+      });
+    });
+  }
+</script>

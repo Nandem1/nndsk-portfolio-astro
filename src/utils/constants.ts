@@ -12,6 +12,8 @@ export const AUTHOR = {
   email: 'nande@nndsk.dev',
   github: 'https://github.com/Nandem1',
   linkedin: 'https://www.linkedin.com/in/vicente-nandev/',
+  instagram: 'https://www.instagram.com/nndsk._/',
+  discord: 'nandem1',
 };
 
 // Enlaces de navegación
@@ -32,6 +34,11 @@ export const SOCIAL_LINKS = [
     name: 'LinkedIn',
     url: AUTHOR.linkedin,
     icon: 'LinkedInIcon' as const,
+  },
+  {
+    name: 'Instagram',
+    url: AUTHOR.instagram,
+    icon: 'InstagramIcon' as const,
   },
   {
     name: 'Email',

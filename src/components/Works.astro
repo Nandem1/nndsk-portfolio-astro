@@ -43,7 +43,7 @@ function allImages(project: CollectionEntry<"projects">) {
 
 <section id="work" class="py-24 px-6" aria-labelledby="work-heading">
   <div class="max-w-5xl mx-auto">
-    <header class="text-center mb-16">
+    <header class="text-center mb-16" data-reveal>
       <h2
         id="work-heading"
         class="text-3xl font-bold mb-3 text-foreground"
@@ -65,13 +65,16 @@ function allImages(project: CollectionEntry<"projects">) {
         {/* Featured — cards grandes con strip */}
         {featured.length > 0 && (
           <ul class="grid md:grid-cols-2 gap-6" role="list">
-            {featured.map((project) => {
+            {featured.map((project, i) => {
               const hasLive = Boolean(project.data.link);
               const hasRepo = Boolean(project.data.github);
               const images = allImages(project);
               const dialogId = `lightbox-${project.id}`;
               return (
-                <li>
+                <li
+                  data-reveal
+                  style={`--reveal-delay: ${i * 100}ms`}
+                >
                   <article class="group h-full rounded-xl bg-card border border-border overflow-hidden flex flex-col transition-all duration-300 hover:border-accent/50 hover:-translate-y-1">
                     {/* Hero + strip clickable → lightbox */}
                     {project.data.thumbnail ? (
@@ -247,13 +250,16 @@ function allImages(project: CollectionEntry<"projects">) {
         {/* No-featured — cards compactas */}
         {rest.length > 0 && (
           <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-4" role="list">
-            {rest.map((project) => {
+            {rest.map((project, i) => {
               const hasLive = Boolean(project.data.link);
               const hasRepo = Boolean(project.data.github);
               const images = allImages(project);
               const dialogId = `lightbox-${project.id}`;
               return (
-                <li>
+                <li
+                  data-reveal
+                  style={`--reveal-delay: ${i * 50}ms`}
+                >
                   <article class="group h-full rounded-lg bg-card border border-border overflow-hidden flex flex-col transition-all duration-300 hover:border-accent/40 hover:-translate-y-0.5">
                     {project.data.thumbnail ? (
                       images.length > 1 ? (

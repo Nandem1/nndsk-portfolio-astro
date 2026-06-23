@@ -15,10 +15,7 @@ export const AUTHOR = {
 };
 
 // Enlaces de navegación
-export const NAV_LINKS = [
-  { href: '/', label: 'Inicio' },
-  { href: '/blog/', label: 'Blog' },
-];
+export const NAV_LINKS = [{ href: '/', label: 'Inicio' }];
 
 // Enlaces sociales
 export const SOCIAL_LINKS = [

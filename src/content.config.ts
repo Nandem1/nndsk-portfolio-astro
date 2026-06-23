@@ -29,19 +29,4 @@ const timeline = defineCollection({
   }),
 });
 
-const blog = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string().max(160),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    draft: z.boolean().default(false),
-    tags: z.array(z.string()).default([]),
-    author: z.string().default('Nande'),
-    role: z.string().default('Fullstack Developer'),
-    readTime: z.string().optional(),
-  }),
-});
-
-export const collections = { projects, timeline, blog };
+export const collections = { projects, timeline };

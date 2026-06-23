@@ -24,7 +24,11 @@ try {
       sortedTimeline.length > 0 ? (
         <ol class="space-y-8 relative">
           {sortedTimeline.map((item, index) => (
-            <li class="flex gap-6 group">
+            <li
+              class="flex gap-6 group"
+              data-reveal
+              style={`--reveal-delay: ${index * 80}ms`}
+            >
               <div class="flex flex-col items-center" aria-hidden="true">
                 <div class="w-3 h-3 rounded-full bg-accent group-hover:scale-125 transition-transform duration-300" />
                 {index !== sortedTimeline.length - 1 && (

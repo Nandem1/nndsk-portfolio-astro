@@ -125,6 +125,8 @@ const personId = `${Astro.site!.origin}/#person`;
 
     <slot />
 
+    {/* Vercel Web Analytics — script externo same-origin, compatible con CSP estricto */}
+    <script is:inline src="/_vercel/insights/script.js" defer></script>
     <script is:inline src="/scripts/site.js" defer></script>
   </body>
 </html>

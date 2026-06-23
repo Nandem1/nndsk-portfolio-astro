@@ -23,13 +23,13 @@ const navLinks: NavLink[] = NAV_LINKS;
     {/* Logo */}
     <a
       href="/#top"
-      class="text-foreground font-bold text-lg hover:text-accent transition-colors"
+      class="text-foreground font-bold text-base sm:text-lg hover:text-accent transition-colors"
     >
       nndsk
     </a>
 
     {/* Navigation Links */}
-    <ul class="flex items-center gap-4 sm:gap-6" role="list">
+    <ul class="flex items-center gap-2 sm:gap-6" role="list">
       {
         navLinks.map((link) => {
           const href = link.href.replace(/^\//, '');

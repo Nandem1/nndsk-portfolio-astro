@@ -130,7 +130,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
 
                     {/* Strip de miniaturas */}
                     {images.length > 1 && (
-                      <div class="flex gap-1.5 p-3 bg-card/50 border-b border-border">
+                      <div class="flex gap-1.5 p-3 bg-card/50 border-b border-border overflow-x-auto">
                         {images.map((img, i) => (
                           <button
                             type="button"
@@ -352,7 +352,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                         >
                           {project.data.stack.slice(0, 4).map((tech) => (
                             <li>
-                              <span class="px-2 py-0.5 text-[10px] rounded-full bg-accent/10 text-accent border border-accent/30 font-mono">
+                              <span class="px-2 py-0.5 text-xs rounded-full bg-accent/10 text-accent border border-accent/30 font-mono">
                                 {tech}
                               </span>
                             </li>

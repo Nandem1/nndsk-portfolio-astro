@@ -60,10 +60,29 @@ const socialLinks = SOCIAL_LINKS;
   if (btn && label) {
     btn.addEventListener('click', () => {
       const username = btn.getAttribute('data-username') ?? '';
-      navigator.clipboard.writeText(username).then(() => {
+
+      const showCopied = () => {
         label.textContent = '¡Copiado!';
         setTimeout(() => { label.textContent = 'Discord'; }, 2000);
-      });
+      };
+
+      const fallbackCopy = () => {
+        const ta = document.createElement('textarea');
+        ta.value = username;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied();
+      };
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(username).then(showCopied).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
     });
   }
 </script>

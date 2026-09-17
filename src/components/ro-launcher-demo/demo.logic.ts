@@ -10,6 +10,9 @@ import type {
 } from './types';
 
 export const PREPARE_STEPS: { step: string; percent: number }[] = [
+  { step: 'Resolviendo runner...', percent: 0 },
+  { step: 'Preparando runner (simulado)...', percent: 15 },
+  { step: 'Instalando DXVK (simulado)...', percent: 30 },
   { step: 'Creando entorno aislado...', percent: 40 },
   { step: 'Inicializando entorno...', percent: 45 },
   { step: 'Preparando Wine Gecko...', percent: 50 },

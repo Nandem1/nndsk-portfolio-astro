@@ -119,7 +119,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0 overflow-hidden">
           <span className="text-[10px] text-zinc-600 uppercase tracking-wide shrink-0">
             Lectura
           </span>
@@ -137,7 +137,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
                 value: Number(e.target.value),
               })
             }
-            className="flex-1 accent-amber-500 disabled:opacity-50"
+            className="flex-1 min-w-0 w-full accent-amber-500 disabled:opacity-50"
             aria-label="Delay de lectura AutoPot"
           />
           <span className="text-[10px] text-zinc-500 w-10 text-right shrink-0">

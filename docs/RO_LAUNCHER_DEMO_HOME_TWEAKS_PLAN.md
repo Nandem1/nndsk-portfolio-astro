@@ -42,10 +42,10 @@ Home compact **no** monta `DemoLogs` (`RoLauncherDemo.tsx` 96: `{!isCompact && <
 
 Puntos de entrada que comparten el mismo `PREPARE_STEPS`:
 
-| Superficie | Archivo | `variant` | Preparar visible |
-| ---------- | ------- | --------- | ---------------- |
-| Home `#work` spotlight | `ProjectSpotlight.astro` 54 | `compact` | sí (rail + LaunchBar) |
-| Caso `#demo` | `nndsk-ro-launcher.astro` 139 | `full` | sí (más logs) |
+| Superficie             | Archivo                       | `variant` | Preparar visible      |
+| ---------------------- | ----------------------------- | --------- | --------------------- |
+| Home `#work` spotlight | `ProjectSpotlight.astro` 54   | `compact` | sí (rail + LaunchBar) |
+| Caso `#demo`           | `nndsk-ro-launcher.astro` 139 | `full`    | sí (más logs)         |
 
 Aceptación UX se mide en **home `#work`**. Full hereda el array sin cambios extra.
 
@@ -55,10 +55,10 @@ Compact (`variant="compact"`) **sí** monta AutoPot + Spammer: `DemoCenter.tsx` 
 
 Filas actuales (causa): `input[type=range]` con `flex-1` **sin** `min-w-0`. El UA le da min-content horizontal (~150px+). En flex-col (`panelBody`) el hijo tiene `min-width: auto`, así que la fila no encoge. El thumb y el track se salen del panel.
 
-| Control | Archivo:líneas | Row hoy | Range hoy | Valor |
-| ------- | -------------- | ------- | --------- | ----- |
+| Control         | Archivo:líneas            | Row hoy                   | Range hoy                                     | Valor                     |
+| --------------- | ------------------------- | ------------------------- | --------------------------------------------- | ------------------------- |
 | Lectura AutoPot | `DemoAutopot.tsx` 122–146 | `flex items-center gap-2` | `flex-1 accent-amber-500 disabled:opacity-50` | `w-10 shrink-0` (`{n}ms`) |
-| Delay Spammer | `DemoSpammer.tsx` 71–87 | `flex items-center gap-2` | igual | `w-8 shrink-0` |
+| Delay Spammer   | `DemoSpammer.tsx` 71–87   | `flex items-center gap-2` | igual                                         | `w-8 shrink-0`            |
 
 Por qué pega en home y no tanto en el caso: `.ro-demo` es `@container`. Spotlight a `md` deja la isla en ~mitad de card. A ancho isla ≥ 40rem el rail es `minmax(220px,300px)` y el centro queda estrecho; a isla ≥ 28rem el combate pasa a 2 columnas (`DemoCenter.tsx` 22). Cada panel AutoPot/Spammer puede bajar de ~170px. Ahí el range nativo desborda.
 
@@ -107,24 +107,24 @@ Full `#demo`: mismos classNames; no se mide como P0, no se restila.
 
 ## 2. Decisiones cerradas (cero ambigüedad)
 
-| Tema | Decisión |
-| ---- | -------- |
-| Dónde viven los 3 pasos nuevos | **Solo** prepend en `PREPARE_STEPS`. Reducer/timer/LaunchBar ya consumen el array. |
-| Copy exacto (ASCII `...`, no ellipsis unicode `…`) | `Resolviendo runner...` · `Preparando runner (simulado)...` · `Instalando DXVK (simulado)...` |
-| `~15%` / `~30%` del brief | Enteros **15** y **30**. |
-| Porcentajes 40–100 existentes | **Idénticos**. No reescalar la curva. |
-| ¿Editar `RoLauncherDemo.tsx` / `usePrepareTimer`? | **No.** `PREPARE_STEPS.length` ya gobierna. 12 pasos × 350 ms + hold 350 ms ≈ 4.55 s hasta Jugar. |
-| ¿Editar `DemoLaunchBar.tsx` para 0%? | **No.** `{progress && …}` + `width: ${percent}%` ya pintan 0%. Tocarlo arriesga el `aria-disabled` del scroll fix. |
-| ¿Mostrar logs en compact para las etiquetas? | **No.** La barra del rail es la superficie en `#work`. |
-| ¿Cambiar `prepareInstant` / reduced-motion? | **No.** |
-| ¿Cambiar `LOG_PREPARE_INTRO` u otras constantes de log? | **No.** Cada paso sigue logueando `[demo] ${step}` vía `prepareStart`/`prepareTick`. En full, runner/DXVK aparecen en logs **antes** de entorno. En compact no hay panel de logs. |
-| Fila slider | Añadir exactamente `min-w-0 overflow-hidden` al container flex. |
-| Range | Reemplazar `flex-1 accent-amber-500 disabled:opacity-50` por `flex-1 min-w-0 w-full accent-amber-500 disabled:opacity-50`. |
-| Labels `Lectura` / `Delay` y `Nms` | Conservar `shrink-0`. No achicar `w-10` / `w-8`. |
-| ¿`min-w-0` extra en `panelShell` / `panelBody` / grid combate? | **No.** El brief cierra la fila + el range. No rediseñar el panel. |
-| ¿Tocar Buffs / Autobuff? | **No.** No tiene esos sliders. |
-| ¿Tocar `types.ts` / `clampAutopotDelay` / `clampSpammerDelay`? | **No.** Rangos 10–200 y 16–50 siguen. |
-| Archivos nuevos | **Ninguno.** |
+| Tema                                                           | Decisión                                                                                                                                                                          |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dónde viven los 3 pasos nuevos                                 | **Solo** prepend en `PREPARE_STEPS`. Reducer/timer/LaunchBar ya consumen el array.                                                                                                |
+| Copy exacto (ASCII `...`, no ellipsis unicode `…`)             | `Resolviendo runner...` · `Preparando runner (simulado)...` · `Instalando DXVK (simulado)...`                                                                                     |
+| `~15%` / `~30%` del brief                                      | Enteros **15** y **30**.                                                                                                                                                          |
+| Porcentajes 40–100 existentes                                  | **Idénticos**. No reescalar la curva.                                                                                                                                             |
+| ¿Editar `RoLauncherDemo.tsx` / `usePrepareTimer`?              | **No.** `PREPARE_STEPS.length` ya gobierna. 12 pasos × 350 ms + hold 350 ms ≈ 4.55 s hasta Jugar.                                                                                 |
+| ¿Editar `DemoLaunchBar.tsx` para 0%?                           | **No.** `{progress && …}` + `width: ${percent}%` ya pintan 0%. Tocarlo arriesga el `aria-disabled` del scroll fix.                                                                |
+| ¿Mostrar logs en compact para las etiquetas?                   | **No.** La barra del rail es la superficie en `#work`.                                                                                                                            |
+| ¿Cambiar `prepareInstant` / reduced-motion?                    | **No.**                                                                                                                                                                           |
+| ¿Cambiar `LOG_PREPARE_INTRO` u otras constantes de log?        | **No.** Cada paso sigue logueando `[demo] ${step}` vía `prepareStart`/`prepareTick`. En full, runner/DXVK aparecen en logs **antes** de entorno. En compact no hay panel de logs. |
+| Fila slider                                                    | Añadir exactamente `min-w-0 overflow-hidden` al container flex.                                                                                                                   |
+| Range                                                          | Reemplazar `flex-1 accent-amber-500 disabled:opacity-50` por `flex-1 min-w-0 w-full accent-amber-500 disabled:opacity-50`.                                                        |
+| Labels `Lectura` / `Delay` y `Nms`                             | Conservar `shrink-0`. No achicar `w-10` / `w-8`.                                                                                                                                  |
+| ¿`min-w-0` extra en `panelShell` / `panelBody` / grid combate? | **No.** El brief cierra la fila + el range. No rediseñar el panel.                                                                                                                |
+| ¿Tocar Buffs / Autobuff?                                       | **No.** No tiene esos sliders.                                                                                                                                                    |
+| ¿Tocar `types.ts` / `clampAutopotDelay` / `clampSpammerDelay`? | **No.** Rangos 10–200 y 16–50 siguen.                                                                                                                                             |
+| Archivos nuevos                                                | **Ninguno.**                                                                                                                                                                      |
 
 ---
 
@@ -244,13 +244,13 @@ Sustituir `PREVIEW` por la URL Ready del check de Vercel **después** del commit
 6. **Inmediatamente** (antes de ~350 ms): el step es `Resolviendo runner...` y el porcentaje es `0%`.
 7. Confirmar secuencia a ojo o con un observer del texto del step:
 
-| Orden | `progress.step` | `progress.percent` |
-| ----- | --------------- | ------------------ |
-| 1 | Resolviendo runner... | 0 |
-| 2 | Preparando runner (simulado)... | 15 |
-| 3 | Instalando DXVK (simulado)... | 30 |
-| 4 | Creando entorno aislado... | 40 |
-| … | (existentes, sin cambio) | 45 … 100 |
+| Orden | `progress.step`                 | `progress.percent` |
+| ----- | ------------------------------- | ------------------ |
+| 1     | Resolviendo runner...           | 0                  |
+| 2     | Preparando runner (simulado)... | 15                 |
+| 3     | Instalando DXVK (simulado)...   | 30                 |
+| 4     | Creando entorno aislado...      | 40                 |
+| …     | (existentes, sin cambio)        | 45 … 100           |
 
 Snippet opcional (pegar **antes** del click):
 

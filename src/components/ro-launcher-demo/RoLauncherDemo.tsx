@@ -11,6 +11,7 @@ import type { DemoAction } from './types';
 
 export interface RoLauncherDemoProps {
   variant: 'compact' | 'full';
+  className?: string;
 }
 
 function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatch<DemoAction>) {
@@ -43,7 +44,7 @@ function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatc
   }, [prefix, state.prepareStepIndex, state.selectedServerId, dispatch, server.id]);
 }
 
-export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
+export default function RoLauncherDemo({ variant, className = '' }: RoLauncherDemoProps) {
   const [state, dispatch] = useReducer(demoReducer, initialDemoState);
   usePrepareTimer(state, dispatch);
 
@@ -67,26 +68,39 @@ export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
   }, [state]);
 
   const isCompact = variant === 'compact';
-  const bodyClass = isCompact ? 'max-h-[36rem] overflow-y-auto' : 'min-h-[28rem]';
+
+  const rootChrome = isCompact
+    ? `${demoChrome} h-full flex flex-col min-h-0 overflow-hidden rounded-lg border-0 ro-shadow-glass`
+    : `${demoChrome} h-full flex flex-col min-h-0 overflow-hidden`;
+
+  const bodyGrid = isCompact
+    ? 'grid flex-1 min-h-0 grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] gap-2 md:gap-3 px-2 md:px-3 pb-2 md:pb-3 pt-0 overflow-hidden max-w-full'
+    : 'grid flex-1 min-h-0 grid-cols-1 md:grid-cols-[minmax(280px,320px)_minmax(0,1fr)] gap-3 p-3 pt-0 overflow-hidden max-w-full';
 
   return (
     <div
-      className={`${demoChrome} ${isCompact ? 'min-h-[28rem]' : ''}`}
+      className={`${rootChrome} ${className}`.trim()}
       role="region"
       aria-label="Demo de RO-Launcher"
     >
       <DemoHeader />
-      <div
-        className={`grid grid-cols-1 @min-[40rem]:grid-cols-[minmax(220px,300px)_1fr] gap-3 p-3 ${bodyClass}`}
-      >
-        <DemoRail
-          state={state}
-          dispatch={dispatch}
-          onLaunchClick={onLaunchClick}
-          showReset={!isCompact}
-        />
-        <div className="flex flex-col gap-2.5 min-h-0 min-w-0">
-          <DemoCenter state={state} dispatch={dispatch} showTools={!isCompact} />
+      <div className={bodyGrid}>
+        <div className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden md:overflow-y-auto">
+          <DemoRail
+            state={state}
+            dispatch={dispatch}
+            onLaunchClick={onLaunchClick}
+            showReset={!isCompact}
+            compact={isCompact}
+          />
+        </div>
+        <div className="flex flex-col gap-2 min-h-0 min-w-0 overflow-hidden">
+          <DemoCenter
+            state={state}
+            dispatch={dispatch}
+            showTools={!isCompact}
+            compact={isCompact}
+          />
           {!isCompact && <DemoLogs state={state} dispatch={dispatch} />}
         </div>
       </div>

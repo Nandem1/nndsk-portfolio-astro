@@ -11,6 +11,7 @@ interface Props {
 const { project } = Astro.props;
 
 const caseStudyHref = project.data.caseStudyPath ?? '/projects/nndsk-ro-launcher/';
+const caseStudyDemoHref = `${caseStudyHref.replace(/\/$/, '')}#demo`;
 const thumbnailAlt =
   'Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer';
 
@@ -50,8 +51,10 @@ const ctaGhost =
     <script type="application/ld+json" set:html={JSON.stringify(spotlightSchema)} is:inline />
     <div class="grid md:grid-cols-2 gap-0">
       {project.data.thumbnail ? (
-        <div class="min-h-[28rem] border-b md:border-b-0 md:border-r border-border bg-card p-3">
-          <RoLauncherDemo client:visible variant="compact" />
+        <div
+          class="relative aspect-video max-w-full overflow-hidden border-b md:border-b-0 md:border-r border-border bg-card p-2 md:p-3"
+        >
+          <RoLauncherDemo client:visible variant="compact" className="h-full w-full min-h-0" />
           <noscript>
             <Image
               src={project.data.thumbnail}
@@ -89,9 +92,9 @@ const ctaGhost =
 
         <div class="flex flex-wrap items-center gap-3 mb-4 md:hidden">
           <a
-            href={caseStudyHref}
+            href={caseStudyDemoHref}
             class={ctaPrimary}
-            aria-label={`Leer caso de estudio: ${project.data.title}`}
+            aria-label={`Caso de estudio con demo interactiva: ${project.data.title}`}
           >
             Caso de estudio
           </a>
@@ -138,9 +141,9 @@ const ctaGhost =
 
         <div class="hidden md:flex items-center gap-3 mt-auto pt-2">
           <a
-            href={caseStudyHref}
+            href={caseStudyDemoHref}
             class={ctaPrimary}
-            aria-label={`Leer caso de estudio: ${project.data.title}`}
+            aria-label={`Caso de estudio con demo interactiva: ${project.data.title}`}
           >
             Caso de estudio
           </a>

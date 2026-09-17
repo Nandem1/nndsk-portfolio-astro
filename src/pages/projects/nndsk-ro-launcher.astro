@@ -126,11 +126,19 @@ const galleryImage = project.data.gallery?.[0];
 
       {
         project.data.thumbnail && (
-          <div id="demo" class="mt-8">
+          <div id="demo" class="mt-8 max-w-full">
             <p class="text-sm text-muted mb-3 max-w-3xl">
               Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.
             </p>
-            <RoLauncherDemo client:load variant="full" />
+            <div
+              class="w-full max-w-full overflow-hidden rounded-md border border-border min-h-[24rem] md:aspect-video md:min-h-[32rem]"
+            >
+              <RoLauncherDemo
+                client:load
+                variant="full"
+                className="h-full min-h-[24rem] md:min-h-0"
+              />
+            </div>
             <noscript>
               <figure class="mt-4 max-w-3xl">
                 <Image

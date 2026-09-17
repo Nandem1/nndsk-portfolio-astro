@@ -16,6 +16,7 @@ import type { DemoAction, DemoState } from '../types';
 interface Props {
   state: DemoState;
   dispatch: React.Dispatch<DemoAction>;
+  compact?: boolean;
 }
 
 function StatBar({
@@ -59,7 +60,7 @@ function StatBar({
   );
 }
 
-export function DemoAutopot({ state, dispatch }: Props) {
+export function DemoAutopot({ state, dispatch, compact = false }: Props) {
   const server = getServerById(state.selectedServerId);
   const ready = toolsReady(state);
   const tone = !ready ? panelIdle : state.autopotEnabled ? panelSuccess : '';
@@ -77,7 +78,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
 
   return (
     <section
-      className={`${panelShell} h-full min-h-[12rem] ${tone}`}
+      className={`${panelShell} h-full ${compact ? 'min-h-0' : 'min-h-[9rem] md:min-h-[10rem]'} ${tone}`}
       aria-labelledby="ro-demo-autopot-title"
     >
       <div className={panelHeader}>

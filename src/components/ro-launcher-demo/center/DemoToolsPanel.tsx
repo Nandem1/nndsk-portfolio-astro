@@ -47,12 +47,14 @@ export function DemoToolsPanel({ state }: Props) {
   const dg = server.tools.dgvoodoo;
 
   return (
-    <section className={`${panelShell} shrink-0`}>
+    <section className={`${panelShell} shrink-0 min-w-0 max-w-full overflow-hidden`}>
       <div className={panelHeader}>
         <h3 className={panelTitle}>Herramientas</h3>
       </div>
-      <div className={`${panelBody} max-h-40 overflow-x-auto overflow-y-auto`}>
-        <div className="grid grid-cols-3 gap-2 min-w-[28rem]">
+      <div
+        className={`${panelBody} max-h-40 min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain`}
+      >
+        <div className="grid grid-cols-3 gap-2 w-max min-w-full sm:min-w-[28rem]">
           <ToolCard
             label="OpenSetup"
             detail={server.tools.openSetup.label}

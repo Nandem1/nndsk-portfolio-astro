@@ -11,11 +11,12 @@ interface Props {
   dispatch: React.Dispatch<DemoAction>;
   onLaunchClick: () => void;
   showReset: boolean;
+  compact?: boolean;
 }
 
-export function DemoRail({ state, dispatch, onLaunchClick, showReset }: Props) {
+export function DemoRail({ state, dispatch, onLaunchClick, showReset, compact = false }: Props) {
   return (
-    <div className="flex flex-col gap-2.5 min-h-0">
+    <div className={`flex flex-col min-h-0 ${compact ? 'gap-2' : 'gap-2.5'}`}>
       <DemoPanel title="Servidor">
         <DemoServerList state={state} dispatch={dispatch} />
       </DemoPanel>

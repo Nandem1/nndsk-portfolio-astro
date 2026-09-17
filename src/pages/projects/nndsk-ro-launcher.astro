@@ -31,14 +31,38 @@ const caseStudyJsonLd = {
   author: { '@id': 'https://nndsk.dev/#person' },
 };
 
-const technicalBullets = [
-  'Perfiles aislados: cambiar runner crea o reutiliza otro prefix; no migra ni borra el anterior.',
-  'Pipeline: Direct3D 8/9/11 → DXVK → Vulkan. DirectDraw → dgVoodoo (opcional) → D3D11 → DXVK → Vulkan.',
-  'Proton-CachyOS + UMU administrados, o Wine portable bajo ~/.local/share/ro-launcher/runners/.',
-  'Recomendación de runner solo si el SHA-256 de gepard.dll coincide con la matriz validada. Hash desconocido = advertencia, no receta.',
-  'El launcher no modifica Gepard, el cliente ni el tráfico del juego.',
-  'AutoPot/AutoBuff por lectura de memoria (perfiles 4RTools). Spammer con sidecar evdev + ydotool, hotkeys F1–F9 / 0–9.',
-  'ro-sessiond: child subreaper, padre de wineserver, patcher y ragexe.exe. No hace falta ptrace_scope=0 ni sudo.',
+const technicalRuntime = [
+  {
+    lead: 'Perfiles aislados',
+    rest: 'cambiar runner crea o reutiliza otro prefix; no migra ni borra el anterior.',
+  },
+  {
+    lead: 'Pipeline',
+    rest: 'Direct3D 8/9/11 → DXVK → Vulkan. DirectDraw → dgVoodoo (opcional) → D3D11 → DXVK → Vulkan.',
+  },
+  {
+    lead: 'Runners',
+    rest: 'Proton-CachyOS + UMU administrados, o Wine portable bajo ~/.local/share/ro-launcher/runners/.',
+  },
+  {
+    lead: 'Gepard',
+    rest: 'recomendación de runner solo si el SHA-256 de gepard.dll coincide con la matriz validada. Hash desconocido = advertencia, no receta.',
+  },
+  {
+    lead: 'Sin tocar el cliente',
+    rest: 'el launcher no modifica Gepard, el cliente ni el tráfico del juego.',
+  },
+];
+
+const technicalHerramientas = [
+  {
+    lead: 'AutoPot / AutoBuff / Spammer',
+    rest: 'lectura de memoria (perfiles 4RTools). Spammer con sidecar evdev + ydotool, hotkeys F1–F9 / 0–9.',
+  },
+  {
+    lead: 'ro-sessiond',
+    rest: 'child subreaper, padre de wineserver, patcher y ragexe.exe. No hace falta ptrace_scope=0 ni sudo.',
+  },
 ];
 
 const stackChips = [
@@ -75,8 +99,27 @@ const galleryImage = project.data.gallery?.[0];
       <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
         nndsk-ro-launcher
       </h1>
-      <p class="text-lg text-muted mb-2">RO-Launcher — launcher de Ragnarok Online para Linux.</p>
-      <p class="text-sm font-mono text-muted mb-8">2026 · Tauri v2 · React · Rust</p>
+      <p class="text-lg text-foreground font-medium mb-2">
+        RO-Launcher — launcher de Ragnarok Online para Linux.
+      </p>
+      <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
+
+      {
+        project.data.github && (
+          <div class="flex flex-wrap gap-3 mb-8 md:hidden">
+            <a
+              href={project.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaPrimary}
+              aria-label="Ver código en GitHub: nndsk-ro-launcher"
+            >
+              <GitHubIcon class="w-4 h-4" />
+              Repo
+            </a>
+          </div>
+        )
+      }
 
       {project.data.thumbnail && (
         <figure class="mt-8">
@@ -114,14 +157,34 @@ const galleryImage = project.data.gallery?.[0];
       </p>
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Técnico</h2>
-      <ul class="space-y-1.5" aria-label="Detalle técnico">
+
+      <h3 class="text-base font-semibold text-foreground mt-6 mb-3">Runtime</h3>
+      <ul class="space-y-1.5" aria-label="Runtime">
         {
-          technicalBullets.map((item) => (
+          technicalRuntime.map((item) => (
             <li class="flex gap-2 text-sm text-muted">
               <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
                 –
               </span>
-              <span>{item}</span>
+              <span>
+                <span class="text-foreground font-medium">{item.lead}:</span> {item.rest}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="text-base font-semibold text-foreground mt-8 mb-3">Herramientas</h3>
+      <ul class="space-y-1.5" aria-label="Herramientas">
+        {
+          technicalHerramientas.map((item) => (
+            <li class="flex gap-2 text-sm text-muted">
+              <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
+                –
+              </span>
+              <span>
+                <span class="text-foreground font-medium">{item.lead}:</span> {item.rest}
+              </span>
             </li>
           ))
         }

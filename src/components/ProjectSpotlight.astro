@@ -33,8 +33,13 @@ const spotlightSchema = {
   author: { '@id': 'https://nndsk.dev/#person' },
 };
 
-const linkClass =
-  'inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm';
+const spotlightHighlights = (project.data.highlights ?? []).slice(0, 3);
+const spotlightStack = (project.data.stack ?? []).slice(0, 4);
+
+const ctaPrimary =
+  'inline-flex items-center gap-1.5 px-4 py-2 text-sm text-foreground border border-border rounded-md hover:border-accent hover:text-accent transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background';
+const ctaGhost =
+  'inline-flex items-center gap-1.5 px-4 py-2 text-sm text-muted hover:text-foreground transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded-md';
 ---
 
 <div data-reveal>
@@ -83,11 +88,34 @@ const linkClass =
           )}
         </div>
         <p class="text-muted mb-3">RO-Launcher para Linux</p>
+
+        <div class="flex flex-wrap items-center gap-3 mb-4 md:hidden">
+          <a
+            href={caseStudyHref}
+            class={ctaPrimary}
+            aria-label={`Leer caso de estudio: ${project.data.title}`}
+          >
+            Caso de estudio
+          </a>
+          {project.data.github && (
+            <a
+              href={project.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaGhost}
+              aria-label={`Ver código en GitHub: ${project.data.title}`}
+            >
+              <GitHubIcon class="w-4 h-4" />
+              Repo
+            </a>
+          )}
+        </div>
+
         <p class="text-muted text-sm leading-relaxed mb-4">{project.data.description}</p>
 
-        {project.data.highlights && project.data.highlights.length > 0 && (
+        {spotlightHighlights.length > 0 && (
           <ul class="space-y-1.5 mb-4" aria-label="Características destacadas">
-            {project.data.highlights.map((h) => (
+            {spotlightHighlights.map((h) => (
               <li class="flex gap-2 text-sm text-muted">
                 <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
                   –
@@ -98,9 +126,9 @@ const linkClass =
           </ul>
         )}
 
-        {project.data.stack && project.data.stack.length > 0 && (
-          <ul class="flex flex-wrap gap-2 mb-5" aria-label="Stack técnico">
-            {project.data.stack.map((tech) => (
+        {spotlightStack.length > 0 && (
+          <ul class="flex flex-wrap gap-2 mb-5 md:mb-0" aria-label="Stack técnico">
+            {spotlightStack.map((tech) => (
               <li>
                 <span class="px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono">
                   {tech}
@@ -110,24 +138,24 @@ const linkClass =
           </ul>
         )}
 
-        <div class="flex items-center gap-3 mt-auto pt-2">
+        <div class="hidden md:flex items-center gap-3 mt-auto pt-2">
           <a
             href={caseStudyHref}
-            class={linkClass}
+            class={ctaPrimary}
             aria-label={`Leer caso de estudio: ${project.data.title}`}
           >
-            <span>Caso de estudio</span>
+            Caso de estudio
           </a>
           {project.data.github && (
             <a
               href={project.data.github}
               target="_blank"
               rel="noopener noreferrer"
-              class={linkClass}
+              class={ctaGhost}
               aria-label={`Ver código en GitHub: ${project.data.title}`}
             >
               <GitHubIcon class="w-4 h-4" />
-              <span>Repo</span>
+              Repo
             </a>
           )}
         </div>

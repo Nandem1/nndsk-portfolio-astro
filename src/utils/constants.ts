@@ -58,10 +58,12 @@ export const SITE_METADATA = {
 
 // Configuración de estilos
 export const THEME_COLORS = {
-  background: '#0a0f1c',
-  foreground: '#e0e0e0',
-  accent: '#81a1c1',
-  muted: '#616e88',
-  card: '#111827',
-  border: '#1e293b',
+  background: '#17191c',
+  foreground: '#d5d8dc',
+  accent: '#b6bdc6',
+  accentHover: '#c8ced6',
+  muted: '#9399a1',
+  card: '#1f2227',
+  border: '#343940',
+  borderStrong: '#4a5058',
 };

@@ -62,9 +62,9 @@ function projectSchema(project: CollectionEntry<"projects">) {
     <header class="text-center mb-16" data-reveal>
       <h2
         id="work-heading"
-        class="text-3xl font-bold mb-3 text-foreground"
+        class="text-3xl font-semibold mb-3 text-foreground"
       >
-        <span class="border-b-2 border-accent/30 pb-2">Trabajos</span>
+        Trabajos
       </h2>
       <p class="text-muted text-sm">
         {totalCount > 0 && (
@@ -91,7 +91,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                   data-reveal
                   style={`--reveal-delay: ${i * 100}ms`}
                 >
-                  <article class="group h-full rounded-xl bg-card border border-border overflow-hidden flex flex-col transition-all duration-300 hover:border-accent/50 hover:-translate-y-1">
+                  <article class="group h-full rounded-md bg-card border border-border overflow-hidden flex flex-col transition-colors duration-200 hover:border-border-strong">
                     <script type="application/ld+json" set:html={JSON.stringify(projectSchema(project))} is:inline />
                     {/* Hero + strip clickable → lightbox */}
                     {project.data.thumbnail ? (
@@ -111,17 +111,17 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             quality={80}
                             loading="lazy"
                             decoding="async"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            class="w-full h-full object-cover"
                           />
                         </div>
                       </button>
                     ) : (
                       <div
-                        class="relative aspect-video overflow-hidden bg-gradient-to-br from-accent/10 via-card to-background border-b border-border"
+                        class="relative aspect-video overflow-hidden bg-card border-b border-border"
                         aria-hidden="true"
                       >
                         <div class="absolute inset-0 flex items-center justify-center">
-                          <span class="text-7xl font-bold text-accent/20 font-mono select-none">
+                          <span class="text-7xl font-semibold text-muted/30 font-mono select-none">
                             {initial(project.data.title)}
                           </span>
                         </div>
@@ -135,7 +135,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                           <button
                             type="button"
                             data-dialog-open={dialogId}
-                            class="w-16 h-10 rounded overflow-hidden border border-border hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+                            class="w-16 h-10 rounded-sm overflow-hidden border border-border hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
                             aria-label={`Ver foto ${i + 1} de ${project.data.title}`}
                           >
                             <Image
@@ -157,7 +157,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                     {/* Cuerpo */}
                     <div class="p-6 flex flex-col flex-1">
                       <div class="flex items-baseline justify-between gap-3 mb-2">
-                        <h3 class="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
+                        <h3 class="text-xl font-semibold text-foreground">
                           {project.data.title}
                         </h3>
                         {project.data.year && (
@@ -175,7 +175,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                         <ul class="space-y-1.5 mb-4" aria-label="Características destacadas">
                           {project.data.highlights.map((h) => (
                             <li class="flex gap-2 text-sm text-muted">
-                              <span class="text-accent mt-0.5 shrink-0" aria-hidden="true">▸</span>
+                              <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
                               <span>{h}</span>
                             </li>
                           ))}
@@ -189,7 +189,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                         >
                           {project.data.stack.map((tech) => (
                             <li>
-                              <span class="px-2.5 py-0.5 text-xs rounded-full bg-accent/10 text-accent border border-accent/30 font-mono">
+                              <span class="px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono">
                                 {tech}
                               </span>
                             </li>
@@ -203,7 +203,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             href={project.data.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm"
                             aria-label={`Ver en vivo: ${project.data.title}`}
                           >
                             <ExternalLinkIcon class="w-4 h-4" />
@@ -215,7 +215,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             href={project.data.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm"
                             aria-label={`Ver código en GitHub: ${project.data.title}`}
                           >
                             <GitHubIcon class="w-4 h-4" />
@@ -230,7 +230,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                   {images.length > 0 && (
                     <dialog
                       id={dialogId}
-                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-xl p-4 backdrop:bg-background/80"
+                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-md p-4"
                       aria-label={`Galería de ${project.data.title}`}
                     >
                       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -244,14 +244,14 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             quality={85}
                             loading="lazy"
                             decoding="async"
-                            class="w-full h-auto rounded-lg border border-border"
+                            class="w-full h-auto rounded-md border border-border"
                           />
                         ))}
                       </div>
                       <form method="dialog" class="mt-4 text-center">
                         <button
                           type="submit"
-                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-lg hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-md hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
                         >
                           Cerrar (ESC)
                         </button>
@@ -277,7 +277,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                   data-reveal
                   style={`--reveal-delay: ${i * 50}ms`}
                 >
-                  <article class="group h-full rounded-lg bg-card border border-border overflow-hidden flex flex-col transition-all duration-300 hover:border-accent/40 hover:-translate-y-0.5">
+                  <article class="group h-full rounded-md bg-card border border-border overflow-hidden flex flex-col transition-colors duration-200 hover:border-border-strong">
                     <script type="application/ld+json" set:html={JSON.stringify(projectSchema(project))} is:inline />
                     {project.data.thumbnail ? (
                       images.length > 1 ? (
@@ -297,7 +297,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                               quality={75}
                               loading="lazy"
                               decoding="async"
-                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              class="w-full h-full object-cover"
                             />
                           </div>
                         </button>
@@ -312,17 +312,17 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             quality={75}
                             loading="lazy"
                             decoding="async"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            class="w-full h-full object-cover"
                           />
                         </div>
                       )
                     ) : (
                       <div
-                        class="relative aspect-video overflow-hidden bg-gradient-to-br from-accent/10 via-card to-background border-b border-border"
+                        class="relative aspect-video overflow-hidden bg-card border-b border-border"
                         aria-hidden="true"
                       >
                         <div class="absolute inset-0 flex items-center justify-center">
-                          <span class="text-4xl font-bold text-accent/20 font-mono select-none">
+                          <span class="text-4xl font-semibold text-muted/30 font-mono select-none">
                             {initial(project.data.title)}
                           </span>
                         </div>
@@ -331,7 +331,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
 
                     <div class="p-4 flex flex-col flex-1">
                       <div class="flex items-baseline justify-between gap-2 mb-1.5">
-                        <h3 class="text-base font-semibold text-foreground group-hover:text-accent transition-colors">
+                        <h3 class="text-base font-semibold text-foreground">
                           {project.data.title}
                         </h3>
                         {project.data.year && (
@@ -352,7 +352,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                         >
                           {project.data.stack.slice(0, 4).map((tech) => (
                             <li>
-                              <span class="px-2 py-0.5 text-xs rounded-full bg-accent/10 text-accent border border-accent/30 font-mono">
+                              <span class="px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono">
                                 {tech}
                               </span>
                             </li>
@@ -366,7 +366,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             href={project.data.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm"
                             aria-label={`Ver en vivo: ${project.data.title}`}
                           >
                             <ExternalLinkIcon class="w-3.5 h-3.5" />
@@ -378,7 +378,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             href={project.data.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+                            class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm"
                             aria-label={`Ver código en GitHub: ${project.data.title}`}
                           >
                             <GitHubIcon class="w-3.5 h-3.5" />
@@ -393,7 +393,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
                   {images.length > 1 && (
                     <dialog
                       id={dialogId}
-                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-xl p-4 backdrop:bg-background/80"
+                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-md p-4"
                       aria-label={`Galería de ${project.data.title}`}
                     >
                       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -407,14 +407,14 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             quality={85}
                             loading="lazy"
                             decoding="async"
-                            class="w-full h-auto rounded-lg border border-border"
+                            class="w-full h-auto rounded-md border border-border"
                           />
                         ))}
                       </div>
                       <form method="dialog" class="mt-4 text-center">
                         <button
                           type="submit"
-                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-lg hover:border-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-md hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
                         >
                           Cerrar (ESC)
                         </button>
@@ -438,9 +438,9 @@ function projectSchema(project: CollectionEntry<"projects">) {
     <div class="mt-12 text-center" data-reveal>
       <a
         href="#contact"
-        class="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
+        class="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm"
       >
-        Trabajemos juntos
+        Contacto
         <span aria-hidden="true">→</span>
       </a>
     </div>
@@ -455,7 +455,6 @@ function projectSchema(project: CollectionEntry<"projects">) {
   }
 
   dialog.lightbox::backdrop {
-    background-color: rgba(10, 15, 28, 0.8);
-    backdrop-filter: blur(4px);
+    background-color: color-mix(in srgb, var(--color-background) 88%, black);
   }
 </style>

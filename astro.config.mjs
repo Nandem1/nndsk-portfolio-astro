@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -43,6 +44,7 @@ export default defineConfig({
   },
 
   integrations: [
+    react(),
     sitemap({
       filter: page => !page.includes('/draft'),
       customPages: [],
@@ -59,6 +61,24 @@ export default defineConfig({
 
   compressHTML: true,
 
+  security: {
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "font-src 'self'",
+        "img-src 'self' data: https://avatars.githubusercontent.com https://images.unsplash.com",
+        "manifest-src 'self'",
+        "connect-src 'self'",
+        "frame-ancestors 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+      ],
+      styleDirective: {
+        resources: ["'self'", "'unsafe-inline'"],
+      },
+    },
+  },
+
   build: {
     inlineStylesheets: 'auto',
     format: 'directory',
@@ -72,6 +92,9 @@ export default defineConfig({
   // El sitio se despliega como archivos estáticos estáticos
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      // @ts-expect-error @tailwindcss/vite uses root Vite Plugin types; Astro bundles its own Vite
+      tailwindcss(),
+    ],
   },
 });

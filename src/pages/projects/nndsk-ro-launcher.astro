@@ -7,6 +7,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import GitHubIcon from '../../components/icons/GitHubIcon.astro';
+import RoLauncherDemo from '../../components/ro-launcher-demo/RoLauncherDemo.tsx';
 
 const [project] = await getCollection('projects', ({ data }) => data.spotlight);
 if (!project) {
@@ -122,22 +123,34 @@ const galleryImage = project.data.gallery?.[0];
       }
 
       {project.data.thumbnail && (
-        <figure class="mt-8">
-          <Image
-            src={project.data.thumbnail}
-            alt="Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer"
-            width={1200}
-            height={675}
-            format="webp"
-            quality={80}
-            loading="eager"
-            decoding="async"
-            class="w-full h-auto rounded-md border border-border"
-          />
-          <figcaption class="text-sm text-muted mt-2">
-            UI del launcher. Sin Live: es una app de escritorio.
-          </figcaption>
-        </figure>
+        <div id="demo" class="mt-8">
+          <p class="text-sm text-muted mb-3">
+            Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.
+          </p>
+          <RoLauncherDemo client:load variant="full" />
+          <noscript>
+            <figure class="mt-4">
+              <Image
+                src={project.data.thumbnail}
+                alt="Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer"
+                width={1200}
+                height={675}
+                format="webp"
+                quality={80}
+                loading="eager"
+                decoding="async"
+                class="w-full h-auto rounded-md border border-border"
+              />
+              <figcaption class="text-sm text-muted mt-2">
+                Activa JavaScript para usar la demo.
+              </figcaption>
+            </figure>
+          </noscript>
+          <p class="text-sm text-muted mt-2">
+            Chrome Graphite del sitio. La app de escritorio usa su propio tema. Layout fiel a
+            RO-Launcher.
+          </p>
+        </div>
       )}
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Problema</h2>
@@ -225,7 +238,9 @@ const galleryImage = project.data.gallery?.[0];
       }
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Links</h2>
-      <p class="text-muted leading-relaxed mb-6">Código en GitHub. No hay demo web.</p>
+      <p class="text-muted leading-relaxed mb-6">
+        Código en GitHub. Arriba hay una demo de la UI; no lanza el cliente.
+      </p>
       <div class="flex flex-col sm:flex-row flex-wrap gap-3">
         {
           project.data.github && (

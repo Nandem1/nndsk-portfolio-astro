@@ -37,13 +37,13 @@ PR #2 (`https://github.com/Nandem1/nndsk-portfolio-astro/pull/2`, branch `cursor
 
 Este plan **no reemplaza** ese PR. Lo extiende:
 
-| Superficie PR #2 | v1 de este plan |
-| --- | --- |
-| Spotlight: foto clicable → caso | Quitar el `<a>` que envuelve la foto. Meter isla compacta usable. CTAs de la columna derecha no cambian. |
-| Caso: hero foto `rolauncher1.png` | Reemplazar el `<figure>` hero por isla `full`. |
-| Caso: galería `rolauncher2.png` | **Conservar.** Es la app sobre el cliente; no se puede simular en el browser. |
-| «No hay demo web.» | Reescribir (sección 7.6). |
-| Archivos de capturas | No borrar. Fallback noscript + prueba in-game. |
+| Superficie PR #2                  | v1 de este plan                                                                                          |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Spotlight: foto clicable → caso   | Quitar el `<a>` que envuelve la foto. Meter isla compacta usable. CTAs de la columna derecha no cambian. |
+| Caso: hero foto `rolauncher1.png` | Reemplazar el `<figure>` hero por isla `full`.                                                           |
+| Caso: galería `rolauncher2.png`   | **Conservar.** Es la app sobre el cliente; no se puede simular en el browser.                            |
+| «No hay demo web.»                | Reescribir (sección 7.6).                                                                                |
+| Archivos de capturas              | No borrar. Fallback noscript + prueba in-game.                                                           |
 
 Si #2 no está mergido al implementar: `git fetch origin cursor/ro-launcher-featured-plan-cef7 && git rebase origin/cursor/ro-launcher-featured-plan-cef7`. Resolver conflictos a favor de este plan en los puntos de foto/copy listados arriba; no revertir P1 UX de CTAs.
 
@@ -55,34 +55,34 @@ No hay router. Una sola vista React: `src/app/App.tsx` montada desde `src/main.t
 
 ### 1.1 Mapa de archivos (fuente de verdad)
 
-| Superficie | Path | Qué pinta |
-| --- | --- | --- |
-| Shell | `src/app/App.tsx` | Grid `railWidth × 1fr`, gap 12px, padding 12px. Rail 300px (prep / peek) o 64px (ingame colapsado). |
-| Header | `src/app/AppHeader.tsx` | Título `RO-Launcher` (RO ámbar / resto zinc). Subtítulo `Ragnarok Online · Linux`. Chip «En juego» o «Developed by: nndsk». |
-| Loading | `src/app/LoadingScreen.tsx` | Hasta que `useAppInit` termina. Init llama Tauri. |
-| Servidores | `src/features/servers/ServerList.tsx` | Panel «Servidor», radio, + / lápiz / X. |
-| Alta/edición | `src/features/servers/AddServerModal.tsx`, `EditServerModal.tsx`, `ServerConfigModal.tsx` | Dialog nativo `plugin-dialog` para `.exe`. |
-| Runner | `src/features/settings/RunnerSelector.tsx` | Panel «Runner predeterminado», `DarkSelect`, nota de runner efectivo del servidor. |
-| Avanzado | `src/features/settings/AdvancedSettings.tsx` | Dots: Runner, Audio, Entorno, DXVK, Permisos input, uinput. |
-| Discord RP | `src/features/settings/DiscordPresenceToggle.tsx` | Toggle + persistencia Tauri. |
-| Rearmar | `src/features/settings/PrefixResetButton.tsx` | `confirm()` + `reset_prefix`. |
-| Lanzar | `src/features/launcher/LaunchButton.tsx` | Idle: «Preparar entorno» / «Jugar» / «Abrir otro cliente» / «Revisar entorno». Busy: «Comprobando...» / «Configurando...» / «Iniciando...». Error: «Reintentar». Barra de `%` + `setupProgress.step`. |
-| Campos launch | `src/features/launcher/LaunchFieldsModal.tsx` | Placeholders de argv. |
-| Clientes | `src/features/launcher/ActiveClients.tsx` | Lista PID; vacío = no render. |
-| Rail ingame | `src/features/launcher/IngameRail.tsx` | Avatar inicial + stop. |
-| Herramientas | `src/features/servers/ServerToolsPanel.tsx` | OpenSetup, Patcher, dgVoodoo + diagnósticos PE/Gepard. |
-| Tabs | `src/app/ToolViewTabs.tsx` | Combate / Buffs. |
-| AutoPot | `src/features/autopot/AutopotPanel.tsx` | Barras HP/SP, teclas, umbrales, scanner de memoria. |
-| Spammer | `src/features/spammer/SpammerPanel.tsx` + `SpammerKeyboard.tsx` | Teclado F1–F9 / 0–9, delay, gear switch. |
-| AutoBuff | `src/features/autobuff/AutobuffPanel.tsx` | Reglas + toggle. |
-| Logs | `src/features/logs/LogPanels.tsx` | Tabs Juego / Tools. |
-| UI kit | `src/shared/ui/{Button,Panel,DarkSelect,ToggleSwitch,StatusDot,Checkbox}.tsx` | Ámbar + glass. **No reutilizar.** |
-| API | `src/shared/api.ts` | Todo es `invoke()` Tauri. |
-| Tipos | `src/shared/types.ts` | Contratos. |
-| Gepard | `src-tauri/src/tools/server_tools/gepard.rs` | Matriz SHA-256 → perfil. |
-| Scan PE | `src-tauri/src/tools/server_tools/pe.rs` | Warnings de Gepard en `diagnostics.warnings` (esto **sí** se pinta en Herramientas). |
-| Setup | `src-tauri/src/tools/prefix/setup.rs` | Textos de progreso. |
-| Estilos app | `src/index.css` + `tailwind.config.js` | zinc-950, ámbar, `shadow-glass`, glows, radial gradients. **Prohibido en el portfolio.** |
+| Superficie    | Path                                                                                      | Qué pinta                                                                                                                                                                                             |
+| ------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shell         | `src/app/App.tsx`                                                                         | Grid `railWidth × 1fr`, gap 12px, padding 12px. Rail 300px (prep / peek) o 64px (ingame colapsado).                                                                                                   |
+| Header        | `src/app/AppHeader.tsx`                                                                   | Título `RO-Launcher` (RO ámbar / resto zinc). Subtítulo `Ragnarok Online · Linux`. Chip «En juego» o «Developed by: nndsk».                                                                           |
+| Loading       | `src/app/LoadingScreen.tsx`                                                               | Hasta que `useAppInit` termina. Init llama Tauri.                                                                                                                                                     |
+| Servidores    | `src/features/servers/ServerList.tsx`                                                     | Panel «Servidor», radio, + / lápiz / X.                                                                                                                                                               |
+| Alta/edición  | `src/features/servers/AddServerModal.tsx`, `EditServerModal.tsx`, `ServerConfigModal.tsx` | Dialog nativo `plugin-dialog` para `.exe`.                                                                                                                                                            |
+| Runner        | `src/features/settings/RunnerSelector.tsx`                                                | Panel «Runner predeterminado», `DarkSelect`, nota de runner efectivo del servidor.                                                                                                                    |
+| Avanzado      | `src/features/settings/AdvancedSettings.tsx`                                              | Dots: Runner, Audio, Entorno, DXVK, Permisos input, uinput.                                                                                                                                           |
+| Discord RP    | `src/features/settings/DiscordPresenceToggle.tsx`                                         | Toggle + persistencia Tauri.                                                                                                                                                                          |
+| Rearmar       | `src/features/settings/PrefixResetButton.tsx`                                             | `confirm()` + `reset_prefix`.                                                                                                                                                                         |
+| Lanzar        | `src/features/launcher/LaunchButton.tsx`                                                  | Idle: «Preparar entorno» / «Jugar» / «Abrir otro cliente» / «Revisar entorno». Busy: «Comprobando...» / «Configurando...» / «Iniciando...». Error: «Reintentar». Barra de `%` + `setupProgress.step`. |
+| Campos launch | `src/features/launcher/LaunchFieldsModal.tsx`                                             | Placeholders de argv.                                                                                                                                                                                 |
+| Clientes      | `src/features/launcher/ActiveClients.tsx`                                                 | Lista PID; vacío = no render.                                                                                                                                                                         |
+| Rail ingame   | `src/features/launcher/IngameRail.tsx`                                                    | Avatar inicial + stop.                                                                                                                                                                                |
+| Herramientas  | `src/features/servers/ServerToolsPanel.tsx`                                               | OpenSetup, Patcher, dgVoodoo + diagnósticos PE/Gepard.                                                                                                                                                |
+| Tabs          | `src/app/ToolViewTabs.tsx`                                                                | Combate / Buffs.                                                                                                                                                                                      |
+| AutoPot       | `src/features/autopot/AutopotPanel.tsx`                                                   | Barras HP/SP, teclas, umbrales, scanner de memoria.                                                                                                                                                   |
+| Spammer       | `src/features/spammer/SpammerPanel.tsx` + `SpammerKeyboard.tsx`                           | Teclado F1–F9 / 0–9, delay, gear switch.                                                                                                                                                              |
+| AutoBuff      | `src/features/autobuff/AutobuffPanel.tsx`                                                 | Reglas + toggle.                                                                                                                                                                                      |
+| Logs          | `src/features/logs/LogPanels.tsx`                                                         | Tabs Juego / Tools.                                                                                                                                                                                   |
+| UI kit        | `src/shared/ui/{Button,Panel,DarkSelect,ToggleSwitch,StatusDot,Checkbox}.tsx`             | Ámbar + glass. **No reutilizar.**                                                                                                                                                                     |
+| API           | `src/shared/api.ts`                                                                       | Todo es `invoke()` Tauri.                                                                                                                                                                             |
+| Tipos         | `src/shared/types.ts`                                                                     | Contratos.                                                                                                                                                                                            |
+| Gepard        | `src-tauri/src/tools/server_tools/gepard.rs`                                              | Matriz SHA-256 → perfil.                                                                                                                                                                              |
+| Scan PE       | `src-tauri/src/tools/server_tools/pe.rs`                                                  | Warnings de Gepard en `diagnostics.warnings` (esto **sí** se pinta en Herramientas).                                                                                                                  |
+| Setup         | `src-tauri/src/tools/prefix/setup.rs`                                                     | Textos de progreso.                                                                                                                                                                                   |
+| Estilos app   | `src/index.css` + `tailwind.config.js`                                                    | zinc-950, ámbar, `shadow-glass`, glows, radial gradients. **Prohibido en el portfolio.**                                                                                                              |
 
 Captura de portfolio `rolauncher1.png` (layout real, HoneyRO seleccionado, AutoPot activo, Spammer F1, logs Wine): confirma el grid rail-izquierda / tools+combat+logs-derecha. El código actual es más nuevo que la foto en un punto: `ToolViewTabs` (Combate | Buffs) existe en `App.tsx` y no aparece en la foto. **Seguir el código, no la foto**, para las tabs.
 
@@ -94,24 +94,24 @@ El launcher **no** es Dark Graphite. Es zinc + ámbar + glass + glow + gradiente
 
 ### 1.3 Clasificación v1 (web / mock / Tauri)
 
-| Superficie | Clase | v1 |
-| --- | --- | --- |
-| Header, layout 2 columnas, paneles | Pure web | Incluir |
-| Lista de servidores + seleccionar | Mock data | Incluir (3 fixtures; sin + / editar / borrar) |
-| Recomendación Gepard al cambiar servidor | Mock (matriz del README / `gepard.rs`) | Incluir. Banner bajo el runner. La app real lo muestra en `diagnostics.warnings` de Herramientas (`pe.rs` L105–123); `checks[]` de `check_dependencies` **no** se pinta en React. La demo lo hace visible en Runner **y** en Herramientas para que el flujo «elegir servidor → ver recomendación» se sienta. |
-| Dropdown de runners | Mock | Incluir. Cambiar runner de un servidor ya «preparado» vuelve el prefix a pendiente (aislado). |
-| Avanzado (dots) | Mock por servidor | Incluir 4 líneas: Runner, Entorno, DXVK, Gepard. Omitir Audio / input / uinput (host Linux real). |
-| Preparar entorno + barra de pasos | Mock timers + textos reales de `setup.rs` | Incluir. Prefijo de log `[demo]`. |
-| Jugar / Iniciando / clientes / Detener | Tauri `launch_game` / `stop_game` | **No simular un cliente corriendo.** Click en Jugar → aviso honesto + línea de log. No entrar a modo `ingame`. No HP/SP vivos. |
-| OpenSetup / Patcher / dgVoodoo Abrir·Instalar | Tauri | Pintar estado mock. Botones disabled + `title="No disponible en demo"`. |
-| AutoPot / Spammer / AutoBuff toggles, scanner, evdev | Tauri + sidecars | Pintar layout. Toggles y teclas **disabled**. Copy de la app: «Inicia el juego». Tab switch Combate/Buffs **sí** funciona (puro UI). Spammer: teclas F1–0 se pueden marcar visualmente (estado local) porque no invocan input; el toggle del panel sigue disabled. |
-| Rearmar entorno | Tauri + `confirm` | Botón visible, disabled, `title="No disponible en demo"`. |
-| Discord Rich Presence | Tauri | Excluir (no está en el rail de la captura principal; no aporta el flujo v1). |
-| Add/Edit server, file picker | Tauri dialog | Excluir. Sin `+` / lápiz / X. |
-| LoadingScreen / show_main_window / storage notices | Tauri | Excluir. La isla hidrata en estado `ready`. |
-| LaunchFieldsModal | Condicional a placeholders | Excluir. Fixtures sin placeholders. |
-| IngameRail / ActiveClients / multi-client | Requiere proceso | Excluir. |
-| Memory scanner, AutoPot live, logs DXGI reales | Nativo | Excluir. Logs solo de la simulación de Preparar y del click Jugar. |
+| Superficie                                           | Clase                                     | v1                                                                                                                                                                                                                                                                                                           |
+| ---------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Header, layout 2 columnas, paneles                   | Pure web                                  | Incluir                                                                                                                                                                                                                                                                                                      |
+| Lista de servidores + seleccionar                    | Mock data                                 | Incluir (3 fixtures; sin + / editar / borrar)                                                                                                                                                                                                                                                                |
+| Recomendación Gepard al cambiar servidor             | Mock (matriz del README / `gepard.rs`)    | Incluir. Banner bajo el runner. La app real lo muestra en `diagnostics.warnings` de Herramientas (`pe.rs` L105–123); `checks[]` de `check_dependencies` **no** se pinta en React. La demo lo hace visible en Runner **y** en Herramientas para que el flujo «elegir servidor → ver recomendación» se sienta. |
+| Dropdown de runners                                  | Mock                                      | Incluir. Cambiar runner de un servidor ya «preparado» vuelve el prefix a pendiente (aislado).                                                                                                                                                                                                                |
+| Avanzado (dots)                                      | Mock por servidor                         | Incluir 4 líneas: Runner, Entorno, DXVK, Gepard. Omitir Audio / input / uinput (host Linux real).                                                                                                                                                                                                            |
+| Preparar entorno + barra de pasos                    | Mock timers + textos reales de `setup.rs` | Incluir. Prefijo de log `[demo]`.                                                                                                                                                                                                                                                                            |
+| Jugar / Iniciando / clientes / Detener               | Tauri `launch_game` / `stop_game`         | **No simular un cliente corriendo.** Click en Jugar → aviso honesto + línea de log. No entrar a modo `ingame`. No HP/SP vivos.                                                                                                                                                                               |
+| OpenSetup / Patcher / dgVoodoo Abrir·Instalar        | Tauri                                     | Pintar estado mock. Botones disabled + `title="No disponible en demo"`.                                                                                                                                                                                                                                      |
+| AutoPot / Spammer / AutoBuff toggles, scanner, evdev | Tauri + sidecars                          | Pintar layout. Toggles y teclas **disabled**. Copy de la app: «Inicia el juego». Tab switch Combate/Buffs **sí** funciona (puro UI). Spammer: teclas F1–0 se pueden marcar visualmente (estado local) porque no invocan input; el toggle del panel sigue disabled.                                           |
+| Rearmar entorno                                      | Tauri + `confirm`                         | Botón visible, disabled, `title="No disponible en demo"`.                                                                                                                                                                                                                                                    |
+| Discord Rich Presence                                | Tauri                                     | Excluir (no está en el rail de la captura principal; no aporta el flujo v1).                                                                                                                                                                                                                                 |
+| Add/Edit server, file picker                         | Tauri dialog                              | Excluir. Sin `+` / lápiz / X.                                                                                                                                                                                                                                                                                |
+| LoadingScreen / show_main_window / storage notices   | Tauri                                     | Excluir. La isla hidrata en estado `ready`.                                                                                                                                                                                                                                                                  |
+| LaunchFieldsModal                                    | Condicional a placeholders                | Excluir. Fixtures sin placeholders.                                                                                                                                                                                                                                                                          |
+| IngameRail / ActiveClients / multi-client            | Requiere proceso                          | Excluir.                                                                                                                                                                                                                                                                                                     |
+| Memory scanner, AutoPot live, logs DXGI reales       | Nativo                                    | Excluir. Logs solo de la simulación de Preparar y del click Jugar.                                                                                                                                                                                                                                           |
 
 ---
 
@@ -129,13 +129,13 @@ Una isla `RoLauncherDemo` con `variant: 'compact' | 'full'`. Mock data y reducer
 
 **Por qué no las alternativas**
 
-| Alternativa | Rechazo |
-| --- | --- |
-| Extraer / compartir componentes del launcher | No hay monorepo. El UI kit del launcher es ámbar+glass+zinc (v3) y cada feature llama `api.invoke`. Traerlo viola Graphite y arrastra Tauri. |
-| Embed del `vite build` del launcher | `useAppInit` invoca `list_servers`, `load_settings`, `show_main_window` al boot → error en el browser. Tema prohibido. Ventana 1280×820. CSP del portfolio `X-Frame-Options: DENY`. |
-| iframe a un demo hosteado | No existe. Mismo DENY / Tauri. |
-| Vanilla en `public/scripts/site.js` | Demasiado estado (servidor × prefix × runner × progreso × tabs). React es el stack de la app y Astro ya contempla islas. |
-| Portar el App.tsx entero con `api.ts` mockeado | Cientos de archivos, Zustand, Lucide, glass, scanners. Fuera de v1. Recrear el subconjunto Graphite es más chico y controlable. |
+| Alternativa                                    | Rechazo                                                                                                                                                                             |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Extraer / compartir componentes del launcher   | No hay monorepo. El UI kit del launcher es ámbar+glass+zinc (v3) y cada feature llama `api.invoke`. Traerlo viola Graphite y arrastra Tauri.                                        |
+| Embed del `vite build` del launcher            | `useAppInit` invoca `list_servers`, `load_settings`, `show_main_window` al boot → error en el browser. Tema prohibido. Ventana 1280×820. CSP del portfolio `X-Frame-Options: DENY`. |
+| iframe a un demo hosteado                      | No existe. Mismo DENY / Tauri.                                                                                                                                                      |
+| Vanilla en `public/scripts/site.js`            | Demasiado estado (servidor × prefix × runner × progreso × tabs). React es el stack de la app y Astro ya contempla islas.                                                            |
+| Portar el App.tsx entero con `api.ts` mockeado | Cientos de archivos, Zustand, Lucide, glass, scanners. Fuera de v1. Recrear el subconjunto Graphite es más chico y controlable.                                                     |
 
 **Dependencias nuevas (únicas permitidas)**
 
@@ -196,15 +196,15 @@ En mobile: compacta encima del copy, igual que la foto ahora. La compacta es una
 
 Paleta única (Tailwind `@theme` ya existente):
 
-| Token | Hex | Uso en la demo |
-| --- | --- | --- |
-| `background` | `#17191c` | Fondo interior de paneles, track de barras, cuerpo de logs |
-| `card` | `#1f2227` | Chrome de ventana, rail |
-| `border` | `#343940` | Bordes de panel / botones |
-| `border-strong` | `#4a5058` | Servidor seleccionado, hover de fila |
-| `muted` | `#9399a1` | Labels, hints, disabled |
-| `foreground` | `#d5d8dc` | Título, nombres, fill de barra HP |
-| `accent` | `#b6bdc6` | Solo: focus rings, hover del CTA «Preparar entorno» / «Jugar» (mismo patrón Graphite: reposo `border-border text-foreground`, hover `border-accent text-accent`). **No** rellenar paneles ni radios con accent. |
+| Token           | Hex       | Uso en la demo                                                                                                                                                                                                  |
+| --------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `background`    | `#17191c` | Fondo interior de paneles, track de barras, cuerpo de logs                                                                                                                                                      |
+| `card`          | `#1f2227` | Chrome de ventana, rail                                                                                                                                                                                         |
+| `border`        | `#343940` | Bordes de panel / botones                                                                                                                                                                                       |
+| `border-strong` | `#4a5058` | Servidor seleccionado, hover de fila                                                                                                                                                                            |
+| `muted`         | `#9399a1` | Labels, hints, disabled                                                                                                                                                                                         |
+| `foreground`    | `#d5d8dc` | Título, nombres, fill de barra HP                                                                                                                                                                               |
+| `accent`        | `#b6bdc6` | Solo: focus rings, hover del CTA «Preparar entorno» / «Jugar» (mismo patrón Graphite: reposo `border-border text-foreground`, hover `border-accent text-accent`). **No** rellenar paneles ni radios con accent. |
 
 **Prohibido** en archivos de la demo: `amber`, `zinc`, `emerald`, `sky`, `red`, `yellow`, `orange`, `purple`, `indigo`, `cyan`, `lime`, `from-`/`via-`/`to-` gradients, `backdrop-blur`, `shadow-glass`, `shadow-glow`, `rounded-xl`, `rounded-full` (la excepción Graphite de avatar no aplica aquí), `animate-bounce`, `animate-pulse`, `bg-accent/10` como fill de selección.
 
@@ -235,7 +235,6 @@ Estado inicial (SSR + primer paint): servidor `honeyro` seleccionado, runner glo
 
 1. Con HoneyRO y runner `proton-cachyos`, click «Preparar entorno».
 2. Botón pasa a disabled «Configurando...». Barra visible. Pasos **exactos** (copiar de `setup.rs`), 350ms cada uno salvo reduced-motion:
-
    1. `Creando entorno aislado...` 40%
    2. `Inicializando entorno...` 45%
    3. `Preparando Wine Gecko...` 50%
@@ -442,25 +441,25 @@ Orden de implementación. **Cero cambios en `nndsk-ro-launcher`.**
 
 Directorio `src/components/ro-launcher-demo/`.
 
-| Archivo | Contenido |
-| --- | --- |
-| `types.ts` | Tipos de §6 (o reexport desde mockData; no duplicar). |
-| `mockData.ts` | `DEMO_RUNNERS`, `DEMO_SERVERS`, copy banners. |
-| `demo.logic.ts` | `initialDemoState`, `demoReducer`, `PREPARE_STEPS`, helpers `effectiveRunner`, `prefixState`, `gepardMismatch`, `launchLabel` (`Preparar entorno` \| `Configurando...` \| `Jugar`). Sin I/O. |
-| `classes.ts` | Constantes de className Graphite (panel, panelHeader, row, rowSelected, btnPrimary, btnDisabled, select, tab, tabActive, logLine). Un solo lugar para no derivar ámbar. |
-| `RoLauncherDemo.tsx` | Root. Props `{ variant: 'compact' \| 'full' }`. `useReducer` + `useEffect` prepare. Compone los de abajo. |
-| `DemoHeader.tsx` | Título + «Demo». |
-| `DemoServerList.tsx` | Radios. Sin botones +/edit/delete. |
-| `DemoRunnerPanel.tsx` | `<select>` + banner Gepard + línea `Runner efectivo de {name}: {runnerName}`. |
-| `DemoAdvanced.tsx` | 4 StatusLine. Dot `bg-foreground` ok, `bg-muted` pending, `bg-border-strong` mismatch. |
-| `DemoLaunchBar.tsx` | Barra de progreso (track `bg-border`, fill `bg-foreground`), botón, `playNotice`. |
-| `DemoToolsPanel.tsx` | Solo `full`. 3 cards. Botones disabled. Diagnósticos. |
-| `DemoToolTabs.tsx` | Solo `full`. Combate / Buffs. Sin iconos Lucide: texto. |
-| `DemoAutopot.tsx` | Solo `full`. Barras vacías, toggles disabled (un `<button role="switch">` Graphite, no círculo emerald). |
-| `DemoSpammer.tsx` | Solo `full`. Teclado F1–F9 + 0–9 (no letras QWERTY en v1: la captura enseña ese subset; `SpammerKeyboard.tsx` también pinta letras pero v1 se queda en F/números como la foto). |
-| `DemoAutobuff.tsx` | Solo `full`. 2 reglas disabled. |
-| `DemoLogs.tsx` | Solo `full`. Un canal (sin tab Tools). Empty label `Wine / setup / lanzamiento...`. Botón Limpiar (sí, limpia el array local). |
-| `DemoResetButton.tsx` | Solo `full`. «Rearmar entorno» disabled. |
+| Archivo                      | Contenido                                                                                                                                                                                                                                                                                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `types.ts`                   | Tipos de §6 (o reexport desde mockData; no duplicar).                                                                                                                                                                                                                                                                                                 |
+| `mockData.ts`                | `DEMO_RUNNERS`, `DEMO_SERVERS`, copy banners.                                                                                                                                                                                                                                                                                                         |
+| `demo.logic.ts`              | `initialDemoState`, `demoReducer`, `PREPARE_STEPS`, helpers `effectiveRunner`, `prefixState`, `gepardMismatch`, `launchLabel` (`Preparar entorno` \| `Configurando...` \| `Jugar`). Sin I/O.                                                                                                                                                          |
+| `classes.ts`                 | Constantes de className Graphite (panel, panelHeader, row, rowSelected, btnPrimary, btnDisabled, select, tab, tabActive, logLine). Un solo lugar para no derivar ámbar.                                                                                                                                                                               |
+| `RoLauncherDemo.tsx`         | Root. Props `{ variant: 'compact' \| 'full' }`. `useReducer` + `useEffect` prepare. Compone los de abajo.                                                                                                                                                                                                                                             |
+| `DemoHeader.tsx`             | Título + «Demo».                                                                                                                                                                                                                                                                                                                                      |
+| `DemoServerList.tsx`         | Radios. Sin botones +/edit/delete.                                                                                                                                                                                                                                                                                                                    |
+| `DemoRunnerPanel.tsx`        | `<select>` + banner Gepard + línea `Runner efectivo de {name}: {runnerName}`.                                                                                                                                                                                                                                                                         |
+| `DemoAdvanced.tsx`           | 4 StatusLine. Dot `bg-foreground` ok, `bg-muted` pending, `bg-border-strong` mismatch.                                                                                                                                                                                                                                                                |
+| `DemoLaunchBar.tsx`          | Barra de progreso (track `bg-border`, fill `bg-foreground`), botón, `playNotice`.                                                                                                                                                                                                                                                                     |
+| `DemoToolsPanel.tsx`         | Solo `full`. 3 cards. Botones disabled. Diagnósticos.                                                                                                                                                                                                                                                                                                 |
+| `DemoToolTabs.tsx`           | Solo `full`. Combate / Buffs. Sin iconos Lucide: texto.                                                                                                                                                                                                                                                                                               |
+| `DemoAutopot.tsx`            | Solo `full`. Barras vacías, toggles disabled (un `<button role="switch">` Graphite, no círculo emerald).                                                                                                                                                                                                                                              |
+| `DemoSpammer.tsx`            | Solo `full`. Teclado F1–F9 + 0–9 (no letras QWERTY en v1: la captura enseña ese subset; `SpammerKeyboard.tsx` también pinta letras pero v1 se queda en F/números como la foto).                                                                                                                                                                       |
+| `DemoAutobuff.tsx`           | Solo `full`. 2 reglas disabled.                                                                                                                                                                                                                                                                                                                       |
+| `DemoLogs.tsx`               | Solo `full`. Un canal (sin tab Tools). Empty label `Wine / setup / lanzamiento...`. Botón Limpiar (sí, limpia el array local).                                                                                                                                                                                                                        |
+| `DemoResetButton.tsx`        | Solo `full`. «Rearmar entorno» disabled.                                                                                                                                                                                                                                                                                                              |
 | `RoLauncherDemoIsland.astro` | Wrapper: import del TSX, `interface Props { variant: 'compact' \| 'full' }`, pasa `variant`. **No** pone `client:*` aquí: el page/spotlight lo pone al importar este `.astro`? → **No.** Astro no hidrata un `.astro`. El page debe importar el **`.tsx`** con `client:load` / `client:visible`. Entonces: **no crear Island.astro**. Import directo: |
 
 ```astro
@@ -513,10 +512,10 @@ Sin cambios, salvo que PR #2 ya importa `ProjectSpotlight`. No meter la isla aqu
 
 ### 7.7 Capturas
 
-| Archivo | Destino v1 |
-| --- | --- |
+| Archivo                                                  | Destino v1                                                               |
+| -------------------------------------------------------- | ------------------------------------------------------------------------ |
 | `src/content/projects/nndsk-ro-launcher/rolauncher1.png` | Noscript fallback en spotlight y caso. No se pinta si hay JS. No borrar. |
-| `src/content/projects/nndsk-ro-launcher/rolauncher2.png` | Galería del caso, después de Stack. Se queda. |
+| `src/content/projects/nndsk-ro-launcher/rolauncher2.png` | Galería del caso, después de Stack. Se queda.                            |
 
 No generar OG nuevo. `public/og.png` sigue siendo el del sitio.
 
@@ -528,31 +527,31 @@ No generar OG nuevo. `public/og.png` sigue siendo el del sitio.
 
 ## 8. Copy cerrado (español UI, nombres de producto en inglés)
 
-| Sitio | Texto |
-| --- | --- |
-| Rótulo caso | `Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.` |
-| Figcaption caso | `Chrome Graphite del sitio. La app de escritorio usa su propio tema. Layout fiel a RO-Launcher.` |
-| Noscript | `Activa JavaScript para usar la demo.` |
-| Header isla | título `RO-Launcher` · subtítulo `Ragnarok Online · Linux` · derecha `Demo` |
-| Panel | `Servidor` |
-| Panel | `Runner predeterminado` |
-| Runner efectivo | `Runner efectivo de {name}: {runnerName}` |
-| Hint runner propio | `Propio del servidor; el predeterminado global no lo reemplaza.` |
-| Panel | `Avanzado` |
-| Dots ok | `Runner · {name}`; `Entorno aislado · listo` / `Entorno aislado · pendiente`; `DXVK · instalado` / `DXVK · pendiente`; `Gepard · perfil validado` / `Gepard · sin receta` |
-| Botones | `Preparar entorno` · `Configurando...` · `Jugar` |
-| Play notice | `Solo demo — el sitio no lanza el cliente.` |
-| Rearmar | `Rearmar entorno` |
-| Herramientas | `Herramientas` · `OpenSetup` · `Patcher` · `dgVoodoo` · `Abrir` · `Config` |
-| Tabs | `Combate` · `Buffs` |
-| AutoPot status | `Inicia el juego` |
-| Spammer | `Inactivo` · `Inicia el juego` · `Teclas` |
-| AutoBuff | `Sin buffs aplicados` · `Inicia el juego` |
-| Logs empty | `Wine / setup / lanzamiento...` |
-| Logs clear | `Limpiar` |
-| Links caso | `Código en GitHub. Arriba hay una demo de la UI; no lanza el cliente.` |
-| Log prepare intro | `[demo] Simulación — no descarga Proton ni escribe un WINEPREFIX.` |
-| Log play | `[demo] Jugar no está disponible en el sitio. RO-Launcher es una app de escritorio Linux.` |
+| Sitio              | Texto                                                                                                                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rótulo caso        | `Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.`                                                                                                         |
+| Figcaption caso    | `Chrome Graphite del sitio. La app de escritorio usa su propio tema. Layout fiel a RO-Launcher.`                                                                          |
+| Noscript           | `Activa JavaScript para usar la demo.`                                                                                                                                    |
+| Header isla        | título `RO-Launcher` · subtítulo `Ragnarok Online · Linux` · derecha `Demo`                                                                                               |
+| Panel              | `Servidor`                                                                                                                                                                |
+| Panel              | `Runner predeterminado`                                                                                                                                                   |
+| Runner efectivo    | `Runner efectivo de {name}: {runnerName}`                                                                                                                                 |
+| Hint runner propio | `Propio del servidor; el predeterminado global no lo reemplaza.`                                                                                                          |
+| Panel              | `Avanzado`                                                                                                                                                                |
+| Dots ok            | `Runner · {name}`; `Entorno aislado · listo` / `Entorno aislado · pendiente`; `DXVK · instalado` / `DXVK · pendiente`; `Gepard · perfil validado` / `Gepard · sin receta` |
+| Botones            | `Preparar entorno` · `Configurando...` · `Jugar`                                                                                                                          |
+| Play notice        | `Solo demo — el sitio no lanza el cliente.`                                                                                                                               |
+| Rearmar            | `Rearmar entorno`                                                                                                                                                         |
+| Herramientas       | `Herramientas` · `OpenSetup` · `Patcher` · `dgVoodoo` · `Abrir` · `Config`                                                                                                |
+| Tabs               | `Combate` · `Buffs`                                                                                                                                                       |
+| AutoPot status     | `Inicia el juego`                                                                                                                                                         |
+| Spammer            | `Inactivo` · `Inicia el juego` · `Teclas`                                                                                                                                 |
+| AutoBuff           | `Sin buffs aplicados` · `Inicia el juego`                                                                                                                                 |
+| Logs empty         | `Wine / setup / lanzamiento...`                                                                                                                                           |
+| Logs clear         | `Limpiar`                                                                                                                                                                 |
+| Links caso         | `Código en GitHub. Arriba hay una demo de la UI; no lanza el cliente.`                                                                                                    |
+| Log prepare intro  | `[demo] Simulación — no descarga Proton ni escribe un WINEPREFIX.`                                                                                                        |
+| Log play           | `[demo] Jugar no está disponible en el sitio. RO-Launcher es una app de escritorio Linux.`                                                                                |
 
 Títulos de panel en español como la app (`Servidor`, `Herramientas`, `Avanzado`, `Combate`, `Buffs`). Productos: `RO-Launcher`, `HoneyRO`, `SakuraRO`, `OpenSetup`, `Patcher`, `dgVoodoo`, `DXVK`, `Gepard Shield`, `Proton-CachyOS`, `Wine`.
 

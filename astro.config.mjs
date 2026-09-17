@@ -69,7 +69,6 @@ export default defineConfig({
         "img-src 'self' data: https://avatars.githubusercontent.com https://images.unsplash.com",
         "manifest-src 'self'",
         "connect-src 'self'",
-        "frame-ancestors 'none'",
         "base-uri 'self'",
         "form-action 'self'",
       ],

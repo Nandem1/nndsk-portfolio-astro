@@ -1,8 +1,7 @@
-import { DEMO_RUNNERS } from './mockData';
-import { effectiveRunnerId, gepardMismatchMessage } from './demo.logic';
-import { getServerById } from './mockData';
-import { selectNative } from './classes';
-import type { DemoAction, DemoState } from './types';
+import { DEMO_RUNNERS, getServerById } from '../mockData';
+import { effectiveRunnerId, gepardMismatchMessage } from '../demo.logic';
+import { gepardBanner, selectNative } from '../chrome/classes';
+import type { DemoAction, DemoState } from '../types';
 
 interface Props {
   state: DemoState;
@@ -31,18 +30,18 @@ export function DemoRunnerPanel({ state, dispatch }: Props) {
           </option>
         ))}
       </select>
-      <p className="text-[10px] leading-relaxed text-muted">{server.gepard.banner}</p>
+      <p className={gepardBanner}>{server.gepard.banner}</p>
       {mismatch && (
-        <p className="text-[10px] leading-relaxed text-muted">
+        <p className="text-[10px] leading-relaxed text-amber-300/90">
           {mismatch}
           {server.gepard.mismatchRemediation ? ` ${server.gepard.mismatchRemediation}` : ''}
         </p>
       )}
-      <div className="rounded-md border border-border bg-card px-2.5 py-2">
-        <p className="text-[10px] leading-relaxed text-muted">
+      <div className={`${gepardBanner} text-zinc-500`}>
+        <p className="text-[10px] leading-relaxed">
           Runner efectivo de {server.name}: {effectiveName}
         </p>
-        <p className="mt-0.5 text-[9px] leading-relaxed text-muted">
+        <p className="mt-0.5 text-[9px] leading-relaxed text-zinc-600">
           Propio del servidor; el predeterminado global no lo reemplaza.
         </p>
       </div>

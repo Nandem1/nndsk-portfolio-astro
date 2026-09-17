@@ -1,18 +1,11 @@
-import { useEffect, useReducer, useCallback } from 'react';
-import { DemoHeader, DemoPanel } from './DemoHeader';
-import { DemoServerList } from './DemoServerList';
-import { DemoRunnerPanel } from './DemoRunnerPanel';
-import { DemoAdvanced } from './DemoAdvanced';
-import { DemoLaunchBar } from './DemoLaunchBar';
-import { DemoToolsPanel } from './DemoToolsPanel';
-import { DemoToolTabs } from './DemoToolTabs';
-import { DemoAutopot } from './DemoAutopot';
-import { DemoSpammer } from './DemoSpammer';
-import { DemoAutobuff } from './DemoAutobuff';
-import { DemoLogs } from './DemoLogs';
-import { DemoResetButton } from './DemoResetButton';
-import { demoChrome } from './classes';
+import { useCallback, useEffect, useReducer } from 'react';
+import './tokens.css';
+import { demoChrome } from './chrome/classes';
+import { DemoHeader } from './chrome/DemoHeader';
+import { DemoCenter } from './center/DemoCenter';
 import { PREPARE_STEPS, demoReducer, getPrefixState, initialDemoState } from './demo.logic';
+import { DemoLogs } from './logs/DemoLogs';
+import { DemoRail } from './rail/DemoRail';
 import { getServerById } from './mockData';
 import type { DemoAction } from './types';
 
@@ -50,34 +43,6 @@ function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatc
   }, [prefix, state.prepareStepIndex, state.selectedServerId, dispatch, server.id]);
 }
 
-function DemoRail({
-  state,
-  dispatch,
-  onLaunchClick,
-  showReset,
-}: {
-  state: typeof initialDemoState;
-  dispatch: React.Dispatch<DemoAction>;
-  onLaunchClick: () => void;
-  showReset: boolean;
-}) {
-  return (
-    <div className="flex flex-col gap-2.5 min-h-0">
-      <DemoPanel title="Servidor">
-        <DemoServerList state={state} dispatch={dispatch} />
-      </DemoPanel>
-      <DemoPanel title="Runner predeterminado">
-        <DemoRunnerPanel state={state} dispatch={dispatch} />
-      </DemoPanel>
-      <DemoPanel title="Avanzado">
-        <DemoAdvanced state={state} />
-      </DemoPanel>
-      {showReset && <DemoResetButton />}
-      <DemoLaunchBar state={state} onLaunchClick={onLaunchClick} />
-    </div>
-  );
-}
-
 export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
   const [state, dispatch] = useReducer(demoReducer, initialDemoState);
   usePrepareTimer(state, dispatch);
@@ -102,48 +67,29 @@ export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
   }, [state]);
 
   const isCompact = variant === 'compact';
+  const bodyClass = isCompact ? 'max-h-[36rem] overflow-y-auto' : 'min-h-[28rem]';
 
   return (
     <div
-      className={`${demoChrome} ${isCompact ? 'min-h-[22rem]' : ''}`}
+      className={`${demoChrome} ${isCompact ? 'min-h-[28rem]' : ''}`}
       role="region"
       aria-label="Demo de RO-Launcher"
     >
       <DemoHeader />
-      {isCompact ? (
-        <div className="p-3">
-          <DemoRail
-            state={state}
-            dispatch={dispatch}
-            onLaunchClick={onLaunchClick}
-            showReset={false}
-          />
+      <div
+        className={`grid grid-cols-1 @min-[40rem]:grid-cols-[minmax(220px,300px)_1fr] gap-3 p-3 ${bodyClass}`}
+      >
+        <DemoRail
+          state={state}
+          dispatch={dispatch}
+          onLaunchClick={onLaunchClick}
+          showReset={!isCompact}
+        />
+        <div className="flex flex-col gap-2.5 min-h-0 min-w-0">
+          <DemoCenter state={state} dispatch={dispatch} showTools={!isCompact} />
+          {!isCompact && <DemoLogs state={state} dispatch={dispatch} />}
         </div>
-      ) : (
-        <div className="grid md:grid-cols-[minmax(240px,280px)_1fr] gap-3 p-3 min-h-[28rem]">
-          <DemoRail state={state} dispatch={dispatch} onLaunchClick={onLaunchClick} showReset />
-          <div className="flex flex-col gap-2.5 min-h-0 min-w-0">
-            <DemoToolsPanel state={state} />
-            <DemoToolTabs state={state} dispatch={dispatch} />
-            <div className="flex-1 min-h-0">
-              {state.toolView === 'combat' ? (
-                <div
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 h-full min-h-[12rem]"
-                  id="ro-demo-panel-combat"
-                  role="tabpanel"
-                  aria-labelledby="ro-demo-tab-combat"
-                >
-                  <DemoAutopot serverId={state.selectedServerId} />
-                  <DemoSpammer state={state} dispatch={dispatch} />
-                </div>
-              ) : (
-                <DemoAutobuff />
-              )}
-            </div>
-            <DemoLogs state={state} dispatch={dispatch} />
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

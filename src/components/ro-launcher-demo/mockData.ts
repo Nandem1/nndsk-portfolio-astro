@@ -1,4 +1,28 @@
-import type { DemoRunner, DemoServer } from './types';
+import type { DemoRunner, DemoServer, PotKey } from './types';
+
+export const POT_KEYS: PotKey[] = [
+  'F1',
+  'F2',
+  'F3',
+  'F4',
+  'F5',
+  'F6',
+  'F7',
+  'F8',
+  'F9',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+];
+
+export const DEMO_VITALS = { hpCur: 1840, hpMax: 2000, spCur: 420, spMax: 600 };
 
 const ANTICHEAT_WARNING =
   'Se detectó anti-cheat. Confirma con el servidor si Wine, DXVK y la versión de dgVoodoo están permitidos.';

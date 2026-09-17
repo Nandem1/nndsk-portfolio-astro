@@ -1,0 +1,39 @@
+import { focusRing } from './classes';
+
+interface DemoToggleProps {
+  checked: boolean;
+  disabled?: boolean;
+  tone?: 'emerald' | 'amber';
+  onChange: (checked: boolean) => void;
+}
+
+export function DemoToggle({
+  checked,
+  disabled = false,
+  tone = 'emerald',
+  onChange,
+}: DemoToggleProps) {
+  const onClass =
+    tone === 'emerald'
+      ? 'bg-emerald-500/80 border-emerald-400/50 ro-shadow-glow-emerald'
+      : 'bg-amber-500/80 border-amber-400/50 ro-shadow-glow-amber';
+
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      disabled={disabled}
+      onClick={() => onChange(!checked)}
+      className={`relative w-9 h-5 rounded-full border transition-[background-color,border-color,box-shadow] duration-200 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed ${focusRing} ${
+        checked ? onClass : 'bg-zinc-800 border-zinc-700/80'
+      }`}
+    >
+      <span
+        className={`absolute top-0.5 left-0.5 w-3.5 h-3.5 rounded-full bg-white shadow transition-transform duration-200 ${
+          checked ? 'translate-x-4' : 'translate-x-0'
+        }`}
+      />
+    </button>
+  );
+}

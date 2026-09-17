@@ -2,6 +2,27 @@ export type RunnerId = 'proton-cachyos' | 'wine-7.16';
 
 export type ServerId = 'honeyro' | 'sakuraro' | 'unknown';
 
+export type PotKey =
+  | 'F1'
+  | 'F2'
+  | 'F3'
+  | 'F4'
+  | 'F5'
+  | 'F6'
+  | 'F7'
+  | 'F8'
+  | 'F9'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | '0';
+
 export interface DemoRunner {
   id: RunnerId;
   name: string;
@@ -45,6 +66,15 @@ export type PrefixState = 'pending' | 'preparing' | 'ready';
 
 export type ToolView = 'combat' | 'buffs';
 
+export type LogChannel = 'game' | 'tools';
+
+export interface AutobuffRuleState {
+  id: string;
+  label: string;
+  key: string;
+  enabled: boolean;
+}
+
 export interface DemoState {
   selectedServerId: ServerId;
   selectedRunnerId: RunnerId;
@@ -52,10 +82,23 @@ export interface DemoState {
   prefixByKey: Record<string, PrefixState>;
   progress: { step: string; percent: number } | null;
   prepareStepIndex: number;
-  logs: string[];
+  gameLogs: string[];
+  toolLogs: string[];
+  logChannel: LogChannel;
   toolView: ToolView;
   spammerKeys: string[];
   playNotice: string | null;
+  autopotEnabled: boolean;
+  autopotProactive: boolean;
+  autopotHpKey: PotKey;
+  autopotSpKey: PotKey;
+  autopotHpPercent: number;
+  autopotSpPercent: number;
+  autopotDelayMs: number;
+  spammerEnabled: boolean;
+  spammerDelayMs: number;
+  autobuffEnabled: boolean;
+  autobuffRules: AutobuffRuleState[];
 }
 
 export type DemoAction =
@@ -68,4 +111,16 @@ export type DemoAction =
   | { type: 'play' }
   | { type: 'setToolView'; view: ToolView }
   | { type: 'toggleSpammerKey'; key: string }
-  | { type: 'clearLogs' };
+  | { type: 'clearLogs' }
+  | { type: 'setLogChannel'; channel: LogChannel }
+  | { type: 'toggleAutopot' }
+  | { type: 'toggleAutopotProactive' }
+  | { type: 'setAutopotField'; field: AutopotField; value: string | number }
+  | { type: 'toggleSpammer' }
+  | { type: 'setSpammerDelay'; delayMs: number }
+  | { type: 'toggleAutobuff' }
+  | { type: 'toggleAutobuffRule'; ruleId: string }
+  | { type: 'setAutobuffRuleKey'; ruleId: string; key: PotKey }
+  | { type: 'resetPrefix' };
+
+export type AutopotField = 'hpKey' | 'spKey' | 'hpPercent' | 'spPercent' | 'delayMs';

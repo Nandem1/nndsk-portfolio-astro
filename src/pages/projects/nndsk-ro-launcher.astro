@@ -90,69 +90,74 @@ const galleryImage = project.data.gallery?.[0];
 <Layout title={title} description={description}>
   <Header />
   <main id="main-content" class="px-6 py-24">
-    <article class="max-w-3xl mx-auto">
+    <article class="max-w-5xl mx-auto">
       <script type="application/ld+json" set:html={JSON.stringify(caseStudyJsonLd)} is:inline />
 
-      <a href="/#work" class={`${backLinkClass} mb-8`}>
-        ← Trabajos
-      </a>
+      <div class="max-w-3xl">
+        <a href="/#work" class={`${backLinkClass} mb-8`}>
+          ← Trabajos
+        </a>
 
-      <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
-        nndsk-ro-launcher
-      </h1>
-      <p class="text-lg text-foreground font-medium mb-2">
-        RO-Launcher — launcher de Ragnarok Online para Linux.
-      </p>
-      <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
+        <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
+          nndsk-ro-launcher
+        </h1>
+        <p class="text-lg text-foreground font-medium mb-2">
+          RO-Launcher — launcher de Ragnarok Online para Linux.
+        </p>
+        <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
+
+        {
+          project.data.github && (
+            <div class="flex flex-wrap gap-3 mb-8 md:hidden">
+              <a
+                href={project.data.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={ctaPrimary}
+                aria-label="Ver código en GitHub: nndsk-ro-launcher"
+              >
+                <GitHubIcon class="w-4 h-4" />
+                Repo
+              </a>
+            </div>
+          )
+        }
+      </div>
 
       {
-        project.data.github && (
-          <div class="flex flex-wrap gap-3 mb-8 md:hidden">
-            <a
-              href={project.data.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={ctaPrimary}
-              aria-label="Ver código en GitHub: nndsk-ro-launcher"
-            >
-              <GitHubIcon class="w-4 h-4" />
-              Repo
-            </a>
+        project.data.thumbnail && (
+          <div id="demo" class="mt-8">
+            <p class="text-sm text-muted mb-3 max-w-3xl">
+              Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.
+            </p>
+            <RoLauncherDemo client:load variant="full" />
+            <noscript>
+              <figure class="mt-4 max-w-3xl">
+                <Image
+                  src={project.data.thumbnail}
+                  alt="Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer"
+                  width={1200}
+                  height={675}
+                  format="webp"
+                  quality={80}
+                  loading="eager"
+                  decoding="async"
+                  class="w-full h-auto rounded-md border border-border"
+                />
+                <figcaption class="text-sm text-muted mt-2">
+                  Activa JavaScript para usar la demo.
+                </figcaption>
+              </figure>
+            </noscript>
+            <p class="text-sm text-muted mt-2 max-w-3xl">
+              Tema de RO-Launcher (zinc / ámbar / glass). El resto de la página sigue Dark Graphite.
+              No lanza Ragnarok Online.
+            </p>
           </div>
         )
       }
 
-      {project.data.thumbnail && (
-        <div id="demo" class="mt-8">
-          <p class="text-sm text-muted mb-3">
-            Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.
-          </p>
-          <RoLauncherDemo client:load variant="full" />
-          <noscript>
-            <figure class="mt-4">
-              <Image
-                src={project.data.thumbnail}
-                alt="Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer"
-                width={1200}
-                height={675}
-                format="webp"
-                quality={80}
-                loading="eager"
-                decoding="async"
-                class="w-full h-auto rounded-md border border-border"
-              />
-              <figcaption class="text-sm text-muted mt-2">
-                Activa JavaScript para usar la demo.
-              </figcaption>
-            </figure>
-          </noscript>
-          <p class="text-sm text-muted mt-2">
-            Chrome Graphite del sitio. La app de escritorio usa su propio tema. Layout fiel a
-            RO-Launcher.
-          </p>
-        </div>
-      )}
-
+      <div class="max-w-3xl">
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Problema</h2>
       <p class="text-muted leading-relaxed">
         Ragnarok Online en Linux no es instalar y jugar. Cada servidor privado trae su runner, su
@@ -259,6 +264,7 @@ const galleryImage = project.data.gallery?.[0];
         <a href="/#work" class={ctaGhost}>
           ← Trabajos
         </a>
+      </div>
       </div>
     </article>
   </main>

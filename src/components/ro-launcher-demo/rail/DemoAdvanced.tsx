@@ -1,17 +1,20 @@
-import { DEMO_RUNNERS } from './mockData';
-import { getServerById } from './mockData';
+import { DEMO_RUNNERS, getServerById } from '../mockData';
 import {
   effectiveRunnerId,
-  getPrefixState,
   gepardMismatchMessage,
+  getPrefixState,
   runnerDotOk,
-} from './demo.logic';
-import type { DemoState } from './types';
+} from '../demo.logic';
+import type { DemoState } from '../types';
 
 function StatusDot({ kind }: { kind: 'ok' | 'pending' | 'mismatch' }) {
   const cls =
-    kind === 'ok' ? 'bg-foreground' : kind === 'pending' ? 'bg-muted' : 'bg-border-strong';
-  return <span className={`inline-block w-2 h-2 rounded-sm shrink-0 ${cls}`} aria-hidden />;
+    kind === 'ok'
+      ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)]'
+      : kind === 'pending'
+        ? 'bg-zinc-600'
+        : 'bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.5)]';
+  return <span className={`inline-block w-2 h-2 rounded-full shrink-0 ${cls}`} aria-hidden />;
 }
 
 interface Props {
@@ -56,7 +59,7 @@ export function DemoAdvanced({ state }: Props) {
       {lines.map(line => (
         <li key={line.key} className="flex items-center gap-2 min-w-0">
           <StatusDot kind={line.kind} />
-          <p className="text-[11px] text-muted truncate">{line.label}</p>
+          <p className="text-[11px] text-zinc-500 truncate">{line.label}</p>
         </li>
       ))}
     </ul>

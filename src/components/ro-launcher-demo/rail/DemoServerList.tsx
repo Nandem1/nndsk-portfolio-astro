@@ -1,6 +1,6 @@
-import { DEMO_SERVERS } from './mockData';
-import { focusRing, row, rowSelected } from './classes';
-import type { DemoAction, DemoState } from './types';
+import { focusRing, row, rowSelected } from '../chrome/classes';
+import { DEMO_SERVERS } from '../mockData';
+import type { DemoAction, DemoState } from '../types';
 
 interface Props {
   state: DemoState;
@@ -21,10 +21,10 @@ export function DemoServerList({ state, dispatch }: Props) {
                 value={server.id}
                 checked={selected}
                 onChange={() => dispatch({ type: 'selectServer', serverId: server.id })}
-                className="w-3.5 h-3.5 shrink-0 accent-[var(--color-foreground)]"
+                className="w-3.5 h-3.5 shrink-0 accent-amber-500"
               />
               <span
-                className={`text-sm truncate ${selected ? 'text-foreground font-medium' : 'text-muted'}`}
+                className={`text-sm truncate ${selected ? 'text-amber-100 font-medium' : 'text-zinc-200'}`}
               >
                 {server.name}
               </span>

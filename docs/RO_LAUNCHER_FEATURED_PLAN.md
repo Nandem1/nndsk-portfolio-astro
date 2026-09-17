@@ -30,19 +30,19 @@ Repo: `https://github.com/Nandem1/nndsk-ro-launcher`
 
 Hechos usables (citar / parafrasear corto; no inflar):
 
-| Hecho | Dónde en el README |
-| --- | --- |
-| Launcher de Ragnarok Online para Linux, Tauri + React + Rust | H1 `# RO-Launcher` + primer párrafo |
-| Perfiles aislados por servidor y runner; no depende del Wine del sistema | primer párrafo + “Perfiles aislados por servidor y runner” |
-| Wine/Proton, WINEPREFIX, Proton-CachyOS + UMU administrados | funciones + sección Proton/UMU |
-| Pipeline D3D8/9/11 → DXVK → Vulkan; DirectDraw → dgVoodoo (opcional) → D3D11 → DXVK → Vulkan | “Pipeline gráfico” |
-| AutoPot, AutoBuff, spammer; Discord Rich Presence | “Funciones principales” |
-| Sidecar `ro-sessiond`: child subreaper, padre de wineserver / patcher / `ragexe.exe`; Yama `ptrace_scope=1` basta; no hace falta `ptrace_scope=0` ni `sudo` ni tocar `/etc` | “Supervisor de sesión y memoria” |
-| Recomendaciones Gepard **solo** si el SHA-256 de `gepard.dll` coincide con la matriz; hash desconocido = advertencia, no receta | “Matriz Gepard validada” |
-| El launcher no modifica Gepard, el cliente ni el tráfico del juego | mismo bloque |
-| Datos locales en `~/.local/share/ro-launcher/` | “Datos locales” |
-| Dev: Linux x86_64, Vulkan, Node, Rust estable, Tauri v2 | “Desarrollo” |
-| Producto se presenta como **RO-Launcher**; repo **nndsk-ro-launcher** | H1 vs URL del repo |
+| Hecho                                                                                                                                                                       | Dónde en el README                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Launcher de Ragnarok Online para Linux, Tauri + React + Rust                                                                                                                | H1 `# RO-Launcher` + primer párrafo                        |
+| Perfiles aislados por servidor y runner; no depende del Wine del sistema                                                                                                    | primer párrafo + “Perfiles aislados por servidor y runner” |
+| Wine/Proton, WINEPREFIX, Proton-CachyOS + UMU administrados                                                                                                                 | funciones + sección Proton/UMU                             |
+| Pipeline D3D8/9/11 → DXVK → Vulkan; DirectDraw → dgVoodoo (opcional) → D3D11 → DXVK → Vulkan                                                                                | “Pipeline gráfico”                                         |
+| AutoPot, AutoBuff, spammer; Discord Rich Presence                                                                                                                           | “Funciones principales”                                    |
+| Sidecar `ro-sessiond`: child subreaper, padre de wineserver / patcher / `ragexe.exe`; Yama `ptrace_scope=1` basta; no hace falta `ptrace_scope=0` ni `sudo` ni tocar `/etc` | “Supervisor de sesión y memoria”                           |
+| Recomendaciones Gepard **solo** si el SHA-256 de `gepard.dll` coincide con la matriz; hash desconocido = advertencia, no receta                                             | “Matriz Gepard validada”                                   |
+| El launcher no modifica Gepard, el cliente ni el tráfico del juego                                                                                                          | mismo bloque                                               |
+| Datos locales en `~/.local/share/ro-launcher/`                                                                                                                              | “Datos locales”                                            |
+| Dev: Linux x86_64, Vulkan, Node, Rust estable, Tauri v2                                                                                                                     | “Desarrollo”                                               |
+| Producto se presenta como **RO-Launcher**; repo **nndsk-ro-launcher**                                                                                                       | H1 vs URL del repo                                         |
 
 No hay URL Live pública. No hay cifra de usuarios, tráfico, equipo, ni deploy cloud.
 
@@ -116,11 +116,11 @@ Graphite tokens canónicos (ya en `global.css`; no redefinirlos):
 
 Orden de la home, invariante salvo el interior de Works:
 
-1. Hero  
-2. Bio  
-3. Trabajos (`#work`) — **contenido interno nuevo, ver 1.2**  
-4. En la web (SocialLinks)  
-5. Footer  
+1. Hero
+2. Bio
+3. Trabajos (`#work`) — **contenido interno nuevo, ver 1.2**
+4. En la web (SocialLinks)
+5. Footer
 
 `src/pages/index.astro` **no se edita**. El CTA del Hero `Ver trabajos` (`href="#work"`) sigue apuntando al heading; el spotlight queda inmediatamente debajo. Bio `Ver mis proyectos` igual.
 
@@ -128,12 +128,12 @@ Orden de la home, invariante salvo el interior de Works:
 
 Después del `<header>` de la sección, en este orden estricto:
 
-| # | Bloque | Contenido | Layout |
-| --- | --- | --- | --- |
-| A | Spotlight | solo `nndsk-ro-launcher` (`spotlight: true`) | 1 card full-width, grid `md:grid-cols-2` (foto \| copy). Componente nuevo `ProjectSpotlight.astro`. |
-| B | Empleabilidad | EcoRetirosRM + Mercado House (`featured: true` y `spotlight: false`) | El grid featured **actual** `md:grid-cols-2`. **Sin heading extra** (no escribir “Empleabilidad” en UI). Copy/JSON de esas dos cards **intacto**. |
-| C | Otros | nndsk-gisan-astro + nndsk-hyprtask (`featured: false` y `spotlight: false`) | Heading `Otros` + grid compacta existente. Con 2 ítems: `grid sm:grid-cols-2 gap-4` (**sin** `md:grid-cols-3`, para no dejar un hueco). |
-| D | Pie | `Contacto →` `href="#contact"` | Sin cambios de copy ni clases. |
+| #   | Bloque        | Contenido                                                                   | Layout                                                                                                                                            |
+| --- | ------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A   | Spotlight     | solo `nndsk-ro-launcher` (`spotlight: true`)                                | 1 card full-width, grid `md:grid-cols-2` (foto \| copy). Componente nuevo `ProjectSpotlight.astro`.                                               |
+| B   | Empleabilidad | EcoRetirosRM + Mercado House (`featured: true` y `spotlight: false`)        | El grid featured **actual** `md:grid-cols-2`. **Sin heading extra** (no escribir “Empleabilidad” en UI). Copy/JSON de esas dos cards **intacto**. |
+| C   | Otros         | nndsk-gisan-astro + nndsk-hyprtask (`featured: false` y `spotlight: false`) | Heading `Otros` + grid compacta existente. Con 2 ítems: `grid sm:grid-cols-2 gap-4` (**sin** `md:grid-cols-3`, para no dejar un hueco).           |
+| D   | Pie           | `Contacto →` `href="#contact"`                                              | Sin cambios de copy ni clases.                                                                                                                    |
 
 `nndsk-ro-launcher` **no** se renderiza en B ni en C. Un solo sitio en home: el spotlight.
 
@@ -169,19 +169,19 @@ Prohibido en este bloque: `hover:-translate-y-*`, `group-hover:scale-*`, `rounde
 
 Markup de copy (derecha), orden fijo:
 
-1. Eyebrow: `p.text-sm.font-mono.text-muted` → `Proyecto destacado`  
+1. Eyebrow: `p.text-sm.font-mono.text-muted` → `Proyecto destacado`
 2. H3: `h3.text-2xl.font-semibold.text-foreground` → `nndsk-ro-launcher`  
-   Año a la derecha, mismo patrón que las cards: `span.text-xs.font-mono.text-muted` → `2026`  
-3. Subtítulo humano: `p.text-muted` → `RO-Launcher para Linux`  
-4. Párrafo: `project.data.description` (el JSON de la sección 4.2). Clases `text-muted text-sm leading-relaxed`.  
-5. Highlights: lista con `–` muted (mismo patrón Graphite de Works, no `▸` ni `text-accent`).  
-6. Stack: chips Graphite (`px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono`). Mostrar el array completo (no `slice`).  
+   Año a la derecha, mismo patrón que las cards: `span.text-xs.font-mono.text-muted` → `2026`
+3. Subtítulo humano: `p.text-muted` → `RO-Launcher para Linux`
+4. Párrafo: `project.data.description` (el JSON de la sección 4.2). Clases `text-muted text-sm leading-relaxed`.
+5. Highlights: lista con `–` muted (mismo patrón Graphite de Works, no `▸` ni `text-accent`).
+6. Stack: chips Graphite (`px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono`). Mostrar el array completo (no `slice`).
 7. CTAs en fila, `mt-auto pt-2`, **links inline** (no el botón primario del Hero; home ya tiene uno: “Ver trabajos”):
 
-| Label | href | target | Clases |
-| --- | --- | --- | --- |
-| `Caso de estudio` | `project.data.caseStudyPath` (`/projects/nndsk-ro-launcher/`) | same-origin, sin `_blank` | inline Live/Repo Graphite: `inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm` |
-| `Repo` | `project.data.github` | `_blank` `rel="noopener noreferrer"` | iguales + `GitHubIcon` `w-4 h-4` |
+| Label             | href                                                          | target                               | Clases                                                                                                                                                                                                |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Caso de estudio` | `project.data.caseStudyPath` (`/projects/nndsk-ro-launcher/`) | same-origin, sin `_blank`            | inline Live/Repo Graphite: `inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm` |
+| `Repo`            | `project.data.github`                                         | `_blank` `rel="noopener noreferrer"` | iguales + `GitHubIcon` `w-4 h-4`                                                                                                                                                                      |
 
 Sin botón Live. `aria-label` caso: `Leer caso de estudio: nndsk-ro-launcher`. `aria-label` repo: `Ver código en GitHub: nndsk-ro-launcher`.
 
@@ -227,7 +227,7 @@ Back link arriba del H1:
 
 CTA de cierre (un solo primario en esta vista, presupuesto Graphite 2.3):
 
-- Primario: `Repo` → GitHub, `_blank`, clases **CTA primario** de Graphite 2.4 (borde `border-border`, hover `border-accent text-accent`). Incluir `GitHubIcon`.  
+- Primario: `Repo` → GitHub, `_blank`, clases **CTA primario** de Graphite 2.4 (borde `border-border`, hover `border-accent text-accent`). Incluir `GitHubIcon`.
 - Ghost al lado: `← Trabajos` otra vez, clases CTA ghost.
 
 Fotos: `<Image>` de `astro:assets`, `format="webp"`, `width={1200}` / `height={675}` (rolauncher1), y la de gallery. `rounded-md border border-border`. **Sin lightbox.** `loading="eager"` en la primera, `lazy` en la segunda.
@@ -238,13 +238,13 @@ Fotos: `<Image>` de `astro:assets`, `format="webp"`, `width={1200}` / `height={6
 
 ### 2.1 Path canónico
 
-| | Valor |
-| --- | --- |
-| Archivo | `src/pages/projects/nndsk-ro-launcher.astro` |
-| URL | `https://nndsk.dev/projects/nndsk-ro-launcher/` |
-| Pathname | `/projects/nndsk-ro-launcher/` (`trailingSlash: 'always'`) |
-| Id colección | `nndsk-ro-launcher` |
-| `getEntry` | `await getEntry('projects', 'nndsk-ro-launcher')` |
+|              | Valor                                                      |
+| ------------ | ---------------------------------------------------------- |
+| Archivo      | `src/pages/projects/nndsk-ro-launcher.astro`               |
+| URL          | `https://nndsk.dev/projects/nndsk-ro-launcher/`            |
+| Pathname     | `/projects/nndsk-ro-launcher/` (`trailingSlash: 'always'`) |
+| Id colección | `nndsk-ro-launcher`                                        |
+| `getEntry`   | `await getEntry('projects', 'nndsk-ro-launcher')`          |
 
 Si `getEntry` devuelve `undefined`, `throw new Error('Missing projects entry nndsk-ro-launcher')` para fallar el build. No `Astro.redirect`.
 
@@ -264,17 +264,17 @@ const description =
 
 Efecto mecánico (ya lo hace Layout):
 
-| Meta | Valor |
-| --- | --- |
-| `<title>` | `nndsk-ro-launcher — RO-Launcher para Linux · nndsk` |
-| `meta name="description"` | el `description` de arriba (incluye el string `nndsk-ro-launcher` y el título humano `RO-Launcher`) |
-| `og:type` | `website` (default Layout) |
-| `og:url` / canonical | `https://nndsk.dev/projects/nndsk-ro-launcher/` |
-| `og:title` / `twitter:title` | = `title` |
-| `og:description` / `twitter:description` | = `description` |
-| `og:locale` | `es_CL` |
-| `og:image` / `twitter:image` | `https://nndsk.dev/og.png` (default; **no** generar OG nuevo ni copiar screenshots a `public/`) |
-| `og:image:alt` | el default del Layout (`nndsk — Nande · Fullstack Developer`) — no tocarlo |
+| Meta                                     | Valor                                                                                               |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `<title>`                                | `nndsk-ro-launcher — RO-Launcher para Linux · nndsk`                                                |
+| `meta name="description"`                | el `description` de arriba (incluye el string `nndsk-ro-launcher` y el título humano `RO-Launcher`) |
+| `og:type`                                | `website` (default Layout)                                                                          |
+| `og:url` / canonical                     | `https://nndsk.dev/projects/nndsk-ro-launcher/`                                                     |
+| `og:title` / `twitter:title`             | = `title`                                                                                           |
+| `og:description` / `twitter:description` | = `description`                                                                                     |
+| `og:locale`                              | `es_CL`                                                                                             |
+| `og:image` / `twitter:image`             | `https://nndsk.dev/og.png` (default; **no** generar OG nuevo ni copiar screenshots a `public/`)     |
+| `og:image:alt`                           | el default del Layout (`nndsk — Nande · Fullstack Developer`) — no tocarlo                          |
 
 No añadir `<meta name="keywords">`.
 
@@ -334,9 +334,9 @@ Esto también arregla la nav del 404 (hoy los anclas no salen de `/no-existe`). 
 
 **Hay asset. No hay placeholder. No se inventa UI.**
 
-| Archivo | Uso |
-| --- | --- |
-| `src/content/projects/nndsk-ro-launcher/rolauncher1.png` | thumbnail del JSON; foto del spotlight; figura 1 del caso |
+| Archivo                                                  | Uso                                                                                 |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `src/content/projects/nndsk-ro-launcher/rolauncher1.png` | thumbnail del JSON; foto del spotlight; figura 1 del caso                           |
 | `src/content/projects/nndsk-ro-launcher/rolauncher2.png` | `gallery[0]`; figura 2 del caso (contexto in-game). **No** es la foto del spotlight |
 
 Alts:
@@ -460,15 +460,15 @@ Luego el par Repo (primario) + `← Trabajos` (ghost) de 1.4.
 
 ### 4.4 Clases de tipografía del caso (Graphite, no inventar)
 
-| Nodo | Clases |
-| --- | --- |
-| H1 | `text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3` |
-| Lead | `text-lg text-muted mb-2` |
-| H2 | `text-xl font-semibold text-foreground mt-12 mb-4` (sin underline span) |
-| Párrafos | `text-muted leading-relaxed` |
-| Lista | igual que highlights de Works (`flex gap-2 text-sm text-muted`, dash `–`) |
-| `article` | `max-w-3xl mx-auto` |
-| Espacio entre figuras y texto | `mt-8` en `<figure>` |
+| Nodo                          | Clases                                                                    |
+| ----------------------------- | ------------------------------------------------------------------------- |
+| H1                            | `text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3` |
+| Lead                          | `text-lg text-muted mb-2`                                                 |
+| H2                            | `text-xl font-semibold text-foreground mt-12 mb-4` (sin underline span)   |
+| Párrafos                      | `text-muted leading-relaxed`                                              |
+| Lista                         | igual que highlights de Works (`flex gap-2 text-sm text-muted`, dash `–`) |
+| `article`                     | `max-w-3xl mx-auto`                                                       |
+| Espacio entre figuras y texto | `mt-8` en `<figure>`                                                      |
 
 Prohibido: `prose` de Tailwind typography (no está instalado). No markdown render. HTML estático.
 
@@ -538,13 +538,13 @@ JSON-LD: el implementer puede (a) duplicar un `projectSchema` local de 5 líneas
 
 ### 6.6 `src/components/Works.astro`
 
-- Importar `ProjectSpotlight`.  
-- Sustituir filtros por el triplete de 1.2.  
-- Tras el header de sección, si `spotlight.length > 0`, mapear a `<ProjectSpotlight project={p} />` dentro de un contenedor `space-y-6` (por si un día hay más de uno; hoy hay 1).  
-- El grid featured actual se queda, alimentado por `featured` ya filtrado. **No** editar markup interno de esas cards.  
-- Antes del grid compacto: si `rest.length > 0`, un `h3.text-lg font-semibold text-center text-muted mb-6` con texto `Otros`.  
-- Grid compacto: `class:list={['grid', 'sm:grid-cols-2', 'gap-4', rest.length >= 3 && 'md:grid-cols-3']}`.  
-- Ajuste de `url` en `projectSchema` según 1.3 (cubre el spotlight si el schema vive en Works; si el schema del spotlight está en el componente nuevo, aplicar el mismo helper ahí y **dejar** `projectSchema` de Works como está para Eco/MH/gisan/hyprtask — esas no tienen `caseStudyPath`). **Cerrado:** no tocar `projectSchema` de Works. El schema con URL de caso vive solo en `ProjectSpotlight.astro` + la página de caso.  
+- Importar `ProjectSpotlight`.
+- Sustituir filtros por el triplete de 1.2.
+- Tras el header de sección, si `spotlight.length > 0`, mapear a `<ProjectSpotlight project={p} />` dentro de un contenedor `space-y-6` (por si un día hay más de uno; hoy hay 1).
+- El grid featured actual se queda, alimentado por `featured` ya filtrado. **No** editar markup interno de esas cards.
+- Antes del grid compacto: si `rest.length > 0`, un `h3.text-lg font-semibold text-center text-muted mb-6` con texto `Otros`.
+- Grid compacto: `class:list={['grid', 'sm:grid-cols-2', 'gap-4', rest.length >= 3 && 'md:grid-cols-3']}`.
+- Ajuste de `url` en `projectSchema` según 1.3 (cubre el spotlight si el schema vive en Works; si el schema del spotlight está en el componente nuevo, aplicar el mismo helper ahí y **dejar** `projectSchema` de Works como está para Eco/MH/gisan/hyprtask — esas no tienen `caseStudyPath`). **Cerrado:** no tocar `projectSchema` de Works. El schema con URL de caso vive solo en `ProjectSpotlight.astro` + la página de caso.
 - Pie `Contacto →` intacto. Lightbox CSS intacto.
 
 ### 6.7 `src/pages/projects/nndsk-ro-launcher.astro` — CREAR
@@ -580,8 +580,8 @@ Pegar clases de `docs/DARK_GRAPHITE_PLAN.md` §2.4. Tokens ya están en `@theme`
 
 Accent (`text-accent` / `border-accent` / `hover:border-accent hover:text-accent`) **solo** en:
 
-1. Lo que ya existe (stack line del Hero, skip-link, focus rings).  
-2. El CTA primario **Repo** de la página de caso (`hover:border-accent hover:text-accent`).  
+1. Lo que ya existe (stack line del Hero, skip-link, focus rings).
+2. El CTA primario **Repo** de la página de caso (`hover:border-accent hover:text-accent`).
 
 El spotlight de home **no** gasta accent (links muted→foreground, como Live/Repo).
 
@@ -593,16 +593,16 @@ Motion: `data-reveal` existente (12px / 350ms). `duration-200` en hovers. Nada >
 
 ## 8. NON-goals
 
-- Merge a `main` / deploy / tocar `nndsk.dev` live.  
-- Editar `src/content/projects/mercado-house.json` (claim Go/Gin se queda).  
-- Reescribir EcoRetirosRM (description, highlights, schema.org, “startup”).  
-- Cambiar `featured`/`order`/`link` de Eco, MH, gisan, hyprtask.  
-- Hero copy, timeline JSON, `SITE_METADATA`, README.  
-- Tema Graphite: no reabrir `global.css`, favicon, og.png, `THEME_COLORS`.  
-- Blog, CMS, i18n, `[slug].astro` genérico, vanity redirects `/rolauncher`.  
-- Hidratar islas, View Transitions, prefetch, sombras, glow, grain.  
-- Inventar screenshot, OG específico del proyecto, URL Live, cifras, equipo, K8s/AWS/Nest.  
-- Dependencias nuevas / lockfile.  
+- Merge a `main` / deploy / tocar `nndsk.dev` live.
+- Editar `src/content/projects/mercado-house.json` (claim Go/Gin se queda).
+- Reescribir EcoRetirosRM (description, highlights, schema.org, “startup”).
+- Cambiar `featured`/`order`/`link` de Eco, MH, gisan, hyprtask.
+- Hero copy, timeline JSON, `SITE_METADATA`, README.
+- Tema Graphite: no reabrir `global.css`, favicon, og.png, `THEME_COLORS`.
+- Blog, CMS, i18n, `[slug].astro` genérico, vanity redirects `/rolauncher`.
+- Hidratar islas, View Transitions, prefetch, sombras, glow, grain.
+- Inventar screenshot, OG específico del proyecto, URL Live, cifras, equipo, K8s/AWS/Nest.
+- Dependencias nuevas / lockfile.
 - Tests nuevos. Validación = lint + format + check + build.
 
 ---
@@ -648,45 +648,45 @@ bun run preview
 
 **Home `/` desktop ~1280 y mobile ~375**
 
-1. Orden de secciones: Hero → Bio → Trabajos → En la web.  
-2. Dentro de Trabajos, orden: heading → spotlight `nndsk-ro-launcher` → 2 cards Eco + MH → heading `Otros` → gisan + hyprtask.  
-3. `nndsk-ro-launcher` **no** aparece como tercera compacta.  
-4. Spotlight: foto = UI del launcher (rolauncher1), no la captura in-game. Click foto o “Caso de estudio” → `/projects/nndsk-ro-launcher/`.  
-5. Spotlight tiene `Repo`, **no** tiene `Live`.  
-6. Eco y MH: copy, stack, Live, lightbox, orden — iguales que ahora. MH sigue diciendo Go/Gin.  
-7. `Otros` visible; dos compactas; en desktop no hay columna vacía de un 3-col.  
-8. Recuento sigue `5 proyectos`.  
-9. Hero: el párrafo de Mercado House / Eco / tooling Rust **idéntico**.  
+1. Orden de secciones: Hero → Bio → Trabajos → En la web.
+2. Dentro de Trabajos, orden: heading → spotlight `nndsk-ro-launcher` → 2 cards Eco + MH → heading `Otros` → gisan + hyprtask.
+3. `nndsk-ro-launcher` **no** aparece como tercera compacta.
+4. Spotlight: foto = UI del launcher (rolauncher1), no la captura in-game. Click foto o “Caso de estudio” → `/projects/nndsk-ro-launcher/`.
+5. Spotlight tiene `Repo`, **no** tiene `Live`.
+6. Eco y MH: copy, stack, Live, lightbox, orden — iguales que ahora. MH sigue diciendo Go/Gin.
+7. `Otros` visible; dos compactas; en desktop no hay columna vacía de un 3-col.
+8. Recuento sigue `5 proyectos`.
+9. Hero: el párrafo de Mercado House / Eco / tooling Rust **idéntico**.
 10. Header Graphite intacto (barra sólida, sin glass). Spotlight sin lift ni zoom.
 
 **Caso `/projects/nndsk-ro-launcher/`**
 
-11. `<title>` y `og:title` contienen `nndsk-ro-launcher` y `RO-Launcher`.  
-12. `meta description` y `og:description` contienen `nndsk-ro-launcher`.  
-13. Canonical / `og:url` = `https://nndsk.dev/projects/nndsk-ro-launcher/`.  
-14. H1 = `nndsk-ro-launcher`. Hay secciones Problema, Enfoque, Técnico, Stack, Links.  
-15. 7 bullets técnicos, en el orden de 4.3. Aparecen `ro-sessiond`, `ptrace_scope=0`, `gepard.dll`, `WINEPREFIX`, `DXVK`.  
-16. Dos figuras reales (no placeholder, no Unsplash).  
-17. Nav Bio/Proyectos/Contacto lleva a `/#bio` `/#work` `/#contact` (home), no a anclas rotas en el caso. Footer `↑ Inicio` → `/#top`.  
-18. `← Trabajos` → `/#work`. Repo → `https://github.com/Nandem1/nndsk-ro-launcher` `_blank`.  
-19. No hay botón Live. No hay `relauncher`. No hay Nest/K8s/AWS.  
-20. JSON-LD `SoftwareApplication` con `name: nndsk-ro-launcher` y `operatingSystem: Linux`.  
+11. `<title>` y `og:title` contienen `nndsk-ro-launcher` y `RO-Launcher`.
+12. `meta description` y `og:description` contienen `nndsk-ro-launcher`.
+13. Canonical / `og:url` = `https://nndsk.dev/projects/nndsk-ro-launcher/`.
+14. H1 = `nndsk-ro-launcher`. Hay secciones Problema, Enfoque, Técnico, Stack, Links.
+15. 7 bullets técnicos, en el orden de 4.3. Aparecen `ro-sessiond`, `ptrace_scope=0`, `gepard.dll`, `WINEPREFIX`, `DXVK`.
+16. Dos figuras reales (no placeholder, no Unsplash).
+17. Nav Bio/Proyectos/Contacto lleva a `/#bio` `/#work` `/#contact` (home), no a anclas rotas en el caso. Footer `↑ Inicio` → `/#top`.
+18. `← Trabajos` → `/#work`. Repo → `https://github.com/Nandem1/nndsk-ro-launcher` `_blank`.
+19. No hay botón Live. No hay `relauncher`. No hay Nest/K8s/AWS.
+20. JSON-LD `SoftwareApplication` con `name: nndsk-ro-launcher` y `operatingSystem: Linux`.
 21. Página usable sin JS (solo `site.js` global para reveal; el contenido está en HTML).
 
 **Sitemap / 404**
 
-22. Sitemap incluye la URL del caso con priority 0.8.  
+22. Sitemap incluye la URL del caso con priority 0.8.
 23. `/no-existe` sigue 404; nav ahora sí sale a la home vía `/#...`.
 
 **A11y**
 
-24. Skip-link, focus rings, alts de las dos fotos.  
+24. Skip-link, focus rings, alts de las dos fotos.
 25. `prefers-reduced-motion`: reveal apagado (ya cubierto en `global.css`).
 
 ### 9.4 Lo que este plan no verifica
 
-- Volumen SEO / Search Console (1 impression no es KPI de implementación).  
-- Lighthouse score.  
+- Volumen SEO / Search Console (1 impression no es KPI de implementación).
+- Lighthouse score.
 - Pixel-perfect vs Figma (no hay).
 
 ---

@@ -48,6 +48,12 @@ export default defineConfig({
       customPages: [],
       changefreq: 'weekly',
       priority: 0.7,
+      serialize(item) {
+        if (item.url.includes('/projects/nndsk-ro-launcher')) {
+          return { ...item, priority: 0.8 };
+        }
+        return item;
+      },
     }),
   ],
 

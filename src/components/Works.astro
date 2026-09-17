@@ -4,6 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import ExternalLinkIcon from "./icons/ExternalLinkIcon.astro";
+import ProjectSpotlight from "./ProjectSpotlight.astro";
 
 let sortedProjects: CollectionEntry<"projects">[] = [];
 
@@ -14,8 +15,11 @@ try {
   console.error("Error loading projects:", error);
 }
 
-const featured = sortedProjects.filter((p) => p.data.featured);
-const rest = sortedProjects.filter((p) => !p.data.featured);
+const spotlight = sortedProjects
+  .filter((p) => p.data.spotlight)
+  .sort((a, b) => a.data.order - b.data.order);
+const featured = sortedProjects.filter((p) => p.data.featured && !p.data.spotlight);
+const rest = sortedProjects.filter((p) => !p.data.featured && !p.data.spotlight);
 
 const years = sortedProjects
   .map((p) => p.data.year)
@@ -78,6 +82,14 @@ function projectSchema(project: CollectionEntry<"projects">) {
 
     {sortedProjects.length > 0 ? (
       <div class="space-y-8">
+        {spotlight.length > 0 && (
+          <div class="space-y-6">
+            {spotlight.map((project) => (
+              <ProjectSpotlight project={project} />
+            ))}
+          </div>
+        )}
+
         {/* Featured — cards grandes con strip */}
         {featured.length > 0 && (
           <ul class="grid md:grid-cols-2 gap-6" role="list">
@@ -266,7 +278,12 @@ function projectSchema(project: CollectionEntry<"projects">) {
 
         {/* No-featured — cards compactas */}
         {rest.length > 0 && (
-          <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-4" role="list">
+          <>
+            <h3 class="text-lg font-semibold text-center text-muted mb-6">Otros</h3>
+            <ul
+              class:list={['grid', 'sm:grid-cols-2', 'gap-4', rest.length >= 3 && 'md:grid-cols-3']}
+              role="list"
+            >
             {rest.map((project, i) => {
               const hasLive = Boolean(project.data.link);
               const hasRepo = Boolean(project.data.github);
@@ -425,6 +442,7 @@ function projectSchema(project: CollectionEntry<"projects">) {
               );
             })}
           </ul>
+          </>
         )}
       </div>
     ) : (

@@ -16,6 +16,8 @@ const projects = defineCollection({
       link: z.url().optional(),
       github: z.url().optional(),
       featured: z.boolean().default(false),
+      spotlight: z.boolean().default(false),
+      caseStudyPath: z.string().optional(),
       order: z.number().int().default(0),
     }),
 });

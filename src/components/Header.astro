@@ -13,17 +13,15 @@ interface NavLink {
 const navLinks: NavLink[] = NAV_LINKS;
 ---
 
-<header
-  class="fixed top-0 left-0 right-0 z-50 px-6 py-4"
->
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background">
   <nav
-    class="max-w-3xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border/50"
+    class="max-w-3xl mx-auto flex items-center justify-between px-6 py-4"
     aria-label="Navegación principal"
   >
     {/* Logo */}
     <a
       href="/#top"
-      class="text-foreground font-bold text-base sm:text-lg hover:text-accent transition-colors"
+      class="text-foreground font-semibold text-base sm:text-lg hover:opacity-80 transition-opacity"
     >
       nndsk
     </a>
@@ -37,7 +35,7 @@ const navLinks: NavLink[] = NAV_LINKS;
             <li>
               <a
                 href={href}
-                class="text-sm font-medium transition-colors duration-300 text-muted hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded px-2 py-1"
+                class="text-sm font-medium transition-colors duration-200 text-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded-sm px-2 py-1"
               >
                 {link.label}
               </a>

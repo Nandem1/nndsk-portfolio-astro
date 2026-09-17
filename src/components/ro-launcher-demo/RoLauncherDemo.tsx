@@ -7,6 +7,10 @@ import { PREPARE_STEPS, demoReducer, getPrefixState, initialDemoState } from './
 import { DemoLogs } from './logs/DemoLogs';
 import { DemoRail } from './rail/DemoRail';
 import { getServerById } from './mockData';
+import {
+  usePreservedWindowScrollDispatch,
+  captureWindowScrollFromPointer,
+} from './preserveWindowScroll';
 import type { DemoAction } from './types';
 
 export interface RoLauncherDemoProps {
@@ -44,7 +48,8 @@ function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatc
 }
 
 export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
-  const [state, dispatch] = useReducer(demoReducer, initialDemoState);
+  const [state, dispatchRaw] = useReducer(demoReducer, initialDemoState);
+  const dispatch = usePreservedWindowScrollDispatch(dispatchRaw);
   usePrepareTimer(state, dispatch);
 
   const onLaunchClick = useCallback(() => {
@@ -64,7 +69,7 @@ export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
         dispatch({ type: 'prepareStart' });
       }
     }
-  }, [state]);
+  }, [state, dispatch]);
 
   const isCompact = variant === 'compact';
   const bodyClass = isCompact ? 'max-h-[36rem] overflow-y-auto' : 'min-h-[28rem]';
@@ -74,6 +79,7 @@ export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
       className={`${demoChrome} ${isCompact ? 'min-h-[28rem]' : ''}`}
       role="region"
       aria-label="Demo de RO-Launcher"
+      onPointerDownCapture={() => captureWindowScrollFromPointer()}
     >
       <DemoHeader />
       <div

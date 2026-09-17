@@ -87,6 +87,12 @@ const ctaGhost =
 const galleryImage = project.data.gallery?.[0];
 ---
 
+<style is:global>
+  #demo {
+    overflow-anchor: none;
+  }
+</style>
+
 <Layout title={title} description={description}>
   <Header />
   <main id="main-content" class="px-6 py-24">

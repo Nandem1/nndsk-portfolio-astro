@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { btnXs, panelBody, panelHeader, panelShell, panelTitle } from '../chrome/classes';
 import type { DemoAction, DemoState, LogChannel } from '../types';
 
@@ -37,7 +37,7 @@ export function DemoLogs({ state, dispatch }: Props) {
   const emptyLabel =
     state.logChannel === 'game' ? 'Wine / setup / lanzamiento...' : 'AutoPot / PID / memoria...';
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = scrollRootRef.current;
     if (!root) return;
     root.scrollTop = root.scrollHeight;

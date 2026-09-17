@@ -1,5 +1,6 @@
 import { launchButtonDisabled, launchButtonLabel, launchButtonVariant } from '../demo.logic';
 import { getServerById } from '../mockData';
+import { captureWindowScrollFromPointer } from '../preserveWindowScroll';
 import { btnBase, btnDisabled, btnPrimary, btnSecondary, focusRing } from '../chrome/classes';
 import type { DemoState } from '../types';
 
@@ -36,8 +37,12 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
       <button
         type="button"
         className={`${btnBase} ${variantClass} ${disabled ? btnDisabled : ''} ${focusRing}`}
-        disabled={disabled}
-        onClick={onLaunchClick}
+        aria-disabled={disabled}
+        onPointerDownCapture={() => captureWindowScrollFromPointer()}
+        onClick={() => {
+          if (disabled) return;
+          onLaunchClick();
+        }}
       >
         {label}
       </button>

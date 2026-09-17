@@ -70,11 +70,11 @@ export default function RoLauncherDemo({ variant, className = '' }: RoLauncherDe
   const isCompact = variant === 'compact';
 
   const rootChrome = isCompact
-    ? `${demoChrome} h-full flex flex-col min-h-0 overflow-hidden rounded-lg border-0 ro-shadow-glass`
+    ? `${demoChrome} min-h-[28rem] md:min-h-[32rem] flex flex-col max-w-full`
     : `${demoChrome} h-full flex flex-col min-h-0 overflow-hidden`;
 
   const bodyGrid = isCompact
-    ? 'grid flex-1 min-h-0 grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] gap-2 md:gap-3 px-2 md:px-3 pb-2 md:pb-3 pt-0 overflow-hidden max-w-full'
+    ? 'grid flex-1 min-h-0 grid-cols-1 @min-[40rem]:grid-cols-[minmax(220px,300px)_1fr] gap-3 px-3 pb-3 pt-0 max-h-[36rem] overflow-y-auto max-w-full'
     : 'grid flex-1 min-h-0 grid-cols-1 md:grid-cols-[minmax(280px,320px)_minmax(0,1fr)] gap-3 p-3 pt-0 overflow-hidden max-w-full';
 
   return (
@@ -85,15 +85,13 @@ export default function RoLauncherDemo({ variant, className = '' }: RoLauncherDe
     >
       <DemoHeader />
       <div className={bodyGrid}>
-        <div className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden md:overflow-y-auto">
-          <DemoRail
-            state={state}
-            dispatch={dispatch}
-            onLaunchClick={onLaunchClick}
-            showReset={!isCompact}
-            compact={isCompact}
-          />
-        </div>
+        <DemoRail
+          state={state}
+          dispatch={dispatch}
+          onLaunchClick={onLaunchClick}
+          showReset={!isCompact}
+          compact={isCompact}
+        />
         <div className="flex flex-col gap-2 min-h-0 min-w-0 overflow-hidden">
           <DemoCenter
             state={state}

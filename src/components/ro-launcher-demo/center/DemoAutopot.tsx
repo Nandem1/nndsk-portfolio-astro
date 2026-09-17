@@ -78,7 +78,7 @@ export function DemoAutopot({ state, dispatch, compact = false }: Props) {
 
   return (
     <section
-      className={`${panelShell} h-full ${compact ? 'min-h-0' : 'min-h-[9rem] md:min-h-[10rem]'} ${tone}`}
+      className={`${panelShell} h-full ${compact ? 'min-h-0' : 'min-h-[14rem] md:min-h-[16rem]'} ${tone}`}
       aria-labelledby="ro-demo-autopot-title"
     >
       <div className={panelHeader}>

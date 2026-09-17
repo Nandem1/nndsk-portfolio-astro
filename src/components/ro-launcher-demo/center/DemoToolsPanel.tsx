@@ -52,7 +52,7 @@ export function DemoToolsPanel({ state }: Props) {
         <h3 className={panelTitle}>Herramientas</h3>
       </div>
       <div
-        className={`${panelBody} max-h-40 min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain`}
+        className={`${panelBody} max-h-[5.5rem] min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain`}
       >
         <div className="grid grid-cols-3 gap-2 w-max min-w-full sm:min-w-[28rem]">
           <ToolCard

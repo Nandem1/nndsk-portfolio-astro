@@ -32,13 +32,15 @@ function LogTab({
 }
 
 export function DemoLogs({ state, dispatch }: Props) {
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollRootRef = useRef<HTMLDivElement>(null);
   const logs = state.logChannel === 'game' ? state.gameLogs : state.toolLogs;
   const emptyLabel =
     state.logChannel === 'game' ? 'Wine / setup / lanzamiento...' : 'AutoPot / PID / memoria...';
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'auto' });
+    const root = scrollRootRef.current;
+    if (!root) return;
+    root.scrollTop = root.scrollHeight;
   }, [logs, state.logChannel]);
 
   const setChannel = (channel: LogChannel) => {
@@ -46,7 +48,7 @@ export function DemoLogs({ state, dispatch }: Props) {
   };
 
   return (
-    <section className={`${panelShell} shrink-0 flex flex-col min-h-[7rem] max-h-[8.75rem]`}>
+    <section className={`${panelShell} shrink-0 flex flex-col min-h-[4.75rem] max-h-[5.5rem]`}>
       <div className={`${panelHeader} flex-wrap gap-y-1`}>
         <div className="flex items-center gap-2 min-w-0">
           <h3 className={panelTitle}>Logs</h3>
@@ -70,6 +72,7 @@ export function DemoLogs({ state, dispatch }: Props) {
         )}
       </div>
       <div
+        ref={scrollRootRef}
         className={`${panelBody} flex-1 min-h-0 bg-zinc-950/50 rounded-lg border border-white/[0.04] overflow-y-auto font-mono text-[11px] leading-relaxed mx-3 mb-2`}
       >
         {logs.length === 0 ? (
@@ -81,7 +84,6 @@ export function DemoLogs({ state, dispatch }: Props) {
             </div>
           ))
         )}
-        <div ref={bottomRef} />
       </div>
     </section>
   );

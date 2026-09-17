@@ -33,7 +33,7 @@ export function DemoSpammer({ state, dispatch, compact = false }: Props) {
 
   return (
     <section
-      className={`${panelShell} h-full ${compact ? 'min-h-0' : 'min-h-[9rem] md:min-h-[10rem]'} ${tone}`}
+      className={`${panelShell} h-full ${compact ? 'min-h-0' : 'min-h-[14rem] md:min-h-[16rem]'} ${tone}`}
     >
       <div className={panelHeader}>
         <h3 className={panelTitle}>Spammer</h3>

@@ -52,9 +52,9 @@ const ctaGhost =
     <div class="grid md:grid-cols-2 gap-0">
       {project.data.thumbnail ? (
         <div
-          class="relative aspect-video max-w-full overflow-hidden border-b md:border-b-0 md:border-r border-border bg-card p-2 md:p-3"
+          class="min-h-[28rem] md:min-h-[32rem] border-b md:border-b-0 md:border-r border-border bg-card p-3"
         >
-          <RoLauncherDemo client:visible variant="compact" className="h-full w-full min-h-0" />
+          <RoLauncherDemo client:visible variant="compact" />
           <noscript>
             <Image
               src={project.data.thumbnail}

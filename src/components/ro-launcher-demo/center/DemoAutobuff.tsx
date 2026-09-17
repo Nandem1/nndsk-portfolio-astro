@@ -16,10 +16,9 @@ import type { DemoAction, DemoState, PotKey } from '../types';
 interface Props {
   state: DemoState;
   dispatch: React.Dispatch<DemoAction>;
-  compact?: boolean;
 }
 
-export function DemoAutobuff({ state, dispatch, compact = false }: Props) {
+export function DemoAutobuff({ state, dispatch }: Props) {
   const ready = toolsReady(state);
   const tone = !ready ? panelIdle : state.autobuffEnabled ? panelSuccess : '';
   const canToggle = ready && hasEnabledAutobuffRule(state);
@@ -28,7 +27,7 @@ export function DemoAutobuff({ state, dispatch, compact = false }: Props) {
 
   return (
     <section
-      className={`${panelShell} h-full w-full ${compact ? 'min-h-0' : 'min-h-[14rem] md:min-h-[16rem]'} ${tone}`}
+      className={`${panelShell} h-full min-h-[16rem] w-full ${tone}`}
       id="ro-demo-panel-buffs"
       role="tabpanel"
       aria-labelledby="ro-demo-tab-buffs"

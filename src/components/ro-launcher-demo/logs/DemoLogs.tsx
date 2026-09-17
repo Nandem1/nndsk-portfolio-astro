@@ -48,7 +48,7 @@ export function DemoLogs({ state, dispatch }: Props) {
   };
 
   return (
-    <section className={`${panelShell} shrink-0 flex flex-col min-h-[4.75rem] max-h-[5.5rem]`}>
+    <section className={`${panelShell} shrink-0 flex flex-col min-h-[7rem] max-h-32`}>
       <div className={`${panelHeader} flex-wrap gap-y-1`}>
         <div className="flex items-center gap-2 min-w-0">
           <h3 className={panelTitle}>Logs</h3>
@@ -73,7 +73,7 @@ export function DemoLogs({ state, dispatch }: Props) {
       </div>
       <div
         ref={scrollRootRef}
-        className={`${panelBody} flex-1 min-h-0 bg-zinc-950/50 rounded-lg border border-white/[0.04] overflow-y-auto font-mono text-[11px] leading-relaxed mx-3 mb-2`}
+        className={`${panelBody} flex-1 min-h-0 bg-zinc-950/50 rounded-lg border border-white/[0.04] overflow-y-auto overscroll-contain font-mono text-[11px] leading-relaxed mx-3 mb-2`}
       >
         {logs.length === 0 ? (
           <p className="text-zinc-600 select-none">{emptyLabel}</p>

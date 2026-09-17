@@ -11,7 +11,6 @@ import type { DemoAction } from './types';
 
 export interface RoLauncherDemoProps {
   variant: 'compact' | 'full';
-  className?: string;
 }
 
 function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatch<DemoAction>) {
@@ -44,7 +43,7 @@ function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatc
   }, [prefix, state.prepareStepIndex, state.selectedServerId, dispatch, server.id]);
 }
 
-export default function RoLauncherDemo({ variant, className = '' }: RoLauncherDemoProps) {
+export default function RoLauncherDemo({ variant }: RoLauncherDemoProps) {
   const [state, dispatch] = useReducer(demoReducer, initialDemoState);
   usePrepareTimer(state, dispatch);
 
@@ -68,37 +67,26 @@ export default function RoLauncherDemo({ variant, className = '' }: RoLauncherDe
   }, [state]);
 
   const isCompact = variant === 'compact';
-
-  const rootChrome = isCompact
-    ? `${demoChrome} min-h-[28rem] md:min-h-[32rem] flex flex-col max-w-full`
-    : `${demoChrome} h-full flex flex-col min-h-0 overflow-hidden`;
-
-  const bodyGrid = isCompact
-    ? 'grid flex-1 min-h-0 grid-cols-1 @min-[40rem]:grid-cols-[minmax(220px,300px)_1fr] gap-3 px-3 pb-3 pt-0 max-h-[36rem] overflow-y-auto max-w-full'
-    : 'grid flex-1 min-h-0 grid-cols-1 md:grid-cols-[minmax(280px,320px)_minmax(0,1fr)] gap-3 p-3 pt-0 overflow-hidden max-w-full';
+  const bodyClass = isCompact ? 'max-h-[36rem] overflow-y-auto' : 'min-h-[28rem]';
 
   return (
     <div
-      className={`${rootChrome} ${className}`.trim()}
+      className={`${demoChrome} ${isCompact ? 'min-h-[28rem]' : ''}`}
       role="region"
       aria-label="Demo de RO-Launcher"
     >
       <DemoHeader />
-      <div className={bodyGrid}>
+      <div
+        className={`grid grid-cols-1 @min-[40rem]:grid-cols-[minmax(220px,300px)_1fr] gap-3 p-3 ${bodyClass}`}
+      >
         <DemoRail
           state={state}
           dispatch={dispatch}
           onLaunchClick={onLaunchClick}
           showReset={!isCompact}
-          compact={isCompact}
         />
-        <div className="flex flex-col gap-2 min-h-0 min-w-0 overflow-hidden">
-          <DemoCenter
-            state={state}
-            dispatch={dispatch}
-            showTools={!isCompact}
-            compact={isCompact}
-          />
+        <div className="flex flex-col gap-2.5 min-h-0 min-w-0">
+          <DemoCenter state={state} dispatch={dispatch} showTools={!isCompact} />
           {!isCompact && <DemoLogs state={state} dispatch={dispatch} />}
         </div>
       </div>

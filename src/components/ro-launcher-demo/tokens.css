@@ -1,5 +1,6 @@
 .ro-demo {
   color-scheme: dark;
+  overflow-anchor: none;
   background-color: #09090b;
   background-image:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgb(245 158 11 / 0.08), transparent),

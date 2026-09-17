@@ -18,10 +18,9 @@ const NUMBER_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'] as const;
 interface Props {
   state: DemoState;
   dispatch: React.Dispatch<DemoAction>;
-  compact?: boolean;
 }
 
-export function DemoSpammer({ state, dispatch, compact = false }: Props) {
+export function DemoSpammer({ state, dispatch }: Props) {
   const ready = toolsReady(state);
   const selected = new Set(state.spammerKeys);
   const keysLabel = formatSpammerKeysLabel(state.spammerKeys);
@@ -32,9 +31,7 @@ export function DemoSpammer({ state, dispatch, compact = false }: Props) {
   const statusLine2 = !ready ? 'Prepara el entorno' : 'Demo — sin cliente real';
 
   return (
-    <section
-      className={`${panelShell} h-full ${compact ? 'min-h-0' : 'min-h-[14rem] md:min-h-[16rem]'} ${tone}`}
-    >
+    <section className={`${panelShell} h-full min-h-[16rem] ${tone}`}>
       <div className={panelHeader}>
         <h3 className={panelTitle}>Spammer</h3>
       </div>

@@ -138,7 +138,6 @@ Bajo `<h3>Runtime</h3>`, **antes** de la `<ul>` de bullets:
 
 1. Label muted mono `Pipeline`.
 2. Dos filas de pills Graphite, wrap en mobile:
-
    - `D3D 8/9/11` → `DXVK` → `Vulkan`
    - `DirectDraw` → `dgVoodoo` → `D3D11` → `DXVK` → `Vulkan`
 

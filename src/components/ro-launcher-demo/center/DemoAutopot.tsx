@@ -1,7 +1,7 @@
 import { DemoToggle } from '../chrome/DemoToggle';
 import {
   innerWell,
-  panelBody,
+  toolPanelBody,
   panelHeader,
   panelIdle,
   panelShell,
@@ -85,8 +85,8 @@ export function DemoAutopot({ state, dispatch }: Props) {
           AutoPot
         </h3>
       </div>
-      <div className={`${panelBody} flex-1 overflow-y-auto pr-0.5`}>
-        <div className="flex items-start justify-between gap-2">
+      <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
+        <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-sm font-semibold text-zinc-100 truncate">{server.name}</p>
             <p className="text-[10px] text-zinc-600">{statusLine2}</p>
@@ -99,12 +99,12 @@ export function DemoAutopot({ state, dispatch }: Props) {
           />
         </div>
 
-        <div className={`${innerWell} px-2.5 py-2 space-y-1.5`}>
+        <div className={`${innerWell} space-y-1.5`}>
           <StatBar label="HP" cur={hpCur} max={hpMax} tone="red" />
           <StatBar label="SP" cur={spCur} max={spMax} tone="blue" />
         </div>
 
-        <div className="flex items-center justify-between gap-2 rounded-lg border border-amber-500/15 bg-amber-500/5 px-2.5 py-2">
+        <div className="flex items-center justify-between gap-3 rounded-lg border border-amber-500/15 bg-amber-500/5 px-4 py-2">
           <div className="min-w-0">
             <p className="text-[11px] font-medium text-amber-100/90">Modo proactivo</p>
             <p className="text-[10px] leading-snug text-zinc-500">

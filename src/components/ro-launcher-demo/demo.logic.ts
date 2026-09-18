@@ -11,8 +11,8 @@ import type {
 
 export const PREPARE_STEPS: { step: string; percent: number }[] = [
   { step: 'Resolviendo runner...', percent: 0 },
-  { step: 'Preparando runner (simulado)...', percent: 15 },
-  { step: 'Instalando DXVK (simulado)...', percent: 30 },
+  { step: 'Preparando runner...', percent: 15 },
+  { step: 'Instalando DXVK...', percent: 30 },
   { step: 'Creando entorno aislado...', percent: 40 },
   { step: 'Inicializando entorno...', percent: 45 },
   { step: 'Preparando Wine Gecko...', percent: 50 },
@@ -23,6 +23,8 @@ export const PREPARE_STEPS: { step: string; percent: number }[] = [
   { step: 'Configurando audio...', percent: 96 },
   { step: '¡Listo!', percent: 100 },
 ];
+
+export const PREPARE_TICK_MS = 900;
 
 export const LOG_PREPARE_INTRO = '[demo] Simulación — no descarga Proton ni escribe un WINEPREFIX.';
 

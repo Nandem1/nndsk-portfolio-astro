@@ -18,6 +18,8 @@ export const panelTitle =
 
 export const panelBody = 'px-3 py-2 flex flex-col gap-2 min-h-0';
 
+export const toolPanelBody = 'px-4 py-2 flex flex-col gap-2.5 min-h-0';
+
 export const row =
   'flex items-center gap-2 px-2 py-2 rounded-lg border border-transparent hover:bg-zinc-800/60 transition-colors duration-200';
 
@@ -52,7 +54,7 @@ export const tabInactive =
 export const focusRing =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40';
 
-export const innerWell = 'rounded-lg bg-zinc-950/40 border border-zinc-800/60';
+export const innerWell = 'rounded-lg bg-zinc-950/40 border border-zinc-800/60 px-4 py-2';
 
 export const gepardBanner =
   'rounded-lg border border-amber-500/15 bg-amber-500/5 px-2.5 py-2 text-[10px] leading-relaxed text-amber-300/90';

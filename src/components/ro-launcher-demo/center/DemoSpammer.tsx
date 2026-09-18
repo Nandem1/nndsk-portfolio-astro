@@ -1,3 +1,4 @@
+import type { Dispatch } from 'react';
 import {
   focusRing,
   innerWell,
@@ -17,7 +18,7 @@ const NUMBER_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'] as const;
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
 }
 
 export function DemoSpammer({ state, dispatch }: Props) {

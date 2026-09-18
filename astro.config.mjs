@@ -9,10 +9,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   output: 'static',
 
-  legacy: {
-    collectionsBackwardsCompat: true,
-  },
-
   // Dominio del sitio
   site: 'https://nndsk.dev',
 
@@ -91,9 +87,6 @@ export default defineConfig({
   // El sitio se despliega como archivos estáticos estáticos
 
   vite: {
-    plugins: [
-      // @ts-expect-error @tailwindcss/vite uses root Vite Plugin types; Astro bundles its own Vite
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
 });

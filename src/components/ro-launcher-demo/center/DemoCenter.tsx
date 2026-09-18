@@ -1,3 +1,4 @@
+import type { Dispatch } from 'react';
 import { DemoAutobuff } from './DemoAutobuff';
 import { DemoAutopot } from './DemoAutopot';
 import { DemoSpammer } from './DemoSpammer';
@@ -7,7 +8,7 @@ import type { DemoAction, DemoState } from '../types';
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
   showTools: boolean;
 }
 

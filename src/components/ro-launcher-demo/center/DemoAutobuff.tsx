@@ -1,3 +1,4 @@
+import type { Dispatch } from 'react';
 import { DemoToggle } from '../chrome/DemoToggle';
 import {
   focusRing,
@@ -15,7 +16,7 @@ import type { DemoAction, DemoState, PotKey } from '../types';
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
 }
 
 export function DemoAutobuff({ state, dispatch }: Props) {

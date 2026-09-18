@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer, type Dispatch } from 'react';
 import './tokens.css';
 import { demoChrome } from './chrome/classes';
 import { DemoHeader } from './chrome/DemoHeader';
@@ -23,7 +23,7 @@ export interface RoLauncherDemoProps {
   variant: 'compact' | 'full';
 }
 
-function usePrepareTimer(state: typeof initialDemoState, dispatch: React.Dispatch<DemoAction>) {
+function usePrepareTimer(state: typeof initialDemoState, dispatch: Dispatch<DemoAction>) {
   const server = getServerById(state.selectedServerId);
   const prefix = getPrefixState(state, server);
 

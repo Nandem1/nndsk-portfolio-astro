@@ -1,10 +1,10 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, type Dispatch } from 'react';
 import { btnXs, panelBody, panelHeader, panelShell, panelTitle } from '../chrome/classes';
 import type { DemoAction, DemoState, LogChannel } from '../types';
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
 }
 
 function LogTab({

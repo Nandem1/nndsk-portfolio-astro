@@ -1,10 +1,11 @@
+import type { Dispatch } from 'react';
 import { focusRing, row, rowSelected } from '../chrome/classes';
 import { DEMO_SERVERS } from '../mockData';
 import type { DemoAction, DemoState } from '../types';
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
 }
 
 export function DemoServerList({ state, dispatch }: Props) {

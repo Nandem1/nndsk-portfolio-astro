@@ -1,3 +1,4 @@
+import type { Dispatch } from 'react';
 import { DemoToggle } from '../chrome/DemoToggle';
 import {
   innerWell,
@@ -15,7 +16,7 @@ import type { DemoAction, DemoState } from '../types';
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
 }
 
 function StatBar({

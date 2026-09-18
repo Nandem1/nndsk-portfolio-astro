@@ -1,3 +1,4 @@
+import type { Dispatch } from 'react';
 import { DemoPanel } from '../chrome/DemoPanel';
 import { DemoAdvanced } from './DemoAdvanced';
 import { DemoLaunchBar } from './DemoLaunchBar';
@@ -8,7 +9,7 @@ import type { DemoAction, DemoState } from '../types';
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
   onLaunchClick: () => void;
   showReset: boolean;
 }

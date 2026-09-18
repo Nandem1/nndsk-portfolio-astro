@@ -1,3 +1,4 @@
+import type { Dispatch } from 'react';
 import { IconSparkles, IconSwords } from '../chrome/DemoIcons';
 import { focusRing, tabActive, tabBtn, tabInactive } from '../chrome/classes';
 import type { DemoAction, DemoState, ToolView } from '../types';
@@ -9,7 +10,7 @@ const TABS: { view: ToolView; label: string; Icon: typeof IconSwords }[] = [
 
 interface Props {
   state: DemoState;
-  dispatch: React.Dispatch<DemoAction>;
+  dispatch: Dispatch<DemoAction>;
 }
 
 export function DemoToolTabs({ state, dispatch }: Props) {

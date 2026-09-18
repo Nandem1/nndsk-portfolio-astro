@@ -29,6 +29,7 @@
 
   html {
     scroll-behavior: smooth;
+    --header-height: 4rem;
   }
 
   body {
@@ -45,6 +46,14 @@
     background-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
     color: var(--color-foreground);
   }
+}
+
+#bio,
+#work,
+#contact,
+#demo,
+#main-content {
+  scroll-margin-top: var(--header-height);
 }
 
 /* Scrollbar personalizada */

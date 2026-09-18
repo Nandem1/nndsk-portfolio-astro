@@ -13,9 +13,10 @@ interface NavLink {
 const navLinks: NavLink[] = NAV_LINKS;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background">
+<div id="top"></div>
+<header class="sticky top-0 z-50 h-16 w-full border-b border-border bg-background">
   <nav
-    class="max-w-3xl mx-auto flex items-center justify-between px-6 py-4"
+    class="h-full max-w-3xl mx-auto flex items-center justify-between px-6"
     aria-label="Navegación principal"
   >
     {/* Logo */}
@@ -45,6 +46,3 @@ const navLinks: NavLink[] = NAV_LINKS;
     </ul>
   </nav>
 </header>
-
-{/* Spacer for fixed header */}
-<div class="h-20" aria-hidden="true"></div>

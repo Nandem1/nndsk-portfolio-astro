@@ -38,10 +38,6 @@ const technicalRuntime = [
     rest: 'cambiar runner crea o reutiliza otro prefix; no migra ni borra el anterior.',
   },
   {
-    lead: 'Pipeline',
-    rest: 'Direct3D 8/9/11 → DXVK → Vulkan. DirectDraw → dgVoodoo (opcional) → D3D11 → DXVK → Vulkan.',
-  },
-  {
     lead: 'Runners',
     rest: 'Proton-CachyOS + UMU administrados, o Wine portable bajo ~/.local/share/ro-launcher/runners/.',
   },
@@ -54,6 +50,14 @@ const technicalRuntime = [
     rest: 'el launcher no modifica Gepard, el cliente ni el tráfico del juego.',
   },
 ];
+
+const pipelineRoutes: string[][] = [
+  ['D3D 8/9/11', 'DXVK', 'Vulkan'],
+  ['DirectDraw', 'dgVoodoo', 'D3D11', 'DXVK', 'Vulkan'],
+];
+
+const pipelinePillClass =
+  'inline-flex px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono';
 
 const technicalHerramientas = [
   {
@@ -157,7 +161,6 @@ const galleryImage = project.data.gallery?.[0];
             </noscript>
             <p class="text-sm text-muted mt-2 max-w-3xl">
               Tema de RO-Launcher (zinc / ámbar / glass). El resto de la página sigue Dark Graphite.
-              No lanza Ragnarok Online.
             </p>
           </div>
         )
@@ -183,6 +186,27 @@ const galleryImage = project.data.gallery?.[0];
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Técnico</h2>
 
       <h3 class="text-base font-semibold text-foreground mt-6 mb-3">Runtime</h3>
+      <div class="mb-6" aria-label="Pipeline gráfico">
+        <p class="text-xs font-mono text-muted mb-2">Pipeline</p>
+        <div class="flex flex-col gap-2">
+          {
+            pipelineRoutes.map((route) => (
+              <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                {route.map((stage, i) => (
+                  <li class="inline-flex items-center gap-x-1.5">
+                    {i > 0 && (
+                      <span class="text-xs font-mono text-muted select-none" aria-hidden="true">
+                        →
+                      </span>
+                    )}
+                    <span class={pipelinePillClass}>{stage}</span>
+                  </li>
+                ))}
+              </ol>
+            ))
+          }
+        </div>
+      </div>
       <ul class="space-y-1.5" aria-label="Runtime">
         {
           technicalRuntime.map((item) => (
@@ -191,7 +215,7 @@ const galleryImage = project.data.gallery?.[0];
                 –
               </span>
               <span>
-                <span class="text-foreground font-medium">{item.lead}:</span> {item.rest}
+                <span class="text-foreground font-medium">{item.lead}:</span>{' '}{item.rest}
               </span>
             </li>
           ))
@@ -207,7 +231,7 @@ const galleryImage = project.data.gallery?.[0];
                 –
               </span>
               <span>
-                <span class="text-foreground font-medium">{item.lead}:</span> {item.rest}
+                <span class="text-foreground font-medium">{item.lead}:</span>{' '}{item.rest}
               </span>
             </li>
           ))
@@ -250,7 +274,7 @@ const galleryImage = project.data.gallery?.[0];
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Links</h2>
       <p class="text-muted leading-relaxed mb-6">
-        Código en GitHub. Arriba hay una demo de la UI; no lanza el cliente.
+        Código en GitHub. Arriba hay una demo de la UI.
       </p>
       <div class="flex flex-col sm:flex-row flex-wrap gap-3">
         {

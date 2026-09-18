@@ -103,7 +103,7 @@ export default defineConfig({
   },
 
   integrations: [
-    react({ include: ['**/ro-launcher-demo/**/*.tsx'] }),
+    react(),
     sitemap({
       filter: page => !page.includes('/draft'),
       customPages: [],

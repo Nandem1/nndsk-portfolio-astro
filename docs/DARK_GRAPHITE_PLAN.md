@@ -24,15 +24,15 @@
 
 `src/styles/global.css` `@theme` (lo que realmente pinta Tailwind):
 
-| Token Tailwind | Variable CSS | Hex actual | Lectura |
-| --- | --- | --- | --- |
-| `background` | `--color-background` | `#0a0f1c` | Navy casi-void, no grafito |
-| `foreground` | `--color-foreground` | `#e0e0e0` | Gris claro genérico |
-| `accent` | `--color-accent` | `#81a1c1` | Nord frost (`nord9`) |
-| `accent-hover` | `--color-accent-hover` | `#88c0d0` | Nord frost (`nord8`), cian |
-| `muted` | `--color-muted` | `#7f8da3` | Azul-gris Nord |
-| `card` | `--color-card` | `#111827` | Tailwind `gray-900` (navy) |
-| `border` | `--color-border` | `#1e293b` | Tailwind `slate-800` |
+| Token Tailwind | Variable CSS           | Hex actual | Lectura                    |
+| -------------- | ---------------------- | ---------- | -------------------------- |
+| `background`   | `--color-background`   | `#0a0f1c`  | Navy casi-void, no grafito |
+| `foreground`   | `--color-foreground`   | `#e0e0e0`  | Gris claro genérico        |
+| `accent`       | `--color-accent`       | `#81a1c1`  | Nord frost (`nord9`)       |
+| `accent-hover` | `--color-accent-hover` | `#88c0d0`  | Nord frost (`nord8`), cian |
+| `muted`        | `--color-muted`        | `#7f8da3`  | Azul-gris Nord             |
+| `card`         | `--color-card`         | `#111827`  | Tailwind `gray-900` (navy) |
+| `border`       | `--color-border`       | `#1e293b`  | Tailwind `slate-800`       |
 
 `src/utils/constants.ts` `THEME_COLORS` (export no usado en componentes, pero desincronizado):
 
@@ -57,26 +57,26 @@ Hardcodes duplicados (mismo navy/Nord):
 - Títulos de sección: `<span class="border-b-2 border-accent/30 pb-2">` (subrayado acento) en Bio, Works, Contacto.
 - `font-mono` en años, chips de stack, iniciales placeholder.
 
-**Decisión cerrada:** conservar Inter self-hosted (cero fuentes nuevas, cero cambio de CSP). Cambiar el *tratamiento*, no la familia.
+**Decisión cerrada:** conservar Inter self-hosted (cero fuentes nuevas, cero cambio de CSP). Cambiar el _tratamiento_, no la familia.
 
 ### 1.3 Superficies, chrome, motion — qué lee “AI template”
 
-| Elemento | Archivo | Por qué se siente template |
-| --- | --- | --- |
-| Nav píldora flotante + glass | `Header.astro` | `rounded-full bg-card/80 backdrop-blur-md border-border/50` |
-| Anillo glow del avatar | `Hero.astro` | `ring-2 ring-accent/30 ring-offset-4` |
-| Eyebrow “Agentic workflow” | `Hero.astro` | microcopy de portfolio-AI |
-| CTA primario tintado | `Hero.astro` / `404.astro` | `bg-accent/10 border-accent/30 rounded-lg` |
-| Chevron bounce | `Hero.astro` | `animate-bounce` decorativo |
-| Cards lift + zoom foto | `Works.astro` | `hover:-translate-y-*` + `group-hover:scale-105` + `rounded-xl` |
-| Placeholder mesh | `Works.astro` | `bg-gradient-to-br from-accent/10 via-card to-background` |
-| Chips píldora Nord | `Works.astro` | `rounded-full bg-accent/10 text-accent border-accent/30` |
-| Dots de timeline acento + scale | `Bio.astro` | `rounded-full bg-accent group-hover:scale-125` |
-| Años en accent | `Bio.astro` | `text-accent` en cada `time` |
-| Hover social accent fill | `SocialLinks.astro` | `hover:text-accent hover:bg-accent/10` |
-| Lightbox glass | `Works.astro` | `backdrop-filter: blur(4px)` |
-| Reveal 20px / 500–600ms | `global.css` | entrada “premium SaaS” |
-| CTA “Trabajemos juntos” | `Works.astro` | cierre genérico de template |
+| Elemento                        | Archivo                    | Por qué se siente template                                      |
+| ------------------------------- | -------------------------- | --------------------------------------------------------------- |
+| Nav píldora flotante + glass    | `Header.astro`             | `rounded-full bg-card/80 backdrop-blur-md border-border/50`     |
+| Anillo glow del avatar          | `Hero.astro`               | `ring-2 ring-accent/30 ring-offset-4`                           |
+| Eyebrow “Agentic workflow”      | `Hero.astro`               | microcopy de portfolio-AI                                       |
+| CTA primario tintado            | `Hero.astro` / `404.astro` | `bg-accent/10 border-accent/30 rounded-lg`                      |
+| Chevron bounce                  | `Hero.astro`               | `animate-bounce` decorativo                                     |
+| Cards lift + zoom foto          | `Works.astro`              | `hover:-translate-y-*` + `group-hover:scale-105` + `rounded-xl` |
+| Placeholder mesh                | `Works.astro`              | `bg-gradient-to-br from-accent/10 via-card to-background`       |
+| Chips píldora Nord              | `Works.astro`              | `rounded-full bg-accent/10 text-accent border-accent/30`        |
+| Dots de timeline acento + scale | `Bio.astro`                | `rounded-full bg-accent group-hover:scale-125`                  |
+| Años en accent                  | `Bio.astro`                | `text-accent` en cada `time`                                    |
+| Hover social accent fill        | `SocialLinks.astro`        | `hover:text-accent hover:bg-accent/10`                          |
+| Lightbox glass                  | `Works.astro`              | `backdrop-filter: blur(4px)`                                    |
+| Reveal 20px / 500–600ms         | `global.css`               | entrada “premium SaaS”                                          |
+| CTA “Trabajemos juntos”         | `Works.astro`              | cierre genérico de template                                     |
 
 No hay mesh-gradient de fondo de página ni púrpura/índigo. El problema es **Nord navy + frost cyan + glass + píldoras + bounce**, no un cyberpunk void.
 
@@ -90,22 +90,22 @@ Hero (`Hero.astro`):
 
 Timeline 2023–2026 (`src/content/timeline/`):
 
-| Archivo | year | title |
-| --- | --- | --- |
-| `2026-presente.json` | 2026 | El presente |
-| `2025-vuelta-al-ruedo.json` | 2025 | Vuelta al ruedo |
-| `2024-egreso.json` | 2024 | Egreso & la vida real |
-| `2023-desafio-latam.json` | 2023 | Desafío LATAM |
+| Archivo                     | year | title                 |
+| --------------------------- | ---- | --------------------- |
+| `2026-presente.json`        | 2026 | El presente           |
+| `2025-vuelta-al-ruedo.json` | 2025 | Vuelta al ruedo       |
+| `2024-egreso.json`          | 2024 | Egreso & la vida real |
+| `2023-desafio-latam.json`   | 2023 | Desafío LATAM         |
 
 Proyectos (`src/content/projects/`, `featured` + `order`):
 
-| Slug | featured | order | year | stack (array) |
-| --- | --- | --- | --- | --- |
-| EcoRetirosRM | sí | 1 | 2026 | Next.js, React, Tailwind v4, shadcn/ui, Resend, Zod |
-| Mercado House | sí | 2 | 2024 | Next.js, Go, PostgreSQL, Wails |
-| nndsk-ro-launcher | no | 3 | 2026 | Tauri v2, Rust, React, Wine, DXVK, dgVoodoo |
-| nndsk-gisan-astro | no | 4 | 2026 | Astro, GSAP, Lenis, TypeScript |
-| nndsk-hyprtask | no | 5 | 2025 | Next.js, React, Zustand, TanStack Query, Radix UI, dnd-kit |
+| Slug              | featured | order | year | stack (array)                                              |
+| ----------------- | -------- | ----- | ---- | ---------------------------------------------------------- |
+| EcoRetirosRM      | sí       | 1     | 2026 | Next.js, React, Tailwind v4, shadcn/ui, Resend, Zod        |
+| Mercado House     | sí       | 2     | 2024 | Next.js, Go, PostgreSQL, Wails                             |
+| nndsk-ro-launcher | no       | 3     | 2026 | Tauri v2, Rust, React, Wine, DXVK, dgVoodoo                |
+| nndsk-gisan-astro | no       | 4     | 2026 | Astro, GSAP, Lenis, TypeScript                             |
+| nndsk-hyprtask    | no       | 5     | 2025 | Next.js, React, Zustand, TanStack Query, Radix UI, dnd-kit |
 
 Mercado House **copy** (description + highlight) dice `Go/Gin`. El array `stack` solo dice `Go`. Ver sección 7.
 
@@ -129,17 +129,17 @@ Paleta **Dark Graphite**: carbón mate / metal anodizado. Sesgo frío mínimo (h
 
 Implementar **exactamente** estos valores. El hex es la fuente de verdad. oklch es documentación.
 
-| Token / clave Tailwind v4 | Variable `@theme` | Hex | oklch (aprox.) | Rol |
-| --- | --- | --- | --- | --- |
-| `background` | `--color-background` | `#17191c` | `oklch(0.212 0.006 260)` | Página, header sólido, track scrollbar |
-| `foreground` | `--color-foreground` | `#d5d8dc` | `oklch(0.882 0.006 250)` | Texto primario, H1, logo |
-| `muted` | `--color-muted` | `#9399a1` | `oklch(0.678 0.012 255)` | Texto secundario, chips, años |
-| `accent` | `--color-accent` | `#b6bdc6` | `oklch(0.788 0.012 250)` | **Único** highlight plata |
-| `accent-hover` | `--color-accent-hover` | `#c8ced6` | `oklch(0.845 0.010 250)` | Hover del único CTA primario |
-| `card` | `--color-card` | `#1f2227` | `oklch(0.248 0.008 258)` | Superficie de card / hover social |
-| `border` | `--color-border` | `#343940` | `oklch(0.338 0.010 256)` | Filo metal 1px |
-| `border-strong` | `--color-border-strong` | `#4a5058` | `oklch(0.42 0.010 256)` | Hover de borde de card (no accent) |
-| _(solo CSS)_ | `--color-scrollbar-thumb` | `#3f454d` | — | Thumb scrollbar |
+| Token / clave Tailwind v4 | Variable `@theme`         | Hex       | oklch (aprox.)           | Rol                                    |
+| ------------------------- | ------------------------- | --------- | ------------------------ | -------------------------------------- |
+| `background`              | `--color-background`      | `#17191c` | `oklch(0.212 0.006 260)` | Página, header sólido, track scrollbar |
+| `foreground`              | `--color-foreground`      | `#d5d8dc` | `oklch(0.882 0.006 250)` | Texto primario, H1, logo               |
+| `muted`                   | `--color-muted`           | `#9399a1` | `oklch(0.678 0.012 255)` | Texto secundario, chips, años          |
+| `accent`                  | `--color-accent`          | `#b6bdc6` | `oklch(0.788 0.012 250)` | **Único** highlight plata              |
+| `accent-hover`            | `--color-accent-hover`    | `#c8ced6` | `oklch(0.845 0.010 250)` | Hover del único CTA primario           |
+| `card`                    | `--color-card`            | `#1f2227` | `oklch(0.248 0.008 258)` | Superficie de card / hover social      |
+| `border`                  | `--color-border`          | `#343940` | `oklch(0.338 0.010 256)` | Filo metal 1px                         |
+| `border-strong`           | `--color-border-strong`   | `#4a5058` | `oklch(0.42 0.010 256)`  | Hover de borde de card (no accent)     |
+| _(solo CSS)_              | `--color-scrollbar-thumb` | `#3f454d` | —                        | Thumb scrollbar                        |
 
 Contraste WCAG AA contra `#17191c` (calculado): foreground 12.32:1 · muted 6.13:1 · accent 9.30:1. Muted sobre card `#1f2227`: 5.55:1.
 
@@ -291,13 +291,13 @@ No añadir `animate-bounce`, `animate-pulse`, ni transiciones > 400ms salvo el r
 
 ### 2.6 Radios y blur
 
-| Uso | Valor |
-| --- | --- |
-| Cards, botones, inputs, lightbox, chips | `rounded-md` |
-| Focus ring helpers, thumbs | `rounded-sm` |
-| Avatar foto | `rounded-full` (única excepción) |
-| Nav, skip-link, scrollbar thumb | `rounded-none` / sin rounded |
-| `backdrop-blur*` / `backdrop-filter` | **cero** en todo el repo `src/` |
+| Uso                                     | Valor                            |
+| --------------------------------------- | -------------------------------- |
+| Cards, botones, inputs, lightbox, chips | `rounded-md`                     |
+| Focus ring helpers, thumbs              | `rounded-sm`                     |
+| Avatar foto                             | `rounded-full` (única excepción) |
+| Nav, skip-link, scrollbar thumb         | `rounded-none` / sin rounded     |
+| `backdrop-blur*` / `backdrop-filter`    | **cero** en todo el repo `src/`  |
 
 ### 2.7 `THEME_COLORS` en `src/utils/constants.ts`
 
@@ -426,15 +426,15 @@ Path idéntico; solo fills.
 
 Sustituir hex:
 
-| Uso en el SVG | Hex nuevo |
-| --- | --- |
-| fondo rect 1200×630 | `#17191c` |
+| Uso en el SVG             | Hex nuevo |
+| ------------------------- | --------- |
+| fondo rect 1200×630       | `#17191c` |
 | barra superior y glifos N | `#b6bdc6` |
-| rects del monograma | `#1f2227` |
-| “Nande” | `#d5d8dc` |
-| “Fullstack Developer” | `#b6bdc6` |
-| divisor | `#343940` |
-| stack + `nndsk.dev` | `#9399a1` |
+| rects del monograma       | `#1f2227` |
+| “Nande”                   | `#d5d8dc` |
+| “Fullstack Developer”     | `#b6bdc6` |
+| divisor                   | `#343940` |
+| stack + `nndsk.dev`       | `#9399a1` |
 
 No cambiar layout, textos, ni path `nPath`.
 
@@ -481,10 +481,10 @@ Ver sección 5. Incluye todo `src/content/**`, `index.astro`, middleware, `astro
 
 ### Permitido (lista cerrada)
 
-| Ubicación | De | A | Motivo |
-| --- | --- | --- | --- |
-| `Hero.astro` eyebrow | `Fullstack Dev · Agentic workflow` | **eliminar el nodo** | Microcopy AI + redundante con el H1 |
-| `Works.astro` CTA pie | `Trabajemos juntos` | `Contacto` | Cierre de template; destino `#contact` |
+| Ubicación             | De                                 | A                    | Motivo                                 |
+| --------------------- | ---------------------------------- | -------------------- | -------------------------------------- |
+| `Hero.astro` eyebrow  | `Fullstack Dev · Agentic workflow` | **eliminar el nodo** | Microcopy AI + redundante con el H1    |
+| `Works.astro` CTA pie | `Trabajemos juntos`                | `Contacto`           | Cierre de template; destino `#contact` |
 
 ### Prohibido
 
@@ -617,14 +617,15 @@ Si el entorno no puede emitir ICO, el implementer lo declara en el PR de impleme
 
 ## Apéndice: mapa de clases actuales → nuevas (quick ref)
 
-| Sitio | Quitar | Poner |
-| --- | --- | --- |
-| Nav | `rounded-full bg-card/80 backdrop-blur-md border border-border/50` | barra `border-b border-border bg-background` |
-| Avatar ring | `ring-2 ring-accent/30 ring-offset-4` | `ring-1 ring-border ring-offset-2` |
-| H1 / H2 | `font-bold` + underline span | `font-semibold`, sin span |
-| Card hover | `-translate-y-*` + `border-accent/50` | `hover:border-border-strong` |
-| Img hover | `group-hover:scale-105` | nada |
-| Chips | `rounded-full bg-accent/10 text-accent border-accent/30` | chip 2.4 |
-| Social hover | `hover:text-accent hover:bg-accent/10` | `hover:text-foreground hover:bg-card` |
-| Durations | `duration-300` / `duration-500` | `duration-200` (reveal CSS aparte) |
+| Sitio        | Quitar                                                             | Poner                                        |
+| ------------ | ------------------------------------------------------------------ | -------------------------------------------- |
+| Nav          | `rounded-full bg-card/80 backdrop-blur-md border border-border/50` | barra `border-b border-border bg-background` |
+| Avatar ring  | `ring-2 ring-accent/30 ring-offset-4`                              | `ring-1 ring-border ring-offset-2`           |
+| H1 / H2      | `font-bold` + underline span                                       | `font-semibold`, sin span                    |
+| Card hover   | `-translate-y-*` + `border-accent/50`                              | `hover:border-border-strong`                 |
+| Img hover    | `group-hover:scale-105`                                            | nada                                         |
+| Chips        | `rounded-full bg-accent/10 text-accent border-accent/30`           | chip 2.4                                     |
+| Social hover | `hover:text-accent hover:bg-accent/10`                             | `hover:text-foreground hover:bg-card`        |
+| Durations    | `duration-300` / `duration-500`                                    | `duration-200` (reveal CSS aparte)           |
+
 )

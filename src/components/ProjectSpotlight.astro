@@ -1,0 +1,163 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import GitHubIcon from './icons/GitHubIcon.astro';
+import RoLauncherDemo from './ro-launcher-demo/RoLauncherDemo.tsx';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+
+const caseStudyHref = project.data.caseStudyPath ?? '/projects/nndsk-ro-launcher/';
+const thumbnailAlt =
+  'Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer';
+
+const url =
+  project.data.link ??
+  (project.data.caseStudyPath
+    ? new URL(project.data.caseStudyPath, 'https://nndsk.dev').href
+    : project.data.github);
+
+const spotlightSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: project.data.title,
+  description: project.data.description,
+  ...(url && { url }),
+  ...(project.data.github && { sameAs: [project.data.github] }),
+  ...(project.data.stack &&
+    project.data.stack.length > 0 && { keywords: project.data.stack.join(', ') }),
+  ...(project.data.year && { dateCreated: `${project.data.year}-01-01` }),
+  applicationCategory: 'DeveloperApplication',
+  author: { '@id': 'https://nndsk.dev/#person' },
+};
+
+const spotlightHighlights = (project.data.highlights ?? []).slice(0, 3);
+const spotlightStack = (project.data.stack ?? []).slice(0, 4);
+
+const ctaPrimary =
+  'inline-flex items-center gap-1.5 px-4 py-2 text-sm text-foreground border border-border rounded-md hover:border-accent hover:text-accent transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background';
+const ctaGhost =
+  'inline-flex items-center gap-1.5 px-4 py-2 text-sm text-muted hover:text-foreground transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded-md';
+---
+
+<div data-reveal>
+  <article
+    class="rounded-md bg-card border border-border overflow-hidden transition-colors duration-200 hover:border-border-strong"
+  >
+    <script type="application/ld+json" set:html={JSON.stringify(spotlightSchema)} is:inline />
+    <div class="grid md:grid-cols-2 gap-0">
+      {project.data.thumbnail ? (
+        <div class="min-h-[28rem] border-b md:border-b-0 md:border-r border-border bg-card p-3">
+          <RoLauncherDemo client:visible variant="compact" />
+          <noscript>
+            <Image
+              src={project.data.thumbnail}
+              alt={thumbnailAlt}
+              width={800}
+              height={450}
+              format="webp"
+              quality={80}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto mt-3"
+            />
+          </noscript>
+        </div>
+      ) : (
+        <div
+          class="relative aspect-video overflow-hidden bg-card border-b md:border-b-0 md:border-r border-border"
+          aria-hidden="true"
+        >
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-7xl font-semibold text-muted/30 font-mono select-none">R</span>
+          </div>
+        </div>
+      )}
+
+      <div class="p-6 md:p-8 flex flex-col flex-1">
+        <p class="text-sm font-mono text-muted mb-2">Proyecto destacado</p>
+        <div class="flex items-baseline justify-between gap-3 mb-2">
+          <h3 class="text-2xl font-semibold text-foreground">{project.data.title}</h3>
+          {project.data.year && (
+            <span class="text-xs font-mono text-muted shrink-0">{project.data.year}</span>
+          )}
+        </div>
+        <p class="text-muted mb-3">RO-Launcher para Linux</p>
+
+        <div class="flex flex-wrap items-center gap-3 mb-4 md:hidden">
+          <a
+            href={caseStudyHref}
+            class={ctaPrimary}
+            aria-label={`Leer caso de estudio: ${project.data.title}`}
+          >
+            Caso de estudio
+          </a>
+          {project.data.github && (
+            <a
+              href={project.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaGhost}
+              aria-label={`Ver código en GitHub: ${project.data.title}`}
+            >
+              <GitHubIcon class="w-4 h-4" />
+              Repo
+            </a>
+          )}
+        </div>
+
+        <p class="text-muted text-sm leading-relaxed mb-4">{project.data.description}</p>
+
+        {spotlightHighlights.length > 0 && (
+          <ul class="space-y-1.5 mb-4" aria-label="Características destacadas">
+            {spotlightHighlights.map((h) => (
+              <li class="flex gap-2 text-sm text-muted">
+                <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
+                  –
+                </span>
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {spotlightStack.length > 0 && (
+          <ul class="flex flex-wrap gap-2 mb-5 md:mb-0" aria-label="Stack técnico">
+            {spotlightStack.map((tech) => (
+              <li>
+                <span class="px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono">
+                  {tech}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div class="hidden md:flex items-center gap-3 mt-auto pt-2">
+          <a
+            href={caseStudyHref}
+            class={ctaPrimary}
+            aria-label={`Leer caso de estudio: ${project.data.title}`}
+          >
+            Caso de estudio
+          </a>
+          {project.data.github && (
+            <a
+              href={project.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaGhost}
+              aria-label={`Ver código en GitHub: ${project.data.title}`}
+            >
+              <GitHubIcon class="w-4 h-4" />
+              Repo
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

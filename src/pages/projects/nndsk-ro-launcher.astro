@@ -1,0 +1,278 @@
+---
+export const prerender = true;
+
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import GitHubIcon from '../../components/icons/GitHubIcon.astro';
+import RoLauncherDemo from '../../components/ro-launcher-demo/RoLauncherDemo.tsx';
+
+const [project] = await getCollection('projects', ({ data }) => data.spotlight);
+if (!project) {
+  throw new Error('Missing projects entry nndsk-ro-launcher');
+}
+
+const title = 'nndsk-ro-launcher — RO-Launcher para Linux · nndsk';
+const description =
+  'nndsk-ro-launcher (RO-Launcher) es un launcher de Ragnarok Online para Linux: Tauri v2, React y Rust. WINEPREFIX, DXVK/Vulkan, AutoPot y supervisor de sesión.';
+
+const caseStudyJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'nndsk-ro-launcher',
+  alternateName: ['RO-Launcher', 'RO Launcher'],
+  description:
+    'Launcher de Ragnarok Online para Linux. Tauri v2, React y Rust. WINEPREFIX, DXVK a Vulkan, AutoPot y supervisor de sesión.',
+  url: 'https://nndsk.dev/projects/nndsk-ro-launcher/',
+  sameAs: ['https://github.com/Nandem1/nndsk-ro-launcher'],
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Linux',
+  author: { '@id': 'https://nndsk.dev/#person' },
+};
+
+const technicalRuntime = [
+  {
+    lead: 'Perfiles aislados',
+    rest: 'cambiar runner crea o reutiliza otro prefix; no migra ni borra el anterior.',
+  },
+  {
+    lead: 'Pipeline',
+    rest: 'Direct3D 8/9/11 → DXVK → Vulkan. DirectDraw → dgVoodoo (opcional) → D3D11 → DXVK → Vulkan.',
+  },
+  {
+    lead: 'Runners',
+    rest: 'Proton-CachyOS + UMU administrados, o Wine portable bajo ~/.local/share/ro-launcher/runners/.',
+  },
+  {
+    lead: 'Gepard',
+    rest: 'recomendación de runner solo si el SHA-256 de gepard.dll coincide con la matriz validada. Hash desconocido = advertencia, no receta.',
+  },
+  {
+    lead: 'Sin tocar el cliente',
+    rest: 'el launcher no modifica Gepard, el cliente ni el tráfico del juego.',
+  },
+];
+
+const technicalHerramientas = [
+  {
+    lead: 'AutoPot / AutoBuff / Spammer',
+    rest: 'lectura de memoria (perfiles 4RTools). Spammer con sidecar evdev + ydotool, hotkeys F1–F9 / 0–9.',
+  },
+  {
+    lead: 'ro-sessiond',
+    rest: 'child subreaper, padre de wineserver, patcher y ragexe.exe. No hace falta ptrace_scope=0 ni sudo.',
+  },
+];
+
+const stackChips = [
+  'Tauri v2',
+  'Rust',
+  'React',
+  'Wine',
+  'Proton',
+  'DXVK',
+  'dgVoodoo',
+  'UMU',
+];
+
+const backLinkClass =
+  'inline-flex text-sm text-muted hover:text-foreground transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-sm';
+const ctaPrimary =
+  'inline-flex items-center gap-2 px-6 py-3 text-foreground border border-border rounded-md hover:border-accent hover:text-accent transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background';
+const ctaGhost =
+  'inline-flex items-center gap-2 px-6 py-3 text-muted hover:text-foreground transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded-md';
+
+const galleryImage = project.data.gallery?.[0];
+---
+
+<style is:global>
+  #demo {
+    overflow-anchor: none;
+  }
+</style>
+
+<Layout title={title} description={description}>
+  <Header />
+  <main id="main-content" class="px-6 py-24">
+    <article class="max-w-5xl mx-auto">
+      <script type="application/ld+json" set:html={JSON.stringify(caseStudyJsonLd)} is:inline />
+
+      <div class="max-w-3xl">
+        <a href="/#work" class={`${backLinkClass} mb-8`}>
+          ← Trabajos
+        </a>
+
+        <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
+          nndsk-ro-launcher
+        </h1>
+        <p class="text-lg text-foreground font-medium mb-2">
+          RO-Launcher — launcher de Ragnarok Online para Linux.
+        </p>
+        <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
+
+        {
+          project.data.github && (
+            <div class="flex flex-wrap gap-3 mb-8 md:hidden">
+              <a
+                href={project.data.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={ctaPrimary}
+                aria-label="Ver código en GitHub: nndsk-ro-launcher"
+              >
+                <GitHubIcon class="w-4 h-4" />
+                Repo
+              </a>
+            </div>
+          )
+        }
+      </div>
+
+      {
+        project.data.thumbnail && (
+          <div id="demo" class="mt-8">
+            <p class="text-sm text-muted mb-3 max-w-3xl">
+              Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.
+            </p>
+            <RoLauncherDemo client:load variant="full" />
+            <noscript>
+              <figure class="mt-4 max-w-3xl">
+                <Image
+                  src={project.data.thumbnail}
+                  alt="Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer"
+                  width={1200}
+                  height={675}
+                  format="webp"
+                  quality={80}
+                  loading="eager"
+                  decoding="async"
+                  class="w-full h-auto rounded-md border border-border"
+                />
+                <figcaption class="text-sm text-muted mt-2">
+                  Activa JavaScript para usar la demo.
+                </figcaption>
+              </figure>
+            </noscript>
+            <p class="text-sm text-muted mt-2 max-w-3xl">
+              Tema de RO-Launcher (zinc / ámbar / glass). El resto de la página sigue Dark Graphite.
+              No lanza Ragnarok Online.
+            </p>
+          </div>
+        )
+      }
+
+      <div class="max-w-3xl">
+      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Problema</h2>
+      <p class="text-muted leading-relaxed">
+        Ragnarok Online en Linux no es instalar y jugar. Cada servidor privado trae su runner, su
+        prefix y a veces un anticheat distinto. Armar Wine + DXVK + dgVoodoo a mano se rompe entre
+        máquinas. Leer HP/SP del cliente para AutoPot suele empujar a ptrace_scope=0. Eso no va a ser
+        un requisito.
+      </p>
+
+      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Enfoque</h2>
+      <p class="text-muted leading-relaxed">
+        Un launcher de escritorio, no un script. Tauri v2 + React en la UI, Rust en el host. Un
+        perfil por servidor: runner, WINEPREFIX, DXVK, dgVoodoo si el cliente es DirectDraw. AutoPot,
+        AutoBuff y el spammer salen del mismo lanzamiento. Un sidecar ro-sessiond queda de padre del
+        proceso del juego para leer memoria con Yama en default.
+      </p>
+
+      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Técnico</h2>
+
+      <h3 class="text-base font-semibold text-foreground mt-6 mb-3">Runtime</h3>
+      <ul class="space-y-1.5" aria-label="Runtime">
+        {
+          technicalRuntime.map((item) => (
+            <li class="flex gap-2 text-sm text-muted">
+              <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
+                –
+              </span>
+              <span>
+                <span class="text-foreground font-medium">{item.lead}:</span> {item.rest}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="text-base font-semibold text-foreground mt-8 mb-3">Herramientas</h3>
+      <ul class="space-y-1.5" aria-label="Herramientas">
+        {
+          technicalHerramientas.map((item) => (
+            <li class="flex gap-2 text-sm text-muted">
+              <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
+                –
+              </span>
+              <span>
+                <span class="text-foreground font-medium">{item.lead}:</span> {item.rest}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Stack</h2>
+      <ul class="flex flex-wrap gap-2" aria-label="Stack técnico">
+        {
+          stackChips.map((tech) => (
+            <li>
+              <span class="px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono">
+                {tech}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      {
+        galleryImage && (
+          <figure class="mt-8">
+            <Image
+              src={galleryImage}
+              alt="nndsk-ro-launcher superpuesto sobre el cliente de Ragnarok Online en Linux, con AutoPot activo"
+              width={1200}
+              height={675}
+              format="webp"
+              quality={80}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto rounded-md border border-border"
+            />
+            <figcaption class="text-sm text-muted mt-2">
+              Misma app sobre el cliente, en Linux.
+            </figcaption>
+          </figure>
+        )
+      }
+
+      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Links</h2>
+      <p class="text-muted leading-relaxed mb-6">
+        Código en GitHub. Arriba hay una demo de la UI; no lanza el cliente.
+      </p>
+      <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+        {
+          project.data.github && (
+            <a
+              href={project.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaPrimary}
+              aria-label="Ver código en GitHub: nndsk-ro-launcher"
+            >
+              <GitHubIcon class="w-4 h-4" />
+              Repo
+            </a>
+          )
+        }
+        <a href="/#work" class={ctaGhost}>
+          ← Trabajos
+        </a>
+      </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>

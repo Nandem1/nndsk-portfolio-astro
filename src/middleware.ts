@@ -3,7 +3,7 @@ import { defineMiddleware } from 'astro:middleware';
 export const onRequest = defineMiddleware(async (context, next) => {
   const response = await next();
 
-  // Headers de seguridad
+  // Headers de seguridad (CSP vía meta http-equiv: astro.config.mjs security.csp)
   const securityHeaders = {
     'X-Frame-Options': 'DENY',
     'X-Content-Type-Options': 'nosniff',
@@ -12,32 +12,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'X-XSS-Protection': '1; mode=block',
   };
 
-  // Content Security Policy para sitio estático
-  const csp = [
-    "default-src 'self'",
-    "script-src 'self'",
-    "style-src 'self' 'unsafe-inline'",
-    "font-src 'self'",
-    "img-src 'self' data: https://avatars.githubusercontent.com https://images.unsplash.com",
-    "manifest-src 'self'",
-    "connect-src 'self'",
-    "frame-ancestors 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
-  ].join('; ');
-
-  // Crear nueva respuesta con headers
   const newResponse = new Response(response.body, response);
 
-  // Añadir headers de seguridad
   Object.entries(securityHeaders).forEach(([key, value]) => {
     newResponse.headers.set(key, value);
   });
 
-  // Añadir CSP
-  newResponse.headers.set('Content-Security-Policy', csp);
-
-  // Headers de cache para assets estáticos
   const url = new URL(context.request.url);
   if (
     url.pathname.match(

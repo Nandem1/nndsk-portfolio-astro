@@ -34,7 +34,7 @@ export function DemoAutobuff({ state, dispatch }: Props) {
       aria-labelledby="ro-demo-tab-buffs"
     >
       <div className={panelHeader}>
-        <h3 className={panelTitle}>AutoBuff</h3>
+        <p className={panelTitle}>AutoBuff</p>
       </div>
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">

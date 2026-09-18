@@ -12,7 +12,7 @@ export function DemoPanel({ title, children, className = '', toneClass = '' }: D
   return (
     <section className={`${panelShell} shrink-0 ${toneClass} ${className}`}>
       <div className={panelHeader}>
-        <h3 className={panelTitle}>{title}</h3>
+        <p className={panelTitle}>{title}</p>
       </div>
       <div className={panelBody}>{children}</div>
     </section>

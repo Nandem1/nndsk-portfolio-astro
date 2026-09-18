@@ -34,7 +34,7 @@ export function DemoSpammer({ state, dispatch }: Props) {
   return (
     <section className={`${panelShell} h-full min-h-[16rem] ${tone}`}>
       <div className={panelHeader}>
-        <h3 className={panelTitle}>Spammer</h3>
+        <p className={panelTitle}>Spammer</p>
       </div>
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">

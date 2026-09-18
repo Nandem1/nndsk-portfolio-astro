@@ -82,9 +82,9 @@ export function DemoAutopot({ state, dispatch }: Props) {
       aria-labelledby="ro-demo-autopot-title"
     >
       <div className={panelHeader}>
-        <h3 id="ro-demo-autopot-title" className={panelTitle}>
+        <p id="ro-demo-autopot-title" className={panelTitle}>
           AutoPot
-        </h3>
+        </p>
       </div>
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">

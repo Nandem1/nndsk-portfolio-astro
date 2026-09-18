@@ -3,8 +3,6 @@ import type { CollectionEntry } from 'astro:content';
 import OptimizedPicture from '@/components/OptimizedPicture.astro';
 import GitHubIcon from '@/components/icons/GitHubIcon.astro';
 import RoLauncherDemo from '@/components/ro-launcher-demo/RoLauncherDemo.tsx';
-import { SITE_METADATA } from '@/utils/constants';
-import { softwareApplicationJsonLd } from '@/utils/jsonLd';
 import { ctaGhost, ctaPrimary } from '@/utils/ui';
 
 interface Props {
@@ -17,14 +15,6 @@ const caseStudyHref = project.data.caseStudyPath ?? '/projects/nndsk-ro-launcher
 const thumbnailAlt =
   'Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer';
 
-const caseStudyUrl = project.data.caseStudyPath
-  ? new URL(project.data.caseStudyPath, SITE_METADATA.url).href
-  : undefined;
-
-const spotlightSchema = softwareApplicationJsonLd(project, {
-  url: caseStudyUrl ?? project.data.link ?? project.data.github,
-});
-
 const spotlightHighlights = (project.data.highlights ?? []).slice(0, 3);
 const spotlightStack = (project.data.stack ?? []).slice(0, 4);
 ---
@@ -33,7 +23,6 @@ const spotlightStack = (project.data.stack ?? []).slice(0, 4);
   <article
     class="rounded-md bg-card border border-border overflow-hidden transition-colors duration-200 hover:border-border-strong"
   >
-    <script type="application/ld+json" set:html={JSON.stringify(spotlightSchema)} is:inline />
     <div class="grid md:grid-cols-2 gap-0">
       {project.data.thumbnail ? (
         <div class="min-h-[28rem] border-b md:border-b-0 md:border-r border-border bg-card p-3">

@@ -1,6 +1,7 @@
 ---
 export const prerender = true;
 
+import { getImage } from 'astro:assets';
 import { getEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
@@ -9,26 +10,99 @@ import OptimizedPicture from '@/components/OptimizedPicture.astro';
 import GitHubIcon from '@/components/icons/GitHubIcon.astro';
 import RoLauncherDemo from '@/components/ro-launcher-demo/RoLauncherDemo.tsx';
 import { SITE_METADATA } from '@/utils/constants';
-import { personId, softwareApplicationJsonLd } from '@/utils/jsonLd';
+import {
+  breadcrumbListJsonLd,
+  faqPageJsonLd,
+  softwareApplicationJsonLd,
+  websiteId,
+} from '@/utils/jsonLd';
 import { backLinkClass, ctaGhost, ctaPrimary } from '@/utils/ui';
 
 const project = await getEntry('projects', 'nndsk-ro-launcher');
 if (!project) {
   throw new Error('Missing projects entry nndsk-ro-launcher');
 }
+if (!project.data.thumbnail) {
+  throw new Error('Missing thumbnail for nndsk-ro-launcher');
+}
 
-const title = 'nndsk-ro-launcher — RO-Launcher para Linux · nndsk';
+const title = 'nndsk-ro-launcher: launcher de Ragnarok Online para Linux';
 const description =
   'nndsk-ro-launcher (RO-Launcher) es un launcher de Ragnarok Online para Linux: Tauri v2, React y Rust. WINEPREFIX, DXVK/Vulkan, AutoPot y supervisor de sesión.';
 
-const caseStudyJsonLd = {
-  ...softwareApplicationJsonLd(project, {
-    applicationCategory: 'GameApplication',
-    url: `${SITE_METADATA.url}/projects/nndsk-ro-launcher/`,
-  }),
-  alternateName: ['RO-Launcher', 'RO Launcher'],
+const og = await getImage({
+  src: project.data.thumbnail,
+  width: 1200,
+  height: 630,
+  format: 'jpg',
+  fit: 'cover',
+});
+const ogImageHref = new URL(og.src, Astro.site).href;
+
+const screenshot = await getImage({
+  src: project.data.thumbnail,
+  width: 1200,
+  height: 675,
+  format: 'jpg',
+});
+const screenshotHref = new URL(screenshot.src, Astro.site).href;
+
+const pageUrl = `${SITE_METADATA.url}/projects/nndsk-ro-launcher/`;
+const appId = `${pageUrl}#app`;
+const webpageId = `${pageUrl}#webpage`;
+const breadcrumbId = `${pageUrl}#breadcrumb`;
+const faqId = `${pageUrl}#faq`;
+
+const faqs = [
+  {
+    question: '¿Sirve para servidores privados?',
+    answer:
+      'Cada servidor tiene su perfil (runner, WINEPREFIX, DXVK). No afirmamos compatibilidad con todos.',
+  },
+  {
+    question: '¿Hace falta ptrace_scope=0?',
+    answer:
+      'No. ro-sessiond lee el cliente con Yama en default: sin ptrace_scope=0 y sin sudo.',
+  },
+  {
+    question: '¿Modifica Gepard o el cliente?',
+    answer:
+      'No. Si el hash de gepard.dll no está en la matriz, hay advertencia; no receta de runner.',
+  },
+];
+
+const { '@context': _context, ...appNode } = softwareApplicationJsonLd(project, {
+  id: appId,
+  url: pageUrl,
+  description,
+  applicationCategory: 'GameApplication',
   operatingSystem: 'Linux',
-  author: { '@id': personId() },
+  alternateName: ['RO-Launcher', 'RO Launcher'],
+  image: screenshotHref,
+  isPartOf: { '@id': websiteId() },
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+});
+
+const caseStudyJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': webpageId,
+      url: pageUrl,
+      name: title,
+      description,
+      inLanguage: 'es-CL',
+      isPartOf: { '@id': websiteId() },
+      mainEntity: { '@id': appId },
+    },
+    appNode,
+    breadcrumbListJsonLd(breadcrumbId, [
+      { name: 'Inicio', item: `${SITE_METADATA.url}/` },
+      { name: 'nndsk-ro-launcher', item: pageUrl },
+    ]),
+    faqPageJsonLd(faqId, faqs),
+  ],
 };
 
 const technicalRuntime = [
@@ -81,6 +155,8 @@ const stackChips = [
 ];
 
 const galleryImage = project.data.gallery?.[0];
+const ogImageAlt =
+  'RO-Launcher (nndsk-ro-launcher) — launcher de Ragnarok Online para Linux';
 ---
 
 <style is:global>
@@ -89,23 +165,26 @@ const galleryImage = project.data.gallery?.[0];
   }
 </style>
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} image={ogImageHref} imageAlt={ogImageAlt}>
   <Header />
   <main id="main-content" class="px-6 pt-8 pb-24">
     <article class="max-w-5xl mx-auto">
       <script type="application/ld+json" set:html={JSON.stringify(caseStudyJsonLd)} is:inline />
 
       <div class="max-w-3xl">
-        <a href="/#work" class={`${backLinkClass} mb-8`}>
-          ← Trabajos
-        </a>
+        <nav aria-label="Miga de pan">
+          <ol class="flex flex-wrap items-center gap-2 text-sm text-muted mb-8">
+            <li><a href="/" class={backLinkClass}>Inicio</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/#work" class={backLinkClass}>Trabajos</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-foreground" aria-current="page">nndsk-ro-launcher</li>
+          </ol>
+        </nav>
 
         <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
-          nndsk-ro-launcher
+          RO-Launcher — launcher de Ragnarok Online para Linux
         </h1>
-        <p class="text-lg text-foreground font-medium mb-2">
-          RO-Launcher — launcher de Ragnarok Online para Linux.
-        </p>
         <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
 
         {
@@ -130,7 +209,7 @@ const galleryImage = project.data.gallery?.[0];
         project.data.thumbnail && (
           <div id="demo" class="mt-8">
             <p class="text-sm text-muted mb-3 max-w-3xl">
-              Demo de la UI. No lanza Ragnarok Online ni instala Wine/Proton.
+              Demo de la UI. No lanza el juego ni instala Wine.
             </p>
             <RoLauncherDemo client:load variant="full" />
             <noscript>
@@ -152,9 +231,6 @@ const galleryImage = project.data.gallery?.[0];
                 </figcaption>
               </figure>
             </noscript>
-            <p class="text-sm text-muted mt-2 max-w-3xl">
-              Tema de RO-Launcher (zinc / ámbar / glass). El resto de la página sigue Dark Graphite.
-            </p>
           </div>
         )
       }
@@ -231,6 +307,20 @@ const galleryImage = project.data.gallery?.[0];
         }
       </ul>
 
+      <section aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="text-xl font-semibold text-foreground mt-12 mb-4">
+          Preguntas frecuentes
+        </h2>
+        {
+          faqs.map((faq) => (
+            <div>
+              <h3 class="text-base font-semibold text-foreground mt-6 mb-2">{faq.question}</h3>
+              <p class="text-muted leading-relaxed">{faq.answer}</p>
+            </div>
+          ))
+        }
+      </section>
+
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Stack</h2>
       <ul class="flex flex-wrap gap-2" aria-label="Stack técnico">
         {
@@ -260,16 +350,13 @@ const galleryImage = project.data.gallery?.[0];
               class="w-full h-auto rounded-md border border-border"
             />
             <figcaption class="text-sm text-muted mt-2">
-              Misma app sobre el cliente, en Linux.
+              La app sobre el cliente, en Linux.
             </figcaption>
           </figure>
         )
       }
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Links</h2>
-      <p class="text-muted leading-relaxed mb-6">
-        Código en GitHub. Arriba hay una demo de la UI.
-      </p>
       <div class="flex flex-col sm:flex-row flex-wrap gap-3">
         {
           project.data.github && (

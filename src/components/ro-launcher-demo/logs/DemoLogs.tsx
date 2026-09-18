@@ -51,7 +51,7 @@ export function DemoLogs({ state, dispatch }: Props) {
     <section className={`${panelShell} shrink-0 flex flex-col min-h-[7rem] max-h-32`}>
       <div className={`${panelHeader} flex-wrap gap-y-1`}>
         <div className="flex items-center gap-2 min-w-0">
-          <h3 className={panelTitle}>Logs</h3>
+          <p className={panelTitle}>Logs</p>
           <div className="flex gap-1">
             <LogTab active={state.logChannel === 'game'} onClick={() => setChannel('game')}>
               Juego

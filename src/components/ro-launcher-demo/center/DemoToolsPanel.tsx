@@ -49,7 +49,7 @@ export function DemoToolsPanel({ state }: Props) {
   return (
     <section className={`${panelShell} shrink-0`}>
       <div className={panelHeader}>
-        <h3 className={panelTitle}>Herramientas</h3>
+        <p className={panelTitle}>Herramientas</p>
       </div>
       <div className={`${panelBody} max-h-28 overflow-x-auto overflow-y-auto`}>
         <div className="grid grid-cols-3 gap-2 min-w-[28rem]">

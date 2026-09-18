@@ -1,8 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import GitHubIcon from './icons/GitHubIcon.astro';
-import RoLauncherDemo from './ro-launcher-demo/RoLauncherDemo.tsx';
+import OptimizedPicture from '@/components/OptimizedPicture.astro';
+import GitHubIcon from '@/components/icons/GitHubIcon.astro';
+import RoLauncherDemo from '@/components/ro-launcher-demo/RoLauncherDemo.tsx';
+import { SITE_METADATA } from '@/utils/constants';
+import { softwareApplicationJsonLd } from '@/utils/jsonLd';
+import { ctaGhost, ctaPrimary } from '@/utils/ui';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -14,33 +17,16 @@ const caseStudyHref = project.data.caseStudyPath ?? '/projects/nndsk-ro-launcher
 const thumbnailAlt =
   'Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer';
 
-const url =
-  project.data.link ??
-  (project.data.caseStudyPath
-    ? new URL(project.data.caseStudyPath, 'https://nndsk.dev').href
-    : project.data.github);
+const caseStudyUrl = project.data.caseStudyPath
+  ? new URL(project.data.caseStudyPath, SITE_METADATA.url).href
+  : undefined;
 
-const spotlightSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: project.data.title,
-  description: project.data.description,
-  ...(url && { url }),
-  ...(project.data.github && { sameAs: [project.data.github] }),
-  ...(project.data.stack &&
-    project.data.stack.length > 0 && { keywords: project.data.stack.join(', ') }),
-  ...(project.data.year && { dateCreated: `${project.data.year}-01-01` }),
-  applicationCategory: 'DeveloperApplication',
-  author: { '@id': 'https://nndsk.dev/#person' },
-};
+const spotlightSchema = softwareApplicationJsonLd(project, {
+  url: caseStudyUrl ?? project.data.link ?? project.data.github,
+});
 
 const spotlightHighlights = (project.data.highlights ?? []).slice(0, 3);
 const spotlightStack = (project.data.stack ?? []).slice(0, 4);
-
-const ctaPrimary =
-  'inline-flex items-center gap-1.5 px-4 py-2 text-sm text-foreground border border-border rounded-md hover:border-accent hover:text-accent transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background';
-const ctaGhost =
-  'inline-flex items-center gap-1.5 px-4 py-2 text-sm text-muted hover:text-foreground transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background rounded-md';
 ---
 
 <div data-reveal>
@@ -53,12 +39,13 @@ const ctaGhost =
         <div class="min-h-[28rem] border-b md:border-b-0 md:border-r border-border bg-card p-3">
           <RoLauncherDemo client:visible variant="compact" />
           <noscript>
-            <Image
+            <OptimizedPicture
               src={project.data.thumbnail}
               alt={thumbnailAlt}
               width={800}
               height={450}
-              format="webp"
+              widths={[400, 800]}
+              sizes="(max-width: 768px) 100vw, 400px"
               quality={80}
               loading="lazy"
               decoding="async"
@@ -91,6 +78,7 @@ const ctaGhost =
           <a
             href={caseStudyHref}
             class={ctaPrimary}
+            data-astro-prefetch
             aria-label={`Leer caso de estudio: ${project.data.title}`}
           >
             Caso de estudio
@@ -140,6 +128,7 @@ const ctaGhost =
           <a
             href={caseStudyHref}
             class={ctaPrimary}
+            data-astro-prefetch
             aria-label={`Leer caso de estudio: ${project.data.title}`}
           >
             Caso de estudio

@@ -1,10 +1,13 @@
 import eslint from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tseslintParser from '@typescript-eslint/parser';
+import astro from 'eslint-plugin-astro';
 import prettier from 'eslint-config-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
+  ...astro.configs.recommended,
+
   // Configuración para JavaScript
   {
     files: ['**/*.js'],

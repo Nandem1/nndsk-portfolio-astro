@@ -55,15 +55,3 @@ export const SITE_METADATA = {
   url: 'https://nndsk.dev',
   locale: 'es_CL',
 };
-
-// Configuración de estilos
-export const THEME_COLORS = {
-  background: '#17191c',
-  foreground: '#d5d8dc',
-  accent: '#b6bdc6',
-  accentHover: '#c8ced6',
-  muted: '#9399a1',
-  card: '#1f2227',
-  border: '#343940',
-  borderStrong: '#4a5058',
-};

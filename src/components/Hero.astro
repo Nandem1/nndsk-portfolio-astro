@@ -3,7 +3,7 @@
  * Componente hero con avatar, título, descripción y llamadas a acción.
  * Utiliza imagen optimizada de GitHub avatar con formato WebP.
  */
-import { Image } from "astro:assets";
+import OptimizedPicture from '@/components/OptimizedPicture.astro';
 import { AVATAR_URL } from '@/utils/constants';
 
 const avatarUrl = AVATAR_URL;
@@ -19,12 +19,11 @@ const avatarUrl = AVATAR_URL;
       <div
         class="w-32 h-32 rounded-full overflow-hidden ring-1 ring-border ring-offset-2 ring-offset-background"
       >
-        <Image
+        <OptimizedPicture
           src={avatarUrl}
           alt="Avatar del desarrollador"
           width={128}
           height={128}
-          format="webp"
           quality={80}
           class="w-full h-full object-cover"
           loading="eager"
@@ -44,8 +43,14 @@ const avatarUrl = AVATAR_URL;
       <p class="text-xl text-accent font-medium">TypeScript • Go • Rust</p>
     </div>
 
-    <p class="text-muted text-lg max-w-lg mx-auto leading-relaxed" data-hero style="--hero-delay: 200ms">
-      Mantengo el ERP de Mercado House, soy desarrollador fullstack en EcoRetirosRM y construyo tooling en Rust. Trabajo con flujo agentico — Claude Code, Codex, OpenCode. TypeScript, Rust, Go — en ese orden, por ahora.
+    <p
+      class="text-muted text-lg max-w-lg mx-auto leading-relaxed"
+      data-hero
+      style="--hero-delay: 200ms"
+    >
+      Mantengo el ERP de Mercado House, soy desarrollador fullstack en EcoRetirosRM y construyo
+      tooling en Rust. Trabajo con flujo agentico — Claude Code, Codex, OpenCode. TypeScript, Rust,
+      Go — en ese orden, por ahora.
     </p>
 
     <div

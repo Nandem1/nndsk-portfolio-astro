@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
@@ -15,7 +15,74 @@ export default defineConfig({
   // Configuración de trailing slash para consistencia en URLs
   trailingSlash: 'always',
 
-  prefetch: false,
+  prefetch: {
+    prefetchAll: false,
+    defaultStrategy: 'hover',
+  },
+
+  fonts: [
+    {
+      provider: fontProviders.local(),
+      name: 'Inter',
+      cssVariable: '--font-inter',
+      options: {
+        variants: [
+          {
+            weight: '100 900',
+            style: 'normal',
+            display: 'swap',
+            src: ['./src/assets/fonts/inter-latin.woff2'],
+            unicodeRange: [
+              'U+0000-00FF',
+              'U+0131',
+              'U+0152-0153',
+              'U+02BB-02BC',
+              'U+02C6',
+              'U+02DA',
+              'U+02DC',
+              'U+0304',
+              'U+0308',
+              'U+0329',
+              'U+2000-206F',
+              'U+20AC',
+              'U+2122',
+              'U+2191',
+              'U+2193',
+              'U+2212',
+              'U+2215',
+              'U+FEFF',
+              'U+FFFD',
+            ],
+          },
+          {
+            weight: '100 900',
+            style: 'normal',
+            display: 'swap',
+            src: ['./src/assets/fonts/inter-latin-ext.woff2'],
+            unicodeRange: [
+              'U+0100-02BA',
+              'U+02BD-02C5',
+              'U+02C7-02CC',
+              'U+02CE-02D7',
+              'U+02DD-02FF',
+              'U+0304',
+              'U+0308',
+              'U+0329',
+              'U+1D00-1DBF',
+              'U+1E00-1E9F',
+              'U+1EF2-1EFF',
+              'U+2020',
+              'U+20A0-20AB',
+              'U+20AD-20C0',
+              'U+2113',
+              'U+2C60-2C7F',
+              'U+A720-A7FF',
+            ],
+          },
+        ],
+      },
+    },
+  ],
 
   image: {
     service: {
@@ -26,21 +93,17 @@ export default defineConfig({
         avif: true,
       },
     },
-    domains: ['avatars.githubusercontent.com', 'images.unsplash.com'],
+    domains: ['avatars.githubusercontent.com'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**.githubusercontent.com',
       },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
     ],
   },
 
   integrations: [
-    react(),
+    react({ include: ['**/ro-launcher-demo/**/*.tsx'] }),
     sitemap({
       filter: page => !page.includes('/draft'),
       customPages: [],
@@ -62,7 +125,7 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "font-src 'self'",
-        "img-src 'self' data: https://avatars.githubusercontent.com https://images.unsplash.com",
+        "img-src 'self' data: https://avatars.githubusercontent.com",
         "manifest-src 'self'",
         "connect-src 'self'",
         "base-uri 'self'",

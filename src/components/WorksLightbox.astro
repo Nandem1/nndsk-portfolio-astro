@@ -1,0 +1,58 @@
+---
+import type { ImageMetadata } from 'astro';
+import OptimizedPicture from '@/components/OptimizedPicture.astro';
+
+interface Props {
+  id: string;
+  title: string;
+  images: ImageMetadata[];
+}
+
+const { id, title, images } = Astro.props;
+---
+
+<dialog
+  id={id}
+  class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-md p-4"
+  aria-label={`Galería de ${title}`}
+>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    {
+      images.map((img, i) => (
+        <OptimizedPicture
+          src={img}
+          alt={`Captura ${i + 1} de ${title}`}
+          width={800}
+          height={450}
+          widths={[400, 800]}
+          sizes="(max-width: 640px) 100vw, 400px"
+          quality={85}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-auto rounded-md border border-border"
+        />
+      ))
+    }
+  </div>
+  <form method="dialog" class="mt-4 text-center">
+    <button
+      type="submit"
+      class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-md hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
+    >
+      Cerrar (ESC)
+    </button>
+  </form>
+</dialog>
+
+<style>
+  dialog.lightbox {
+    margin: auto;
+    color: var(--color-foreground);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  dialog.lightbox::backdrop {
+    background-color: color-mix(in srgb, var(--color-background) 88%, black);
+  }
+</style>

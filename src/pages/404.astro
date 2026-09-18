@@ -1,11 +1,12 @@
 ---
 export const prerender = true;
 
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
 
-const title = "404 - Página no encontrada";
-const description = "La página que buscas no existe o ha sido movida.";
+const title = '404 - Página no encontrada';
+const description = 'La página que buscas no existe o ha sido movida.';
 ---
 
 <Layout title={title} description={description} robots="noindex, follow">
@@ -47,4 +48,5 @@ const description = "La página que buscas no existe o ha sido movida.";
       </a>
     </div>
   </main>
+  <Footer />
 </Layout>

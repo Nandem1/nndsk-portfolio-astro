@@ -1,5 +1,5 @@
 {
-  "name": "astro-practice-web",
+  "name": "nndsk-portfolio-astro",
   "version": "0.0.1",
   "dependencies": {
     "@astrojs/react": "^6.0.6",
@@ -18,8 +18,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.ts,.tsx --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -27,16 +27,16 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
-    "@tailwindcss/postcss": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@typescript-eslint/eslint-plugin": "^8.70.0",
     "@typescript-eslint/parser": "^8.70.0",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^3.2.1",
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-react-hooks": "^7.1.1",
     "prettier": "^3.9.8",
-    "typescript": "^6.0.3",
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0"
+    "typescript": "^6.0.3"
   }
 }

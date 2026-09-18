@@ -1,14 +1,8 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-let sortedTimeline: Awaited<ReturnType<typeof getCollection<"timeline">>> = [];
-
-try {
-  const timeline = await getCollection("timeline");
-  sortedTimeline = timeline.sort((a, b) => a.data.order - b.data.order);
-} catch (error) {
-  console.error("Error loading timeline:", error);
-}
+const timeline = await getCollection('timeline');
+const sortedTimeline = timeline.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <section id="bio" class="py-24 px-6" aria-labelledby="bio-heading">

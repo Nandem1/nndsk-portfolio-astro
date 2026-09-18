@@ -1,19 +1,15 @@
 ---
-import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
-import GitHubIcon from "./icons/GitHubIcon.astro";
-import ExternalLinkIcon from "./icons/ExternalLinkIcon.astro";
-import ProjectSpotlight from "./ProjectSpotlight.astro";
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import OptimizedPicture from '@/components/OptimizedPicture.astro';
+import WorksLightbox from '@/components/WorksLightbox.astro';
+import GitHubIcon from '@/components/icons/GitHubIcon.astro';
+import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon.astro';
+import ProjectSpotlight from '@/components/ProjectSpotlight.astro';
+import { softwareApplicationJsonLd } from '@/utils/jsonLd';
 
-let sortedProjects: CollectionEntry<"projects">[] = [];
-
-try {
-  const projects = await getCollection("projects");
-  sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
-} catch (error) {
-  console.error("Error loading projects:", error);
-}
+const projects = await getCollection('projects');
+const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
 
 const spotlight = sortedProjects
   .filter((p) => p.data.spotlight)
@@ -44,21 +40,6 @@ function allImages(project: CollectionEntry<"projects">) {
   return [...thumbs, ...gallery];
 }
 
-function projectSchema(project: CollectionEntry<"projects">) {
-  const url = project.data.link ?? project.data.github;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: project.data.title,
-    description: project.data.description,
-    ...(url && { url }),
-    ...(project.data.github && { codeRepository: project.data.github }),
-    ...(project.data.stack && project.data.stack.length > 0 && { keywords: project.data.stack.join(', ') }),
-    ...(project.data.year && { dateCreated: `${project.data.year}-01-01` }),
-    applicationCategory: 'DeveloperApplication',
-    author: { '@id': 'https://nndsk.dev/#person' },
-  };
-}
 ---
 
 <section id="work" class="py-24 px-6" aria-labelledby="work-heading">
@@ -104,7 +85,11 @@ function projectSchema(project: CollectionEntry<"projects">) {
                   style={`--reveal-delay: ${i * 100}ms`}
                 >
                   <article class="group h-full rounded-md bg-card border border-border overflow-hidden flex flex-col transition-colors duration-200 hover:border-border-strong">
-                    <script type="application/ld+json" set:html={JSON.stringify(projectSchema(project))} is:inline />
+                    <script
+                      type="application/ld+json"
+                      set:html={JSON.stringify(softwareApplicationJsonLd(project))}
+                      is:inline
+                    />
                     {/* Hero + strip clickable → lightbox */}
                     {project.data.thumbnail ? (
                       <button
@@ -114,12 +99,13 @@ function projectSchema(project: CollectionEntry<"projects">) {
                         aria-label={`Abrir galería de ${project.data.title}`}
                       >
                         <div class="aspect-video overflow-hidden bg-card border-b border-border">
-                          <Image
+                          <OptimizedPicture
                             src={project.data.thumbnail}
                             alt={`Captura de ${project.data.title}`}
                             width={800}
                             height={450}
-                            format="webp"
+                            widths={[400, 800]}
+                            sizes="(max-width: 768px) 100vw, 400px"
                             quality={80}
                             loading="lazy"
                             decoding="async"
@@ -150,12 +136,12 @@ function projectSchema(project: CollectionEntry<"projects">) {
                             class="w-16 h-10 rounded-sm overflow-hidden border border-border hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
                             aria-label={`Ver foto ${i + 1} de ${project.data.title}`}
                           >
-                            <Image
+                            <OptimizedPicture
                               src={img}
                               alt={`Miniatura ${i + 1} de ${project.data.title}`}
                               width={128}
                               height={80}
-                              format="webp"
+                              widths={[128]}
                               quality={70}
                               loading="lazy"
                               decoding="async"
@@ -238,37 +224,8 @@ function projectSchema(project: CollectionEntry<"projects">) {
                     </div>
                   </article>
 
-                  {/* Lightbox del proyecto */}
-                  {images.length > 0 && (
-                    <dialog
-                      id={dialogId}
-                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-md p-4"
-                      aria-label={`Galería de ${project.data.title}`}
-                    >
-                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {images.map((img, i) => (
-                          <Image
-                            src={img}
-                            alt={`Captura ${i + 1} de ${project.data.title}`}
-                            width={800}
-                            height={450}
-                            format="webp"
-                            quality={85}
-                            loading="lazy"
-                            decoding="async"
-                            class="w-full h-auto rounded-md border border-border"
-                          />
-                        ))}
-                      </div>
-                      <form method="dialog" class="mt-4 text-center">
-                        <button
-                          type="submit"
-                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-md hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
-                        >
-                          Cerrar (ESC)
-                        </button>
-                      </form>
-                    </dialog>
+                  {images.length > 1 && (
+                    <WorksLightbox id={dialogId} title={project.data.title} images={images} />
                   )}
                 </li>
               );
@@ -295,7 +252,11 @@ function projectSchema(project: CollectionEntry<"projects">) {
                   style={`--reveal-delay: ${i * 50}ms`}
                 >
                   <article class="group h-full rounded-md bg-card border border-border overflow-hidden flex flex-col transition-colors duration-200 hover:border-border-strong">
-                    <script type="application/ld+json" set:html={JSON.stringify(projectSchema(project))} is:inline />
+                    <script
+                      type="application/ld+json"
+                      set:html={JSON.stringify(softwareApplicationJsonLd(project))}
+                      is:inline
+                    />
                     {project.data.thumbnail ? (
                       images.length > 1 ? (
                         <button
@@ -305,12 +266,13 @@ function projectSchema(project: CollectionEntry<"projects">) {
                           aria-label={`Abrir galería de ${project.data.title}`}
                         >
                           <div class="aspect-video overflow-hidden bg-card border-b border-border">
-                            <Image
+                            <OptimizedPicture
                               src={project.data.thumbnail}
                               alt={`Captura de ${project.data.title}`}
                               width={600}
                               height={338}
-                              format="webp"
+                              widths={[400, 600]}
+                              sizes="(max-width: 768px) 100vw, 300px"
                               quality={75}
                               loading="lazy"
                               decoding="async"
@@ -320,12 +282,13 @@ function projectSchema(project: CollectionEntry<"projects">) {
                         </button>
                       ) : (
                         <div class="aspect-video overflow-hidden bg-card border-b border-border">
-                          <Image
+                          <OptimizedPicture
                             src={project.data.thumbnail}
                             alt={`Captura de ${project.data.title}`}
                             width={600}
                             height={338}
-                            format="webp"
+                            widths={[400, 600]}
+                            sizes="(max-width: 768px) 100vw, 300px"
                             quality={75}
                             loading="lazy"
                             decoding="async"
@@ -406,37 +369,8 @@ function projectSchema(project: CollectionEntry<"projects">) {
                     </div>
                   </article>
 
-                  {/* Lightbox */}
                   {images.length > 1 && (
-                    <dialog
-                      id={dialogId}
-                      class="lightbox max-w-4xl w-full bg-background/95 border border-border rounded-md p-4"
-                      aria-label={`Galería de ${project.data.title}`}
-                    >
-                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {images.map((img, i) => (
-                          <Image
-                            src={img}
-                            alt={`Captura ${i + 1} de ${project.data.title}`}
-                            width={800}
-                            height={450}
-                            format="webp"
-                            quality={85}
-                            loading="lazy"
-                            decoding="async"
-                            class="w-full h-auto rounded-md border border-border"
-                          />
-                        ))}
-                      </div>
-                      <form method="dialog" class="mt-4 text-center">
-                        <button
-                          type="submit"
-                          class="px-4 py-2 text-sm text-muted hover:text-foreground border border-border rounded-md hover:border-border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
-                        >
-                          Cerrar (ESC)
-                        </button>
-                      </form>
-                    </dialog>
+                    <WorksLightbox id={dialogId} title={project.data.title} images={images} />
                   )}
                 </li>
               );
@@ -464,15 +398,3 @@ function projectSchema(project: CollectionEntry<"projects">) {
     </div>
   </div>
 </section>
-<style>
-  dialog.lightbox {
-    margin: auto;
-    color: var(--color-foreground);
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  dialog.lightbox::backdrop {
-    background-color: color-mix(in srgb, var(--color-background) 88%, black);
-  }
-</style>

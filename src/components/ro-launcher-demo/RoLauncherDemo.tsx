@@ -3,13 +3,7 @@ import './tokens.css';
 import { demoChrome } from './chrome/classes';
 import { DemoHeader } from './chrome/DemoHeader';
 import { DemoCenter } from './center/DemoCenter';
-import {
-  PREPARE_STEPS,
-  PREPARE_TICK_MS,
-  demoReducer,
-  getPrefixState,
-  initialDemoState,
-} from './demo.logic';
+import { PREPARE_STEPS, demoReducer, getPrefixState, initialDemoState } from './demo.logic';
 import { DemoLogs } from './logs/DemoLogs';
 import { DemoRail } from './rail/DemoRail';
 import { getServerById } from './mockData';
@@ -39,16 +33,21 @@ function usePrepareTimer(state: typeof initialDemoState, dispatch: Dispatch<Demo
       return;
     }
 
+    const delay = PREPARE_STEPS[state.prepareStepIndex]?.durationMs;
+    if (delay == null) {
+      return;
+    }
+
     if (state.prepareStepIndex >= PREPARE_STEPS.length - 1) {
       const doneTimer = window.setTimeout(() => {
         dispatch({ type: 'prepareDone' });
-      }, PREPARE_TICK_MS);
+      }, delay);
       return () => window.clearTimeout(doneTimer);
     }
 
     const tickTimer = window.setTimeout(() => {
       dispatch({ type: 'prepareTick' });
-    }, PREPARE_TICK_MS);
+    }, delay);
     return () => window.clearTimeout(tickTimer);
   }, [prefix, state.prepareStepIndex, state.selectedServerId, dispatch, server.id]);
 }

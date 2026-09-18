@@ -42,3 +42,9 @@
 .ro-demo ::-webkit-scrollbar-thumb:hover {
   background: #52525b;
 }
+
+.ro-demo-progress-fill {
+  @starting-style {
+    width: 0%;
+  }
+}

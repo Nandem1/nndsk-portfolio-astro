@@ -68,6 +68,12 @@ export type ToolView = 'combat' | 'buffs';
 
 export type LogChannel = 'game' | 'tools';
 
+export interface PrepareStep {
+  step: string;
+  percent: number;
+  durationMs: number;
+}
+
 export interface AutobuffRuleState {
   id: string;
   label: string;
@@ -80,7 +86,7 @@ export interface DemoState {
   selectedRunnerId: RunnerId;
   runnerOverride: Partial<Record<ServerId, RunnerId>>;
   prefixByKey: Record<string, PrefixState>;
-  progress: { step: string; percent: number } | null;
+  progress: { step: string; percent: number; durationMs: number } | null;
   prepareStepIndex: number;
   gameLogs: string[];
   toolLogs: string[];

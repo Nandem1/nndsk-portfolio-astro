@@ -119,6 +119,29 @@ const personSchemaId = personId();
     />
 
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const enter = () => document.documentElement.setAttribute('data-enter', '');
+        const settleHash = () => {
+          const id = location.hash.slice(1);
+          if (!id) return;
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.scrollIntoView({ block: 'start', behavior: 'instant' });
+        };
+        if ('onpagereveal' in window) {
+          addEventListener('pagereveal', event => {
+            if (event.viewTransition) {
+              settleHash();
+              return;
+            }
+            enter();
+          });
+        } else {
+          enter();
+        }
+      })();
+    </script>
   </head>
   <body class="min-h-screen">
     <!-- Skip to content link para accesibilidad -->

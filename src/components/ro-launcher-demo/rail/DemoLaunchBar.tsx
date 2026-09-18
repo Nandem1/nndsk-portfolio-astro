@@ -28,8 +28,13 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
           </div>
           <div className="w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-amber-600 via-amber-300 to-amber-400 rounded-full transition-all duration-500"
-              style={{ width: `${progress.percent}%` }}
+              className="ro-demo-progress-fill h-full bg-gradient-to-r from-amber-600 via-amber-300 to-amber-400 rounded-full"
+              style={{
+                width: `${progress.percent}%`,
+                transitionProperty: 'width',
+                transitionDuration: `${progress.durationMs}ms`,
+                transitionTimingFunction: 'cubic-bezier(0.33, 0, 0.2, 1)',
+              }}
             />
           </div>
         </div>

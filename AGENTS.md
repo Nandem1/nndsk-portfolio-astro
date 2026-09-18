@@ -53,11 +53,12 @@ MUST:
 - Site identity URLs in JSON-LD use `SITE_METADATA.url`. Canonical/OG URL uses `Astro.site`.
 - Interactivity that is not the RO demo stays in `.astro` `<script>` or `public/scripts/site.js` — do not add new React islands for it.
 - Add `data-astro-prefetch` only on the case-study CTA (global `prefetchAll` is false).
+- Page transitions use CSS `@view-transition { navigation: auto }` in `src/styles/global.css` (MPA cross-document); do not add `ClientRouter`.
 
 MUST NOT:
 
 - Switch `output` away from `'static'` or add an SSR adapter.
-- Add `ClientRouter` / view transitions.
+- Add `ClientRouter` or Astro `transition:` directives.
 - Enable React Compiler (`babel-plugin-react-compiler`) until `@astrojs/react` prebundles `react/compiler-runtime`.
 - Use `client:only` for `RoLauncherDemo`.
 - Hydrate Header, Footer, nav, Bio, Works cards, or SocialLinks with React.
@@ -94,4 +95,4 @@ Short imperative messages (`Fix case study getEntry`, `Add Fonts API`). Do not c
 
 ## Out of scope unless asked
 
-View Transitions, React Compiler, dynamic case-study routes, blog, test runner, `astro:env`, Actions, adapters, splitting the React island into multiple islands.
+ClientRouter / Astro View Transitions router, React Compiler, dynamic case-study routes, blog, test runner, `astro:env`, Actions, adapters, splitting the React island into multiple islands.

@@ -5,26 +5,30 @@ import type {
   DemoState,
   PotKey,
   PrefixState,
+  PrepareStep,
   RunnerId,
   ServerId,
 } from './types';
 
-export const PREPARE_STEPS: { step: string; percent: number }[] = [
-  { step: 'Resolviendo runner...', percent: 0 },
-  { step: 'Preparando runner...', percent: 15 },
-  { step: 'Instalando DXVK...', percent: 30 },
-  { step: 'Creando entorno aislado...', percent: 40 },
-  { step: 'Inicializando entorno...', percent: 45 },
-  { step: 'Preparando Wine Gecko...', percent: 50 },
-  { step: 'Preparando gráficos...', percent: 55 },
-  { step: 'Instalando vcredist_2019...', percent: 65 },
-  { step: 'Instalando d3dx9...', percent: 75 },
-  { step: 'Instalando corefonts...', percent: 88 },
-  { step: 'Configurando audio...', percent: 96 },
-  { step: '¡Listo!', percent: 100 },
+export const PREPARE_STEPS: PrepareStep[] = [
+  { step: 'Preparando entorno...', percent: 8, durationMs: 220 },
+  { step: 'Creando entorno aislado...', percent: 16, durationMs: 480 },
+  { step: 'Inicializando entorno...', percent: 28, durationMs: 820 },
+  { step: 'Resolviendo runner...', percent: 34, durationMs: 180 },
+  { step: 'Preparando runner...', percent: 48, durationMs: 520 },
+  { step: 'Instalando DXVK...', percent: 61, durationMs: 380 },
+  { step: 'Preparando Wine Gecko...', percent: 69, durationMs: 680 },
+  { step: 'Preparando gráficos...', percent: 73, durationMs: 200 },
+  { step: 'Instalando vcredist_2019...', percent: 84, durationMs: 740 },
+  { step: 'Instalando d3dx9...', percent: 90, durationMs: 340 },
+  { step: 'Instalando corefonts...', percent: 97, durationMs: 780 },
+  { step: 'Configurando audio...', percent: 99, durationMs: 180 },
+  { step: '¡Listo!', percent: 100, durationMs: 240 },
 ];
 
-export const PREPARE_TICK_MS = 900;
+export function progressFromStep(step: PrepareStep): NonNullable<DemoState['progress']> {
+  return { step: step.step, percent: step.percent, durationMs: step.durationMs };
+}
 
 export const LOG_PREPARE_INTRO = '[demo] Simulación — no descarga Proton ni escribe un WINEPREFIX.';
 
@@ -175,7 +179,7 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
           {
             ...state,
             prefixByKey: { ...state.prefixByKey, [key]: 'preparing' },
-            progress: { step: PREPARE_STEPS[0].step, percent: PREPARE_STEPS[0].percent },
+            progress: progressFromStep(PREPARE_STEPS[0]),
             prepareStepIndex: 0,
             playNotice: null,
           },
@@ -194,7 +198,7 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
         {
           ...state,
           prepareStepIndex: nextIndex,
-          progress: { step: step.step, percent: step.percent },
+          progress: progressFromStep(step),
         },
         `[demo] ${step.step}`
       );

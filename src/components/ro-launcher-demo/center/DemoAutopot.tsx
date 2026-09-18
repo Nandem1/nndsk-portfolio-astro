@@ -67,7 +67,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
   const statusLine2 = !ready
     ? 'Prepara el entorno'
     : state.autopotEnabled
-      ? 'Simulado'
+      ? 'Sin cliente'
       : 'Demo — sin cliente real';
 
   const hpCur = ready ? DEMO_VITALS.hpCur : 0;

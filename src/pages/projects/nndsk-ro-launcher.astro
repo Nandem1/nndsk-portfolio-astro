@@ -26,9 +26,10 @@ if (!project.data.thumbnail) {
   throw new Error('Missing thumbnail for nndsk-ro-launcher');
 }
 
-const title = 'nndsk-ro-launcher: launcher de Ragnarok Online para Linux';
+const title =
+  'nndsk-ro-launcher: launcher de Ragnarok Online para Linux | Ragnarok Online Linux launcher';
 const description =
-  'nndsk-ro-launcher (RO-Launcher) es un launcher de Ragnarok Online para Linux: Tauri v2, React y Rust. WINEPREFIX, DXVK/Vulkan, AutoPot y supervisor de sesión.';
+  'Launcher de Ragnarok Online para Linux (Ragnarok Online Linux launcher). Wine/Proton, WINEPREFIX, DXVK y dgVoodoo; AutoPot sin ptrace_scope=0. Tauri v2 + React + Rust.';
 
 const og = await getImage({
   src: project.data.thumbnail,
@@ -77,7 +78,19 @@ const { '@context': _context, ...appNode } = softwareApplicationJsonLd(project, 
   description,
   applicationCategory: 'GameApplication',
   operatingSystem: 'Linux',
-  alternateName: ['RO-Launcher', 'RO Launcher'],
+  alternateName: ['RO-Launcher', 'RO Launcher', 'Ragnarok Online Linux launcher'],
+  keywords: [
+    'Ragnarok Online Linux launcher',
+    'RO-Launcher',
+    'Tauri v2',
+    'React',
+    'Rust',
+    'Wine',
+    'Proton',
+    'WINEPREFIX',
+    'DXVK',
+    'dgVoodoo',
+  ],
   image: screenshotHref,
   isPartOf: { '@id': websiteId() },
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

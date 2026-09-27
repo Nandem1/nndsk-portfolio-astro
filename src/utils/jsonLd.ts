@@ -17,6 +17,7 @@ type SoftwareApplicationExtras = {
   image?: string;
   operatingSystem?: string;
   alternateName?: string[];
+  keywords?: string[];
   isPartOf?: { '@id': string };
   offers?: { '@type': 'Offer'; price: string; priceCurrency: string };
 };
@@ -27,6 +28,12 @@ export function softwareApplicationJsonLd(
 ) {
   const url = extras?.url ?? project.data.link ?? project.data.github;
   const description = extras?.description ?? project.data.description;
+  const keywords =
+    extras?.keywords && extras.keywords.length > 0
+      ? extras.keywords.join(', ')
+      : project.data.stack && project.data.stack.length > 0
+        ? project.data.stack.join(', ')
+        : undefined;
 
   return {
     '@context': 'https://schema.org',
@@ -43,8 +50,7 @@ export function softwareApplicationJsonLd(
     ...(extras?.alternateName && { alternateName: extras.alternateName }),
     ...(extras?.isPartOf && { isPartOf: extras.isPartOf }),
     ...(extras?.offers && { offers: extras.offers }),
-    ...(project.data.stack &&
-      project.data.stack.length > 0 && { keywords: project.data.stack.join(', ') }),
+    ...(keywords && { keywords }),
     ...(project.data.year && { dateCreated: `${project.data.year}-01-01` }),
     applicationCategory: extras?.applicationCategory ?? 'DeveloperApplication',
     author: { '@id': personId() },

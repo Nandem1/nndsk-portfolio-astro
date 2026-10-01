@@ -34,7 +34,9 @@ export function DemoAutobuff({ state, dispatch }: Props) {
       aria-labelledby="ro-demo-tab-buffs"
     >
       <div className={panelHeader}>
-        <p className={panelTitle}>AutoBuff</p>
+        <p id="ro-demo-autobuff-title" className={panelTitle}>
+          AutoBuff
+        </p>
       </div>
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">
@@ -46,6 +48,7 @@ export function DemoAutobuff({ state, dispatch }: Props) {
             checked={state.autobuffEnabled && ready}
             disabled={!canToggle}
             tone="emerald"
+            labelledBy="ro-demo-autobuff-title"
             onChange={() => dispatch({ type: 'toggleAutobuff' })}
           />
         </div>
@@ -66,7 +69,11 @@ export function DemoAutobuff({ state, dispatch }: Props) {
                 />
                 <span className="text-[11px] text-zinc-300 truncate">{rule.label}</span>
               </label>
+              <label className="sr-only" htmlFor={`ro-demo-autobuff-key-${rule.id}`}>
+                Tecla para {rule.label}
+              </label>
               <select
+                id={`ro-demo-autobuff-key-${rule.id}`}
                 className={`${selectNative} text-[11px] py-1 w-16 shrink-0`}
                 disabled={!ready}
                 value={rule.key}

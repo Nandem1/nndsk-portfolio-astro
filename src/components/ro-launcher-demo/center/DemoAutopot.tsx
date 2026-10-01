@@ -96,6 +96,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
             checked={state.autopotEnabled && ready}
             disabled={!ready}
             tone="emerald"
+            labelledBy="ro-demo-autopot-title"
             onChange={() => dispatch({ type: 'toggleAutopot' })}
           />
         </div>
@@ -107,7 +108,12 @@ export function DemoAutopot({ state, dispatch }: Props) {
 
         <div className="flex items-center justify-between gap-3 rounded-lg border border-amber-500/15 bg-amber-500/5 px-4 py-2">
           <div className="min-w-0">
-            <p className="text-[11px] font-medium text-amber-100/90">Modo proactivo</p>
+            <p
+              id="ro-demo-autopot-proactive-label"
+              className="text-[11px] font-medium text-amber-100/90"
+            >
+              Modo proactivo
+            </p>
             <p className="text-[10px] leading-snug text-zinc-500">
               Envía HP entre recuperaciones para reducir la reacción con latencia alta.
             </p>
@@ -116,6 +122,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
             checked={state.autopotProactive}
             disabled={!ready}
             tone="amber"
+            labelledBy="ro-demo-autopot-proactive-label"
             onChange={() => dispatch({ type: 'toggleAutopotProactive' })}
           />
         </div>
@@ -148,9 +155,15 @@ export function DemoAutopot({ state, dispatch }: Props) {
 
         <div className="grid grid-cols-2 gap-1.5">
           <div className="space-y-1">
-            <span className="text-[10px] text-zinc-600 uppercase tracking-wide">HP</span>
+            <label
+              htmlFor="ro-demo-autopot-hp-key"
+              className="text-[10px] text-zinc-600 uppercase tracking-wide"
+            >
+              <span className="sr-only">Tecla de </span>HP
+            </label>
             <div className="flex gap-1">
               <select
+                id="ro-demo-autopot-hp-key"
                 className={`${selectNative} text-[11px] py-1`}
                 disabled={!ready}
                 value={state.autopotHpKey}
@@ -187,9 +200,15 @@ export function DemoAutopot({ state, dispatch }: Props) {
             </div>
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] text-zinc-600 uppercase tracking-wide">SP</span>
+            <label
+              htmlFor="ro-demo-autopot-sp-key"
+              className="text-[10px] text-zinc-600 uppercase tracking-wide"
+            >
+              <span className="sr-only">Tecla de </span>SP
+            </label>
             <div className="flex gap-1">
               <select
+                id="ro-demo-autopot-sp-key"
                 className={`${selectNative} text-[11px] py-1`}
                 disabled={!ready}
                 value={state.autopotSpKey}
@@ -229,9 +248,12 @@ export function DemoAutopot({ state, dispatch }: Props) {
 
         <div className="space-y-1">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-[10px] text-zinc-600 uppercase tracking-wide">
+            <label
+              htmlFor="ro-demo-autopot-memory-profile"
+              className="text-[10px] text-zinc-600 uppercase tracking-wide"
+            >
               Perfil de memoria
-            </span>
+            </label>
             <button
               type="button"
               disabled
@@ -241,7 +263,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
               Encontrar
             </button>
           </div>
-          <select className={selectNative} disabled value="">
+          <select id="ro-demo-autopot-memory-profile" className={selectNative} disabled value="">
             <option value="">Auto</option>
           </select>
         </div>

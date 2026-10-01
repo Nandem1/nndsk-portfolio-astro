@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# verification skill runtime and captured proofs (kept on disk, not committed)
+.cursor/skills/verify-nndsk-portfolio/.run/
+.cursor/skills/verify-nndsk-portfolio/evidence/
+
+# local lighthouse / a11y audit artifacts (JSON/HTML reports)
+.audit/

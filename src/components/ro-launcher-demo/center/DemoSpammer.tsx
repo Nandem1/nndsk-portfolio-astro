@@ -34,7 +34,9 @@ export function DemoSpammer({ state, dispatch }: Props) {
   return (
     <section className={`${panelShell} h-full min-h-[16rem] ${tone}`}>
       <div className={panelHeader}>
-        <p className={panelTitle}>Spammer</p>
+        <p id="ro-demo-spammer-title" className={panelTitle}>
+          Spammer
+        </p>
       </div>
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">
@@ -46,6 +48,7 @@ export function DemoSpammer({ state, dispatch }: Props) {
             checked={state.spammerEnabled && ready}
             disabled={!ready || state.spammerKeys.length === 0}
             tone="amber"
+            labelledBy="ro-demo-spammer-title"
             onChange={() => dispatch({ type: 'toggleSpammer' })}
           />
         </div>

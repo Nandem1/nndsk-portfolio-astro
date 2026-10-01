@@ -1,17 +1,23 @@
 import { focusRing } from './classes';
 
-interface DemoToggleProps {
+type DemoToggleName = { label: string; labelledBy?: never } | { labelledBy: string; label?: never };
+
+interface DemoToggleBase {
   checked: boolean;
   disabled?: boolean;
   tone?: 'emerald' | 'amber';
   onChange: (checked: boolean) => void;
 }
 
+type DemoToggleProps = DemoToggleBase & DemoToggleName;
+
 export function DemoToggle({
   checked,
   disabled = false,
   tone = 'emerald',
   onChange,
+  label,
+  labelledBy,
 }: DemoToggleProps) {
   const onClass =
     tone === 'emerald'
@@ -23,6 +29,7 @@ export function DemoToggle({
       type="button"
       role="switch"
       aria-checked={checked}
+      {...(labelledBy !== undefined ? { 'aria-labelledby': labelledBy } : { 'aria-label': label })}
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={`relative w-9 h-5 rounded-full border transition-[background-color,border-color,box-shadow] duration-200 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed ${focusRing} ${

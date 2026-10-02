@@ -16,6 +16,7 @@ import {
   softwareApplicationJsonLd,
   websiteId,
 } from '@/utils/jsonLd';
+import { RO_LAUNCHER_RELEASE } from '@/utils/roLauncherRelease';
 import { backLinkClass, ctaGhost, ctaPrimary } from '@/utils/ui';
 
 const project = await getEntry('projects', 'nndsk-ro-launcher');
@@ -78,6 +79,8 @@ const { '@context': _context, ...appNode } = softwareApplicationJsonLd(project, 
   description,
   applicationCategory: 'GameApplication',
   operatingSystem: 'Linux',
+  softwareVersion: RO_LAUNCHER_RELEASE.version,
+  downloadUrl: RO_LAUNCHER_RELEASE.downloadUrl,
   alternateName: ['RO-Launcher', 'RO Launcher', 'Ragnarok Online Linux launcher'],
   keywords: [
     'Ragnarok Online Linux launcher',
@@ -198,24 +201,64 @@ const ogImageAlt =
         <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
           RO-Launcher — launcher de Ragnarok Online para Linux
         </h1>
-        <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
+        <p class="text-sm font-mono text-muted mb-6">2026 · Tauri v2 · React · Rust</p>
 
-        {
-          project.data.github && (
-            <div class="flex flex-wrap gap-3 mb-8 md:hidden">
+        <div class="flex flex-wrap gap-3 mb-2">
+          <a href={RO_LAUNCHER_RELEASE.downloadUrl} class={ctaPrimary}>
+            Descargar AppImage (Linux x64)
+          </a>
+          {
+            project.data.github && (
               <a
                 href={project.data.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                class={ctaPrimary}
+                class={ctaGhost}
                 aria-label="Ver código en GitHub: nndsk-ro-launcher"
               >
                 <GitHubIcon class="w-4 h-4" />
                 Repo
               </a>
-            </div>
-          )
-        }
+            )
+          }
+          <a href="#demo" class={ctaGhost}>
+            Ver demo
+          </a>
+        </div>
+        <p class="text-xs font-mono text-muted mb-8">
+          v{RO_LAUNCHER_RELEASE.version} · Linux x64 AppImage
+        </p>
+
+        <section id="instalar" aria-labelledby="instalar-heading" class="mb-8">
+          <h2 id="instalar-heading" class="text-xl font-semibold text-foreground mb-4">
+            Instalar
+          </h2>
+          <p class="text-muted leading-relaxed mb-4">
+            AppImage para amd64 (x86_64). No hay paquetes Flatpak ni Snap.
+          </p>
+          <pre
+            class="text-xs font-mono text-muted border border-border rounded-md p-4 overflow-x-auto mb-4"
+          ><code>{`chmod +x ${RO_LAUNCHER_RELEASE.appImageFileName}\n./${RO_LAUNCHER_RELEASE.appImageFileName}`}</code></pre>
+          <p class="text-sm text-muted">
+            <a
+              href={RO_LAUNCHER_RELEASE.releasesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaGhost}
+            >
+              Releases
+            </a>
+            <span class="text-muted mx-2" aria-hidden="true">·</span>
+            <a
+              href={RO_LAUNCHER_RELEASE.checksumUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={ctaGhost}
+            >
+              SHA-256
+            </a>
+          </p>
+        </section>
       </div>
 
       {

@@ -1,13 +1,9 @@
 {
   "title": "nndsk-gisan-astro",
-  "description": "Portafolio de lettering y caligrafía con scroll-driven animations, cursor de tinta y parallax. Astro + GSAP + Lenis sincronizado con ScrollTrigger.",
+  "description": "Portafolio de lettering y caligrafía. Animación al scroll, cursor de tinta y parallax. Astro, GSAP y Lenis.",
   "tags": ["Portfolio", "Web", "Comisión"],
   "stack": ["Astro", "GSAP", "Lenis", "TypeScript"],
-  "highlights": [
-    "Cursor de tinta y TextSplit custom",
-    "Helpers DRY: createRevealTrigger y createParallax",
-    "Lenis sincronizado con GSAP ScrollTrigger"
-  ],
+  "highlights": ["Cursor de tinta y TextSplit", "Lenis sincronizado con GSAP ScrollTrigger"],
   "thumbnail": "./nndsk-gisan-astro/gisan1.png",
   "gallery": [
     "./nndsk-gisan-astro/gisan2.png",

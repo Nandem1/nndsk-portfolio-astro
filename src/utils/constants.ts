@@ -1,11 +1,5 @@
-/**
- * Constantes compartidas del proyecto
- */
-
-// Avatar del desarrollador
 export const AVATAR_URL = 'https://avatars.githubusercontent.com/u/103139553?v=4';
 
-// Información del autor
 export const AUTHOR = {
   name: 'Nande',
   role: 'Fullstack Developer',
@@ -16,14 +10,12 @@ export const AUTHOR = {
   discord: 'nandem1',
 };
 
-// Enlaces de navegación
 export const NAV_LINKS = [
   { href: '/#bio', label: 'Bio' },
   { href: '/#work', label: 'Proyectos' },
   { href: '/#contact', label: 'Contacto' },
 ];
 
-// Enlaces sociales
 export const SOCIAL_LINKS = [
   {
     name: 'GitHub',
@@ -47,11 +39,10 @@ export const SOCIAL_LINKS = [
   },
 ] as const;
 
-// Metadata del sitio
 export const SITE_METADATA = {
   title: 'nndsk — Nande · Fullstack Developer',
   description:
-    'Fullstack developer desde Chile. Trabajo con TypeScript, Go y Rust construyendo ERPs, herramientas open source y productos web.',
+    'Fullstack developer desde Chile. TypeScript, Go y Rust. ERP de Mercado House, EcoRetirosRM y herramientas open source.',
   url: 'https://nndsk.dev',
   locale: 'es_CL',
 };

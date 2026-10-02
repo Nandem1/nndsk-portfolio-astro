@@ -1,12 +1,11 @@
 {
   "title": "nndsk-hyprtask",
-  "description": "Task manager con arquitectura Feature-Sliced. Kanban con dnd-kit, notas rich-text con emotes 7TV, Pomodoro con focus sessions, sleep tracker y work timer. Atajos globales y UI con Radix.",
+  "description": "Tablero de tareas. Kanban, notas con emotes 7TV, Pomodoro, registro de sueño y timer de trabajo. Atajos globales. UI con Radix.",
   "tags": ["Productividad", "Web", "ADHD"],
   "stack": ["Next.js", "React", "Zustand", "TanStack Query", "Radix UI", "dnd-kit"],
   "highlights": [
-    "5 entidades FSD con hooks/lib/model/ui cada una",
-    "Kanban dnd-kit + notas rich-text con emotes 7TV",
-    "Pomodoro, sleep tracker y work timer con atajos globales"
+    "Kanban con dnd-kit y notas rich-text con emotes 7TV",
+    "Pomodoro, registro de sueño y timer de trabajo. Atajos globales."
   ],
   "thumbnail": "./nndsk-hyprtask/hyprtask1.png",
   "gallery": ["./nndsk-hyprtask/hyprtask2.png", "./nndsk-hyprtask/hyprtask3.png"],

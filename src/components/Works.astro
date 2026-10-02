@@ -24,7 +24,7 @@ const yearRange =
   years.length > 0
     ? new Set(years).size === 1
       ? years[0]
-      : `${[...new Set(years)].sort().join("–")}`
+      : `${[...new Set(years)].sort().join(' · ')}`
     : null;
 
 const totalCount = sortedProjects.length;
@@ -71,7 +71,6 @@ function allImages(project: CollectionEntry<"projects">) {
           </div>
         )}
 
-        {/* Featured — cards grandes con strip */}
         {featured.length > 0 && (
           <ul class="grid md:grid-cols-2 gap-6" role="list">
             {featured.map((project, i) => {
@@ -90,7 +89,6 @@ function allImages(project: CollectionEntry<"projects">) {
                       set:html={JSON.stringify(softwareApplicationJsonLd(project))}
                       is:inline
                     />
-                    {/* Hero + strip clickable → lightbox */}
                     {project.data.thumbnail ? (
                       <button
                         type="button"
@@ -126,7 +124,6 @@ function allImages(project: CollectionEntry<"projects">) {
                       </div>
                     )}
 
-                    {/* Strip de miniaturas */}
                     {images.length > 1 && (
                       <div class="flex gap-1.5 p-3 bg-card/50 border-b border-border overflow-x-auto">
                         {images.map((img, i) => (
@@ -152,7 +149,6 @@ function allImages(project: CollectionEntry<"projects">) {
                       </div>
                     )}
 
-                    {/* Cuerpo */}
                     <div class="p-6 flex flex-col flex-1">
                       <div class="flex items-baseline justify-between gap-3 mb-2">
                         <h3 class="text-xl font-semibold text-foreground">
@@ -233,7 +229,6 @@ function allImages(project: CollectionEntry<"projects">) {
           </ul>
         )}
 
-        {/* No-featured — cards compactas */}
         {rest.length > 0 && (
           <>
             <h3 class="text-lg font-semibold text-center text-muted mb-6">Otros</h3>

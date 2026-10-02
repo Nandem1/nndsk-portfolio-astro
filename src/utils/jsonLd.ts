@@ -16,6 +16,8 @@ type SoftwareApplicationExtras = {
   description?: string;
   image?: string;
   operatingSystem?: string;
+  softwareVersion?: string;
+  downloadUrl?: string;
   alternateName?: string[];
   keywords?: string[];
   isPartOf?: { '@id': string };
@@ -47,6 +49,8 @@ export function softwareApplicationJsonLd(
     }),
     ...(extras?.image && { image: extras.image, screenshot: extras.image }),
     ...(extras?.operatingSystem && { operatingSystem: extras.operatingSystem }),
+    ...(extras?.softwareVersion && { softwareVersion: extras.softwareVersion }),
+    ...(extras?.downloadUrl && { downloadUrl: extras.downloadUrl }),
     ...(extras?.alternateName && { alternateName: extras.alternateName }),
     ...(extras?.isPartOf && { isPartOf: extras.isPartOf }),
     ...(extras?.offers && { offers: extras.offers }),

@@ -16,6 +16,7 @@ import {
   softwareApplicationJsonLd,
   websiteId,
 } from '@/utils/jsonLd';
+import { RO_LAUNCHER_RELEASE } from '@/utils/roLauncherRelease';
 import { backLinkClass, ctaGhost, ctaPrimary } from '@/utils/ui';
 
 const project = await getEntry('projects', 'nndsk-ro-launcher');
@@ -29,7 +30,7 @@ if (!project.data.thumbnail) {
 const title =
   'nndsk-ro-launcher: launcher de Ragnarok Online para Linux | Ragnarok Online Linux launcher';
 const description =
-  'Launcher de Ragnarok Online para Linux (Ragnarok Online Linux launcher). Wine/Proton, WINEPREFIX, DXVK y dgVoodoo; AutoPot sin ptrace_scope=0. Tauri v2 + React + Rust.';
+  'Launcher de Ragnarok Online para Linux. Wine, Proton, WINEPREFIX, DXVK y dgVoodoo. AutoPot sin ptrace_scope=0. Tauri v2, React y Rust.';
 
 const og = await getImage({
   src: project.data.thumbnail,
@@ -57,18 +58,15 @@ const faqId = `${pageUrl}#faq`;
 const faqs = [
   {
     question: '¿Sirve para servidores privados?',
-    answer:
-      'Cada servidor tiene su perfil (runner, WINEPREFIX, DXVK). No afirmamos compatibilidad con todos.',
+    answer: 'Cada servidor tiene su perfil (runner, WINEPREFIX, DXVK).',
   },
   {
     question: '¿Hace falta ptrace_scope=0?',
-    answer:
-      'No. ro-sessiond lee el cliente con Yama en default: sin ptrace_scope=0 y sin sudo.',
+    answer: 'No. Yama queda en default. No hace falta sudo.',
   },
   {
     question: '¿Modifica Gepard o el cliente?',
-    answer:
-      'No. Si el hash de gepard.dll no está en la matriz, hay advertencia; no receta de runner.',
+    answer: 'No. Si el hash de gepard.dll no está en la matriz, hay advertencia.',
   },
 ];
 
@@ -78,6 +76,8 @@ const { '@context': _context, ...appNode } = softwareApplicationJsonLd(project, 
   description,
   applicationCategory: 'GameApplication',
   operatingSystem: 'Linux',
+  softwareVersion: RO_LAUNCHER_RELEASE.version,
+  downloadUrl: RO_LAUNCHER_RELEASE.downloadUrl,
   alternateName: ['RO-Launcher', 'RO Launcher', 'Ragnarok Online Linux launcher'],
   keywords: [
     'Ragnarok Online Linux launcher',
@@ -112,7 +112,7 @@ const caseStudyJsonLd = {
     appNode,
     breadcrumbListJsonLd(breadcrumbId, [
       { name: 'Inicio', item: `${SITE_METADATA.url}/` },
-      { name: 'nndsk-ro-launcher', item: pageUrl },
+      { name: 'RO-Launcher', item: pageUrl },
     ]),
     faqPageJsonLd(faqId, faqs),
   ],
@@ -129,11 +129,11 @@ const technicalRuntime = [
   },
   {
     lead: 'Gepard',
-    rest: 'recomendación de runner solo si el SHA-256 de gepard.dll coincide con la matriz validada. Hash desconocido = advertencia, no receta.',
+    rest: 'recomendación de runner solo si el SHA-256 de gepard.dll coincide con la matriz validada. Un hash desconocido muestra advertencia y no elige runner.',
   },
   {
-    lead: 'Sin tocar el cliente',
-    rest: 'el launcher no modifica Gepard, el cliente ni el tráfico del juego.',
+    lead: 'Cliente',
+    rest: 'no modifica Gepard, ragexe ni el tráfico.',
   },
 ];
 
@@ -147,12 +147,16 @@ const pipelinePillClass =
 
 const technicalHerramientas = [
   {
-    lead: 'AutoPot / AutoBuff / Spammer',
-    rest: 'lectura de memoria (perfiles 4RTools). Spammer con sidecar evdev + ydotool, hotkeys F1–F9 / 0–9.',
+    lead: 'AutoPot y AutoBuff',
+    rest: 'lectura de memoria con perfiles 4RTools.',
+  },
+  {
+    lead: 'Spammer',
+    rest: 'sidecar evdev y ydotool, hotkeys F1 a F9 y 0 a 9.',
   },
   {
     lead: 'ro-sessiond',
-    rest: 'child subreaper, padre de wineserver, patcher y ragexe.exe. No hace falta ptrace_scope=0 ni sudo.',
+    rest: 'child subreaper, padre de wineserver, patcher y ragexe.exe.',
   },
 ];
 
@@ -168,8 +172,7 @@ const stackChips = [
 ];
 
 const galleryImage = project.data.gallery?.[0];
-const ogImageAlt =
-  'RO-Launcher (nndsk-ro-launcher) — launcher de Ragnarok Online para Linux';
+const ogImageAlt = 'RO-Launcher en Linux, launcher de Ragnarok Online';
 ---
 
 <style is:global>
@@ -191,38 +194,31 @@ const ogImageAlt =
             <li aria-hidden="true">/</li>
             <li><a href="/#work" class={backLinkClass}>Trabajos</a></li>
             <li aria-hidden="true">/</li>
-            <li class="text-foreground" aria-current="page">nndsk-ro-launcher</li>
+            <li class="text-foreground" aria-current="page">RO-Launcher</li>
           </ol>
         </nav>
 
         <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
-          RO-Launcher — launcher de Ragnarok Online para Linux
+          RO-Launcher
         </h1>
-        <p class="text-sm font-mono text-muted mb-6 md:mb-8">2026 · Tauri v2 · React · Rust</p>
+        <p class="text-sm font-mono text-muted mb-6 md:mb-8">
+          Launcher de Ragnarok Online para Linux · 2026 · Tauri v2 · React · Rust · v{
+            RO_LAUNCHER_RELEASE.version
+          }
+        </p>
 
-        {
-          project.data.github && (
-            <div class="flex flex-wrap gap-3 mb-8 md:hidden">
-              <a
-                href={project.data.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={ctaPrimary}
-                aria-label="Ver código en GitHub: nndsk-ro-launcher"
-              >
-                <GitHubIcon class="w-4 h-4" />
-                Repo
-              </a>
-            </div>
-          )
-        }
+        <div class="mb-8">
+          <a href={RO_LAUNCHER_RELEASE.downloadUrl} class={ctaPrimary}>
+            Descargar AppImage (Linux x64)
+          </a>
+        </div>
       </div>
 
       {
         project.data.thumbnail && (
           <div id="demo" class="mt-8">
             <p class="text-sm text-muted mb-3 max-w-3xl">
-              Demo de la UI. No lanza el juego ni instala Wine.
+              Esta demo no lanza el juego ni instala Wine.
             </p>
             <RoLauncherDemo client:load variant="full" />
             <noscript>
@@ -249,20 +245,65 @@ const ogImageAlt =
       }
 
       <div class="max-w-3xl">
+      <section id="instalar" aria-labelledby="instalar-heading">
+        <h2 id="instalar-heading" class="text-xl font-semibold text-foreground mt-12 mb-4">
+          Instalar
+        </h2>
+        <p class="text-muted leading-relaxed mb-4">AppImage para Linux amd64.</p>
+        <ul class="space-y-1.5" aria-label="Instalar">
+          <li class="flex gap-2 text-sm text-muted">
+            <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
+            <span>
+              <span class="text-foreground font-medium">chmod +x:</span>{' '}
+              {RO_LAUNCHER_RELEASE.appImageFileName}
+            </span>
+          </li>
+          <li class="flex gap-2 text-sm text-muted">
+            <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
+            <span>
+              <span class="text-foreground font-medium">ejecutar:</span>{' '}
+              ./{RO_LAUNCHER_RELEASE.appImageFileName}
+            </span>
+          </li>
+          <li class="flex gap-2 text-sm text-muted">
+            <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
+            <span>
+              <span class="text-foreground font-medium">SHA-256:</span>{' '}
+              <a
+                href={RO_LAUNCHER_RELEASE.checksumUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={backLinkClass}
+              >
+                {RO_LAUNCHER_RELEASE.checksumFileName}
+              </a>
+              <span class="mx-2" aria-hidden="true">·</span>
+              <a
+                href={RO_LAUNCHER_RELEASE.releasesUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={backLinkClass}
+              >
+                Releases
+              </a>
+            </span>
+          </li>
+        </ul>
+      </section>
+
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Problema</h2>
       <p class="text-muted leading-relaxed">
-        Ragnarok Online en Linux no es instalar y jugar. Cada servidor privado trae su runner, su
-        prefix y a veces un anticheat distinto. Armar Wine + DXVK + dgVoodoo a mano se rompe entre
-        máquinas. Leer HP/SP del cliente para AutoPot suele empujar a ptrace_scope=0. Eso no va a ser
-        un requisito.
+        En Linux cada servidor privado trae runner, WINEPREFIX y a veces un anticheat distinto. Armar
+        Wine, DXVK y dgVoodoo a mano falla al cambiar de máquina. AutoPot por lectura de HP y SP del
+        cliente suele pedir ptrace_scope=0. Este launcher no lo pide.
       </p>
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Enfoque</h2>
       <p class="text-muted leading-relaxed">
-        Un launcher de escritorio, no un script. Tauri v2 + React en la UI, Rust en el host. Un
-        perfil por servidor: runner, WINEPREFIX, DXVK, dgVoodoo si el cliente es DirectDraw. AutoPot,
-        AutoBuff y el spammer salen del mismo lanzamiento. Un sidecar ro-sessiond queda de padre del
-        proceso del juego para leer memoria con Yama en default.
+        Tauri v2 y React en la UI, Rust en el host. Un perfil por servidor guarda runner, WINEPREFIX,
+        DXVK y dgVoodoo si el cliente es DirectDraw. AutoPot, AutoBuff y el spammer arrancan al
+        pulsar Jugar. ro-sessiond es padre de wineserver, patcher y ragexe.exe, y lee memoria con
+        Yama en default.
       </p>
 
       <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Técnico</h2>
@@ -363,7 +404,7 @@ const ogImageAlt =
               class="w-full h-auto rounded-md border border-border"
             />
             <figcaption class="text-sm text-muted mt-2">
-              La app sobre el cliente, en Linux.
+              RO-Launcher encima del cliente, AutoPot activo.
             </figcaption>
           </figure>
         )

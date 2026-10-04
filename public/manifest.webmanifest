@@ -1,7 +1,7 @@
 {
-  "name": "nndsk — Nande · Fullstack Developer",
+  "name": "nndsk — Nande (Vicente Aguirre) · Fullstack Developer",
   "short_name": "nndsk",
-  "description": "Portfolio de Nande (Vicente Aguirre), fullstack developer.",
+  "description": "Portfolio de Nande (Vicente Aguirre), fullstack developer desde Chile. TypeScript, Go y Rust. ERP de Mercado House, EcoRetirosRM y herramientas open source.",
   "lang": "es-CL",
   "start_url": "/",
   "scope": "/",

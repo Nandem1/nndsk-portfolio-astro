@@ -1,8 +1,6 @@
 ---
 import OptimizedPicture from '@/components/OptimizedPicture.astro';
-import { AVATAR_URL } from '@/utils/constants';
-
-const avatarUrl = AVATAR_URL;
+import { IDENTITY } from '@/utils/identity';
 ---
 
 <section
@@ -15,8 +13,8 @@ const avatarUrl = AVATAR_URL;
         class="w-32 h-32 rounded-full overflow-hidden ring-1 ring-border ring-offset-2 ring-offset-background"
       >
         <OptimizedPicture
-          src={avatarUrl}
-          alt="Nande"
+          src={IDENTITY.image}
+          alt={IDENTITY.names.brand}
           width={128}
           height={128}
           quality={80}
@@ -33,9 +31,9 @@ const avatarUrl = AVATAR_URL;
         id="hero-title"
         class="text-5xl md:text-6xl font-semibold text-foreground tracking-normal"
       >
-        Nande — Fullstack Developer
+        {IDENTITY.names.brand} — {IDENTITY.jobTitle}
       </h1>
-      <p class="text-xl text-accent font-medium">TypeScript • Go • Rust</p>
+      <p class="text-xl text-accent font-medium">{IDENTITY.skills.join(' • ')}</p>
     </div>
 
     <p
@@ -43,8 +41,9 @@ const avatarUrl = AVATAR_URL;
       data-hero
       style="--hero-delay: 200ms"
     >
-      Mantengo el ERP de Mercado House y soy fullstack en EcoRetirosRM. Escribo herramientas en
-      Rust. Trabajo con Claude Code, Codex y OpenCode. TypeScript, Rust y Go, en ese orden.
+      Soy {IDENTITY.names.professional}. Mantengo el ERP de Mercado House y soy fullstack en
+      EcoRetirosRM. Escribo herramientas en Rust. Trabajo con Claude Code, Codex y OpenCode.
+      TypeScript, Rust y Go, en ese orden.
     </p>
 
     <div

@@ -1,12 +1,10 @@
 ---
-import GitHubIcon from "./icons/GitHubIcon.astro";
-import LinkedInIcon from "./icons/LinkedInIcon.astro";
-import EmailIcon from "./icons/EmailIcon.astro";
-import InstagramIcon from "./icons/InstagramIcon.astro";
-import DiscordIcon from "./icons/DiscordIcon.astro";
-import { SOCIAL_LINKS, AUTHOR } from '@/utils/constants';
-
-const socialLinks = SOCIAL_LINKS;
+import GitHubIcon from './icons/GitHubIcon.astro';
+import LinkedInIcon from './icons/LinkedInIcon.astro';
+import EmailIcon from './icons/EmailIcon.astro';
+import InstagramIcon from './icons/InstagramIcon.astro';
+import DiscordIcon from './icons/DiscordIcon.astro';
+import { socialSurface } from '@/utils/identity';
 ---
 
 <section class="py-24 px-6" aria-labelledby="contact">
@@ -21,35 +19,41 @@ const socialLinks = SOCIAL_LINKS;
     <nav aria-label="Redes sociales" data-reveal style="--reveal-delay: 100ms">
       <ul class="flex justify-center gap-6 flex-wrap" role="list">
         {
-          socialLinks.map((link) => (
-            <li>
-               <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex items-center gap-2 px-4 py-2 rounded-md text-muted hover:text-foreground hover:bg-card transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
-              >
-                {link.icon === 'GitHubIcon' && <GitHubIcon class="w-5 h-5" />}
-                {link.icon === 'LinkedInIcon' && <LinkedInIcon class="w-5 h-5" />}
-                {link.icon === 'InstagramIcon' && <InstagramIcon class="w-5 h-5" />}
-                {link.icon === 'EmailIcon' && <EmailIcon class="w-5 h-5" />}
-                <span class="font-medium">{link.name}</span>
-              </a>
-            </li>
-          ))
+          socialSurface().map(item =>
+            item.kind === 'anchor' ? (
+              <li>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel={item.rel}
+                  class="group flex items-center gap-2 px-4 py-2 rounded-md text-muted hover:text-foreground hover:bg-card transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background"
+                >
+                  {item.icon === 'GitHubIcon' && <GitHubIcon class="w-5 h-5" />}
+                  {item.icon === 'LinkedInIcon' && <LinkedInIcon class="w-5 h-5" />}
+                  {item.icon === 'InstagramIcon' && <InstagramIcon class="w-5 h-5" />}
+                  {item.icon === 'EmailIcon' && <EmailIcon class="w-5 h-5" />}
+                  <span class="font-medium">{item.label}</span>
+                </a>
+              </li>
+            ) : (
+              <li>
+                <button
+                  id="discord-copy-btn"
+                  class="group flex items-center gap-2 px-4 py-2 rounded-md text-muted hover:text-foreground hover:bg-card transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background cursor-pointer"
+                  data-username={item.handle}
+                  data-label={item.label}
+                  title={`Discord: ${item.handle}`}
+                  aria-label={`Copiar usuario de Discord: ${item.handle}`}
+                >
+                  <DiscordIcon class="w-5 h-5" />
+                  <span class="font-medium" id="discord-label">
+                    {item.label}
+                  </span>
+                </button>
+              </li>
+            )
+          )
         }
-        <li>
-          <button
-            id="discord-copy-btn"
-            class="group flex items-center gap-2 px-4 py-2 rounded-md text-muted hover:text-foreground hover:bg-card transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background cursor-pointer"
-            data-username={AUTHOR.discord}
-            title={`Discord: ${AUTHOR.discord}`}
-            aria-label={`Copiar usuario de Discord: ${AUTHOR.discord}`}
-          >
-            <DiscordIcon class="w-5 h-5" />
-            <span class="font-medium" id="discord-label">Discord</span>
-          </button>
-        </li>
       </ul>
     </nav>
   </div>
@@ -59,12 +63,13 @@ const socialLinks = SOCIAL_LINKS;
   const btn = document.getElementById('discord-copy-btn');
   const label = document.getElementById('discord-label');
   if (btn && label) {
+    const discordLabel = btn.getAttribute('data-label') ?? '';
     btn.addEventListener('click', () => {
       const username = btn.getAttribute('data-username') ?? '';
 
       const showCopied = () => {
         label.textContent = '¡Copiado!';
-        setTimeout(() => { label.textContent = 'Discord'; }, 2000);
+        setTimeout(() => { label.textContent = discordLabel; }, 2000);
       };
 
       const fallbackCopy = () => {

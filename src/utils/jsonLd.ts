@@ -1,5 +1,16 @@
 import type { CollectionEntry } from 'astro:content';
 import { SITE_METADATA } from '@/utils/constants';
+import {
+  IDENTITY,
+  alternateNames,
+  emailMailto,
+  sameAsUrls,
+  type HttpsUrl,
+  type IdentityOrigin,
+  type JobTitle,
+  type LegalName,
+  type MailtoHref,
+} from '@/utils/identity';
 
 export function personId(): string {
   return `${SITE_METADATA.url}/#person`;
@@ -7,6 +18,60 @@ export function personId(): string {
 
 export function websiteId(): string {
   return `${SITE_METADATA.url}/#website`;
+}
+
+export type PersonJsonLd = {
+  '@context': 'https://schema.org';
+  '@type': 'Person';
+  '@id': string;
+  name: LegalName;
+  alternateName: ReturnType<typeof alternateNames>;
+  jobTitle: JobTitle;
+  url: IdentityOrigin;
+  image: HttpsUrl;
+  email: MailtoHref;
+  sameAs: ReturnType<typeof sameAsUrls>;
+};
+
+export type WebSiteJsonLd = {
+  '@context': 'https://schema.org';
+  '@type': 'WebSite';
+  '@id': string;
+  url: IdentityOrigin;
+  name: typeof IDENTITY.names.handle;
+  inLanguage: 'es-CL';
+  publisher: { '@id': string };
+};
+
+export function personJsonLd(): PersonJsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId(),
+    name: IDENTITY.names.legal,
+    alternateName: alternateNames(),
+    jobTitle: IDENTITY.jobTitle,
+    url: SITE_METADATA.url,
+    image: IDENTITY.image,
+    email: emailMailto(),
+    sameAs: sameAsUrls(),
+  };
+}
+
+export function webSiteJsonLd(): WebSiteJsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId(),
+    url: SITE_METADATA.url,
+    name: IDENTITY.names.handle,
+    inLanguage: 'es-CL',
+    publisher: { '@id': personId() },
+  };
+}
+
+export function personWebSiteJsonLd(): readonly [PersonJsonLd, WebSiteJsonLd] {
+  return [personJsonLd(), webSiteJsonLd()];
 }
 
 type SoftwareApplicationExtras = {

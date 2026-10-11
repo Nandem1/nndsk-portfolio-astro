@@ -55,10 +55,7 @@ export function DemoAutobuff({ state, dispatch }: Props) {
 
         <ul className="space-y-1.5">
           {state.autobuffRules.map(rule => (
-            <li
-              key={rule.id}
-              className="flex items-center justify-between gap-3 rounded-[9px] bg-[rgb(var(--ro-c-field))] px-4 py-2"
-            >
+            <li key={rule.id} className="flex items-center justify-between gap-3 py-1.5">
               <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2">
                 <input
                   type="checkbox"

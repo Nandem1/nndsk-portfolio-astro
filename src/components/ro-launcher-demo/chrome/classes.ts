@@ -56,8 +56,6 @@ export const tabList =
 export const focusRing =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
 
-export const innerWell = 'rounded-[9px] bg-[rgb(var(--ro-c-field))] px-4 py-2';
-
 export const gepardBanner = 'ro-notice-warn';
 
 export const microLabel =

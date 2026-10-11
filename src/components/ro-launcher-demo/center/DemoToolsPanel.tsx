@@ -32,8 +32,8 @@ function ToolCard({
   dotOk: boolean;
 }) {
   return (
-    <div className="flex min-w-0 flex-col gap-1.5 rounded-[9px] bg-[rgb(var(--ro-c-field))] px-2.5 py-2">
-      <div className="flex min-w-0 items-center gap-1.5">
+    <div className="flex min-w-0 flex-col gap-1 px-2.5 py-1">
+      <div className="flex min-w-0 flex-wrap items-center gap-1.5">
         <StatusDot ok={dotOk} />
         <span className={`shrink-0 text-[11px] font-medium ${textInk}`}>{label}</span>
         <span
@@ -89,8 +89,8 @@ export function DemoToolsPanel({ state }: Props) {
 function Diagnostics({ server }: { server: ReturnType<typeof getServerById> }) {
   const apis = server.diagnostics.graphicsApis.join(' + ');
   return (
-    <div className="mt-2 space-y-1 rounded-[9px] bg-[rgb(var(--ro-c-field))] px-2.5 py-2">
-      <p className={textDetail}>
+    <div className="mt-1 space-y-1 py-1">
+      <p className={`${textDetail} font-mono`}>
         Cliente {server.diagnostics.architecture}
         {apis ? ` · ${apis}` : ''}
       </p>

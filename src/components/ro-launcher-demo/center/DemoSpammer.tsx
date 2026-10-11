@@ -1,6 +1,5 @@
 import type { Dispatch } from 'react';
 import {
-  innerWell,
   keyChip,
   keyChipActive,
   keyChipIdle,
@@ -57,23 +56,25 @@ export function DemoSpammer({ state, dispatch }: Props) {
           />
         </div>
 
-        <div className={`${innerWell} space-y-1.5`}>
+        <div className="space-y-1 py-2">
           <div className={`flex justify-between ${textDetail}`}>
             <span className={microLabel}>Teclas</span>
             <span className="ml-2 truncate text-[rgb(var(--ro-c-muted))]">{keysLabel}</span>
           </div>
-          <KeyRow
-            keys={FUNCTION_KEYS}
-            selected={selected}
-            disabled={!ready}
-            onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
-          />
-          <KeyRow
-            keys={NUMBER_KEYS}
-            selected={selected}
-            disabled={!ready}
-            onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
-          />
+          <div className="space-y-1">
+            <KeyRow
+              keys={FUNCTION_KEYS}
+              selected={selected}
+              disabled={!ready}
+              onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
+            />
+            <KeyRow
+              keys={NUMBER_KEYS}
+              selected={selected}
+              disabled={!ready}
+              onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
+            />
+          </div>
         </div>
 
         <div className="flex min-w-0 items-center gap-2 overflow-hidden">

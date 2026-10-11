@@ -2,7 +2,6 @@ import type { Dispatch } from 'react';
 import { DemoToggle } from '../chrome/DemoToggle';
 import {
   fieldCompact,
-  innerWell,
   microLabel,
   panelHeader,
   panelIdle,
@@ -97,12 +96,10 @@ export function DemoAutopot({ state, dispatch }: Props) {
           />
         </div>
 
-        <div className={`${innerWell} space-y-1.5`}>
-          <StatBar label="HP" cur={hpCur} max={hpMax} tone="hp" />
-          <StatBar label="SP" cur={spCur} max={spMax} tone="sp" />
-        </div>
+        <StatBar label="HP" cur={hpCur} max={hpMax} tone="hp" />
+        <StatBar label="SP" cur={spCur} max={spMax} tone="sp" />
 
-        <div className="flex items-center justify-between gap-3 rounded-[9px] bg-[rgb(var(--ro-c-warn)_/_0.09)] px-4 py-2">
+        <div className="flex items-center justify-between gap-2 py-2">
           <div className="min-w-0">
             <p
               id="ro-demo-autopot-proactive-label"

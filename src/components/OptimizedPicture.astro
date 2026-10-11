@@ -26,9 +26,13 @@ const {
   decoding = 'async',
   fetchpriority,
   quality = 80,
+  widths,
+  sizes,
 } = Astro.props;
 
 const formats: ImageOutputFormat[] = ['avif', 'webp'];
+// Astro only accepts `widths` together with `sizes`.
+const responsive = widths && sizes ? { widths, sizes } : {};
 ---
 
 {
@@ -38,6 +42,7 @@ const formats: ImageOutputFormat[] = ['avif', 'webp'];
       alt={alt}
       width={width}
       height={height}
+      {...responsive}
       formats={formats}
       quality={quality}
       loading={loading}
@@ -51,6 +56,7 @@ const formats: ImageOutputFormat[] = ['avif', 'webp'];
       alt={alt}
       width={width}
       height={height}
+      {...responsive}
       formats={formats}
       quality={quality}
       loading={loading}

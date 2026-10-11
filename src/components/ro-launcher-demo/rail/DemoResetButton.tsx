@@ -2,7 +2,7 @@ import type { Dispatch } from 'react';
 import { getPrefixState } from '../demo.logic';
 import { getServerById } from '../mockData';
 import { captureWindowScrollFromPointer } from '../preserveWindowScroll';
-import { btnBase, btnDisabled, btnSecondary, textDetail } from '../chrome/classes';
+import { btnBase, btnSecondary, btnSecondaryDisabled, textDetail } from '../chrome/classes';
 import type { DemoAction, DemoState } from '../types';
 
 interface Props {
@@ -24,7 +24,7 @@ export function DemoResetButton({ state, dispatch }: Props) {
         type="button"
         aria-disabled={!ready}
         title={helper}
-        className={`${btnBase} ${btnSecondary} py-2 text-[11px] ${!ready ? btnDisabled : ''}`}
+        className={`${btnBase} ${ready ? btnSecondary : btnSecondaryDisabled}`}
         onPointerDownCapture={() => captureWindowScrollFromPointer()}
         onClick={() => {
           if (!ready) return;

@@ -86,6 +86,10 @@
   border: 0;
   border-radius: var(--ro-radius-pill);
   background-color: rgb(var(--ro-c-track));
+  /* Same-color image = solid fill up to the thumb, as on the desktop app. */
+  background-image: linear-gradient(rgb(var(--ro-c-track-fill)), rgb(var(--ro-c-track-fill)));
+  background-size: var(--range-progress, 0%) 100%;
+  background-repeat: no-repeat;
 }
 
 .ro-demo input[type='range']::-webkit-slider-thumb {
@@ -113,6 +117,12 @@
   background: rgb(var(--ro-c-ink));
 }
 
+.ro-demo input[type='range']::-moz-range-progress {
+  height: 4px;
+  border-radius: var(--ro-radius-pill);
+  background: rgb(var(--ro-c-track-fill));
+}
+
 .ro-demo input[type='range']:focus-visible {
   outline: 2px solid rgb(var(--ro-c-accent));
   outline-offset: 2px;
@@ -133,6 +143,11 @@
   border-color: rgb(var(--ro-c-accent));
 }
 
+.ro-demo input[type='checkbox']:not(:checked):not(:disabled):hover,
+.ro-demo input[type='radio']:not(:checked):not(:disabled):hover {
+  border-color: rgb(var(--ro-c-muted));
+}
+
 .ro-demo input[type='checkbox']:checked::after,
 .ro-demo input[type='radio']:checked::after {
   content: '';
@@ -146,6 +161,12 @@
 
 .ro-demo input[type='checkbox']:focus-visible,
 .ro-demo input[type='radio']:focus-visible {
+  outline: 2px solid rgb(var(--ro-c-accent));
+  outline-offset: 2px;
+}
+
+/* Desktop paints one accent focus ring for every interactive control. */
+.ro-demo :is(button, input, select, textarea):focus-visible:not(:disabled) {
   outline: 2px solid rgb(var(--ro-c-accent));
   outline-offset: 2px;
 }

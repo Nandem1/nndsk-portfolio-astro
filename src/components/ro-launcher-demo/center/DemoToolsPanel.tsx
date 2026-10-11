@@ -89,16 +89,20 @@ export function DemoToolsPanel({ state }: Props) {
 function Diagnostics({ server }: { server: ReturnType<typeof getServerById> }) {
   const apis = server.diagnostics.graphicsApis.join(' + ');
   return (
-    <div className="mt-1 space-y-1 py-1">
+    <div className="mt-1 py-1">
       <p className={`${textDetail} font-mono`}>
         Cliente {server.diagnostics.architecture}
         {apis ? ` · ${apis}` : ''}
       </p>
-      {server.diagnostics.warnings.map(warning => (
-        <p key={warning} className="ro-notice-warn text-[11px] leading-snug">
-          {warning}
-        </p>
-      ))}
+      {server.diagnostics.warnings.length > 0 && (
+        <div className="ro-notice-warn mt-1 space-y-1">
+          {server.diagnostics.warnings.map(warning => (
+            <p key={warning} className="text-[11px] leading-snug">
+              {warning}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

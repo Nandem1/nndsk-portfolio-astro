@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef, type Dispatch } from 'react';
 import {
-  btnXs,
   logWell,
   panelHeader,
   panelShell,
@@ -8,6 +7,7 @@ import {
   tabActive,
   tabInactive,
   tabList,
+  textLink,
 } from '../chrome/classes';
 import type { DemoAction, DemoState, LogChannel } from '../types';
 
@@ -69,7 +69,11 @@ export function DemoLogs({ state, dispatch }: Props) {
           </div>
         </div>
         {logs.length > 0 && (
-          <button type="button" className={btnXs} onClick={() => dispatch({ type: 'clearLogs' })}>
+          <button
+            type="button"
+            className={textLink}
+            onClick={() => dispatch({ type: 'clearLogs' })}
+          >
             Limpiar
           </button>
         )}

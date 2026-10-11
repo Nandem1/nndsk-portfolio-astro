@@ -42,7 +42,9 @@ export function DemoAutobuff({ state, dispatch }: Props) {
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className={`truncate text-sm font-semibold ${textInk}`}>Sin buffs aplicados</p>
+            <p className={`truncate text-[13px] font-semibold leading-5 ${textInk}`}>
+              Sin buffs aplicados
+            </p>
             <p className={textDetail}>{statusLine2}</p>
           </div>
           <DemoToggle

@@ -13,7 +13,7 @@ const { project } = Astro.props;
 
 const caseStudyHref = project.data.caseStudyPath ?? '/projects/nndsk-ro-launcher/';
 const thumbnailAlt =
-  'Interfaz de RO-Launcher en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer';
+  'RO-Launcher en Linux con el servidor SakuraRO, runner nndsk-ro-proton, AutoPot y Spammer';
 
 const spotlightHighlights = (project.data.highlights ?? []).slice(0, 3);
 const spotlightStack = (project.data.stack ?? []).slice(0, 4);
@@ -32,7 +32,7 @@ const spotlightStack = (project.data.stack ?? []).slice(0, 4);
               src={project.data.thumbnail}
               alt={thumbnailAlt}
               width={800}
-              height={450}
+              height={500}
               widths={[400, 800]}
               sizes="(max-width: 768px) 100vw, 400px"
               quality={80}
@@ -68,9 +68,8 @@ const spotlightStack = (project.data.stack ?? []).slice(0, 4);
             href={caseStudyHref}
             class={ctaPrimary}
             data-astro-prefetch
-            aria-label={`Leer caso de estudio: ${project.data.title}`}
           >
-            Caso de estudio
+            Cómo jugar en Linux
           </a>
           {project.data.github && (
             <a
@@ -118,9 +117,8 @@ const spotlightStack = (project.data.stack ?? []).slice(0, 4);
             href={caseStudyHref}
             class={ctaPrimary}
             data-astro-prefetch
-            aria-label={`Leer caso de estudio: ${project.data.title}`}
           >
-            Caso de estudio
+            Cómo jugar en Linux
           </a>
           {project.data.github && (
             <a

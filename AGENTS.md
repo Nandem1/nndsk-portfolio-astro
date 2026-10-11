@@ -19,7 +19,7 @@ This is a **static** Astro 7 portfolio (`output: 'static'`, no adapter). It is n
 - `src/components/ro-launcher-demo/` — the only hydrated island.
 - `src/content/` — collection entries. Schemas live in `src/content.config.ts` (not `src/content/config.ts`).
 - `src/styles/global.css` — Tailwind v4 `@import 'tailwindcss'` + `@theme`. Semantic color tokens live here, not in TS.
-- `src/utils/` — `constants.ts` (author/nav/social/site), `jsonLd.ts`, `ui.ts` (shared CTA classes).
+- `src/utils/` — `constants.ts` (author/nav/social/site), `identity.ts`, `jsonLd.ts`, `roLauncherRelease.ts` (release URLs), `ui.ts` (shared CTA classes).
 - `src/assets/fonts/` — Inter woff2 consumed by Astro Fonts API.
 - `public/` — favicons, `og.png`, manifest, `scripts/site.js`. Do not put fonts or content images here.
 
@@ -43,10 +43,10 @@ Use Bun 1.3.9.
 MUST:
 
 - Default to zero JS. Question every `client:` directive.
-- Home spotlight island: `client:visible`. Case-study hero island: `client:load`.
+- Home spotlight island: `client:visible`. Case-study demo island (below the step-by-step guide): `client:load`.
 - Pass only serializable props into islands (this island accepts only `variant: 'compact' | 'full'`).
 - Query one entry with `getEntry`; lists with `getCollection`. Do not wrap content loaders in try/catch — let the static build fail.
-- Use `OptimizedPicture.astro` (`<Picture formats={['avif', 'webp']}>`) for all images. Meaningful `alt` always.
+- Use `OptimizedPicture.astro` (`<Picture formats={['avif', 'webp']}>`) for all images. Meaningful `alt` always. Pass `widths` together with `sizes`; `widths` alone is dropped.
 - Import from `src/` with the `@/` alias.
 - Define `interface Props` only when the `.astro` component accepts props.
 - Keep `trailingSlash: 'always'`. Internal links to pages use a trailing slash (`/projects/nndsk-ro-launcher/`).
@@ -84,6 +84,13 @@ MUST NOT:
 - New project: `src/content/projects/<slug>.json` + images in `src/content/projects/<slug>/`.
 - `spotlight: true` is reserved for the RO launcher card on home. A case-study page is a dedicated file under `src/pages/projects/<slug>.astro` (do not introduce `getStaticPaths` until there is a second case study).
 - `featured` = large cards with lightbox. Neither flag = compact “Otros” cards.
+- `/projects/nndsk-ro-launcher/` is a Spanish SEO guide ("Cómo jugar Ragnarok Online en Linux"). Keep the URL and the order: guide first (requisitos, paso a paso, demo, consejos, si algo falla, FAQ), technical section last. The technical section is diagrams (pipeline pills, `<pre>` trees) with one-line captions, not bullet lists.
+- The visible FAQ and the `FAQPage` JSON-LD come from the same `faqs` array. Keep it short (about 5 questions) and do not repeat the tips.
+- Technical claims about the app (runners, versions, tools, paths) must match the code in `Nandem1/nndsk-ro-launcher`, not only its docs. Version strings on the page are pinned: when the app ships a new runner, update them, `dateModified` in the page and `lastmod` in `astro.config.mjs`.
+
+## Copy
+
+All user-facing text (pages, JSON descriptions/highlights, alt, FAQ) is Spanish and goes through pstack unslop (`~/.codex/plugins/cache/pstack-claude/pstack/0.9.67/skills/unslop/SKILL.md`): no em dashes, no colons as connectors, no "**Label:** text" lists, active voice, sentence-case headings. Short declarative sentences; no closing punchlines.
 
 ## Style
 

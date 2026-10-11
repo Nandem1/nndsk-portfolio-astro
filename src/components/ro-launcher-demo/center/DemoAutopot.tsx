@@ -9,7 +9,8 @@ import {
   panelSuccess,
   panelTitle,
   selectFlex,
-  selectNative,
+  rangeProgress,
+  selectCompact,
   textDetail,
   textInk,
   toolPanelBody,
@@ -39,10 +40,10 @@ function StatBar({
   const fill = tone === 'hp' ? 'bg-[rgb(var(--ro-c-bad))]' : 'bg-[rgb(var(--ro-c-info))]';
 
   return (
-    <div className="space-y-0.5">
-      <div className={`flex justify-between text-[11px] ${textDetail}`}>
-        <span>{label}</span>
-        <span>
+    <div className="space-y-1 pt-2">
+      <div className={`flex justify-between ${textDetail}`}>
+        <span className={microLabel}>{label}</span>
+        <span className="font-mono">
           {empty ? '— / —' : `${cur.toLocaleString()} / ${max.toLocaleString()} (${pct}%)`}
         </span>
       </div>
@@ -51,7 +52,7 @@ function StatBar({
           empty ? 'border border-dashed border-[rgb(var(--ro-c-line))]' : ''
         }`}
       >
-        {!empty && <div className={`h-full ${fill}`} style={{ width: `${pct}%` }} />}
+        {!empty && <div className={`h-full rounded-full ${fill}`} style={{ width: `${pct}%` }} />}
       </div>
     </div>
   );
@@ -119,7 +120,9 @@ export function DemoAutopot({ state, dispatch }: Props) {
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className={`truncate text-sm font-semibold ${textInk}`}>{server.name}</p>
+            <p className={`truncate text-[13px] font-semibold leading-5 ${textInk}`}>
+              {server.name}
+            </p>
             <p className={textDetail}>{statusLine2}</p>
           </div>
           <DemoToggle
@@ -169,10 +172,13 @@ export function DemoAutopot({ state, dispatch }: Props) {
                 value: Number(e.target.value),
               })
             }
-            className="min-w-0 w-full flex-1 disabled:opacity-50"
+            className="min-w-0 w-full flex-1"
+            style={rangeProgress(state.autopotDelayMs, 10, 200)}
             aria-label="Delay de lectura AutoPot"
           />
-          <span className={`${textDetail} w-10 shrink-0 text-right`}>{state.autopotDelayMs}ms</span>
+          <span className={`${textDetail} w-10 shrink-0 text-right font-mono`}>
+            {state.autopotDelayMs}ms
+          </span>
         </div>
 
         <div className="space-y-1">
@@ -184,7 +190,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
               Encontrar
             </button>
           </div>
-          <select id="ro-demo-autopot-memory-profile" className={selectNative} disabled value="">
+          <select id="ro-demo-autopot-memory-profile" className={selectCompact} disabled value="">
             <option value="">Auto</option>
           </select>
         </div>

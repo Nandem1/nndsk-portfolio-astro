@@ -36,7 +36,7 @@ export const LOG_PLAY =
   '[demo] Jugar no está disponible en el sitio. RO-Launcher es una app de escritorio Linux.';
 
 export const LOG_AUTOPOT = '[demo] AutoPot simulado. No lee memoria ni envía teclas.';
-export const LOG_SPAMMER = '[demo] Spammer simulado. No inyecta input (evdev/ydotool).';
+export const LOG_SPAMMER = '[demo] Spammer simulado. No inyecta input (evdev/uinput).';
 export const LOG_AUTOBUFF = '[demo] AutoBuff simulado. No lee estados ni envía teclas.';
 export const LOG_RESET = '[demo] Rearmar simulado — no borra un WINEPREFIX.';
 

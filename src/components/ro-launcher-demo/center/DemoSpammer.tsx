@@ -9,6 +9,7 @@ import {
   panelShell,
   panelTitle,
   panelWarning,
+  rangeProgress,
   textDetail,
   textInk,
   toolPanelBody,
@@ -45,7 +46,9 @@ export function DemoSpammer({ state, dispatch }: Props) {
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className={`truncate text-sm font-semibold ${textInk}`}>{statusLine1}</p>
+            <p className={`truncate text-[13px] font-semibold leading-5 ${textInk}`}>
+              {statusLine1}
+            </p>
             <p className={textDetail}>{statusLine2}</p>
           </div>
           <DemoToggle
@@ -59,7 +62,15 @@ export function DemoSpammer({ state, dispatch }: Props) {
         <div className="space-y-1 py-2">
           <div className={`flex justify-between ${textDetail}`}>
             <span className={microLabel}>Teclas</span>
-            <span className="ml-2 truncate text-[rgb(var(--ro-c-muted))]">{keysLabel}</span>
+            <span
+              className={`ml-2 truncate font-mono ${
+                state.spammerEnabled && ready
+                  ? 'ro-ok font-medium'
+                  : 'text-[rgb(var(--ro-c-muted))]'
+              }`}
+            >
+              {keysLabel}
+            </span>
           </div>
           <div className="space-y-1">
             <KeyRow
@@ -87,10 +98,13 @@ export function DemoSpammer({ state, dispatch }: Props) {
             disabled={!ready}
             value={state.spammerDelayMs}
             onChange={e => dispatch({ type: 'setSpammerDelay', delayMs: Number(e.target.value) })}
-            className="min-w-0 w-full flex-1 disabled:opacity-50"
+            className="min-w-0 w-full flex-1"
+            style={rangeProgress(state.spammerDelayMs, 16, 50)}
             aria-label="Delay del spammer"
           />
-          <span className={`${textDetail} w-8 shrink-0 text-right`}>{state.spammerDelayMs}ms</span>
+          <span className={`${textDetail} w-8 shrink-0 text-right font-mono`}>
+            {state.spammerDelayMs}ms
+          </span>
         </div>
       </div>
     </section>

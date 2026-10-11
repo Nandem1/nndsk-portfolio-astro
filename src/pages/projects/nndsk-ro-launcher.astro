@@ -27,10 +27,17 @@ if (!project.data.thumbnail) {
   throw new Error('Missing thumbnail for nndsk-ro-launcher');
 }
 
-const title =
-  'nndsk-ro-launcher: launcher de Ragnarok Online para Linux | Ragnarok Online Linux launcher';
+const title = 'Cómo jugar Ragnarok Online en Linux | RO-Launcher';
 const description =
-  'Launcher de Ragnarok Online para Linux. Wine, Proton, WINEPREFIX, DXVK y dgVoodoo. AutoPot sin ptrace_scope=0. Tauri v2, React y Rust.';
+  'Guía para jugar Ragnarok Online en Linux con RO-Launcher, un AppImage gratis. Usa nndsk-ro-proton o Wine 7.16 con DXVK y dgVoodoo, y AutoPot sin ptrace_scope=0.';
+
+const datePublished = '2026-09-17';
+const dateModified = '2026-10-11';
+const updatedLabel = new Intl.DateTimeFormat('es-CL', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(dateModified));
 
 const og = await getImage({
   src: project.data.thumbnail,
@@ -44,7 +51,7 @@ const ogImageHref = new URL(og.src, Astro.site).href;
 const screenshot = await getImage({
   src: project.data.thumbnail,
   width: 1200,
-  height: 675,
+  height: 750,
   format: 'jpg',
 });
 const screenshotHref = new URL(screenshot.src, Astro.site).href;
@@ -57,16 +64,28 @@ const faqId = `${pageUrl}#faq`;
 
 const faqs = [
   {
+    question: '¿Necesito instalar Wine?',
+    answer: 'No. El launcher descarga nndsk-ro-proton o Wine 7.16 y verifica el SHA-256.',
+  },
+  {
     question: '¿Sirve para servidores privados?',
-    answer: 'Cada servidor tiene su perfil (runner, WINEPREFIX, DXVK).',
+    answer:
+      'Sí. Cada servidor tiene su runner, WINEPREFIX, DXVK y dgVoodoo. No lo he probado en servidores oficiales.',
   },
   {
-    question: '¿Hace falta ptrace_scope=0?',
-    answer: 'No. Yama queda en default. No hace falta sudo.',
+    question: '¿Por qué Gepard cierra el cliente en Wine?',
+    answer:
+      'Algunas versiones de Gepard fallan con las builds de Wine que usan el WoW64 nuevo. Es el bug 58712 de WineHQ. Cambia ese servidor a Wine 7.16, que usa old-WoW64.',
   },
   {
-    question: '¿Modifica Gepard o el cliente?',
-    answer: 'No. Si el hash de gepard.dll no está en la matriz, hay advertencia.',
+    question: '¿En qué se diferencia de Lutris, Bottles o Heroic?',
+    answer:
+      'Lutris, Bottles y Heroic sirven para cualquier juego, así que el runner, DXVK y dgVoodoo los configuras tú y pruebas hasta que el cliente abre. RO-Launcher es solo para Ragnarok Online y aplica en cada servidor una configuración que ya probé.',
+  },
+  {
+    question: '¿Modifica Gepard o pide ptrace_scope=0?',
+    answer:
+      'No. El launcher no toca gepard.dll, ragexe ni el tráfico. AutoPot lee la memoria con ptrace_scope=1 y sin sudo.',
   },
 ];
 
@@ -79,16 +98,20 @@ const { '@context': _context, ...appNode } = softwareApplicationJsonLd(project, 
   downloadUrl: RO_LAUNCHER_RELEASE.releasesUrl,
   alternateName: ['RO-Launcher', 'RO Launcher', 'Ragnarok Online Linux launcher'],
   keywords: [
+    'jugar Ragnarok Online en Linux',
     'Ragnarok Online Linux launcher',
     'RO-Launcher',
+    'nndsk-ro-proton',
     'Tauri v2',
     'React',
     'Rust',
     'Wine',
     'Proton',
+    'UMU',
     'WINEPREFIX',
     'DXVK',
     'dgVoodoo',
+    'Gepard',
   ],
   image: screenshotHref,
   isPartOf: { '@id': websiteId() },
@@ -105,6 +128,8 @@ const caseStudyJsonLd = {
       name: title,
       description,
       inLanguage: 'es-CL',
+      datePublished,
+      dateModified,
       isPartOf: { '@id': websiteId() },
       mainEntity: { '@id': appId },
     },
@@ -117,22 +142,55 @@ const caseStudyJsonLd = {
   ],
 };
 
-const technicalRuntime = [
+const requirements = [
+  'Linux x86_64 con sesión gráfica.',
+  'Driver Vulkan para tu GPU.',
+  'Python 3.10 o superior.',
+  'Para Wine 7.16, librerías de 32 bits (multilib).',
+  'Permisos de input para AutoPot, AutoBuff y el Spammer. Jugar no los necesita.',
+];
+
+const tips = [
   {
-    lead: 'Perfiles aislados',
-    rest: 'cambiar runner crea o reutiliza otro prefix; no migra ni borra el anterior.',
+    heading: 'Usa nndsk-ro-proton',
+    body: 'nndsk-ro-proton es mi fork de Proton-CachyOS 11. Trae tres parches de Wine, en crypt32, ncrypt y ntdll, que implementan funciones que Gepard necesita. No modifica el cliente ni Gepard. Es el runner por defecto y lo probé en HoneyRO, Klaipeda RO y otros servidores. No hace falta probar otro.',
   },
   {
-    lead: 'Runners',
-    rest: 'Proton-CachyOS + UMU administrados, o Wine portable bajo ~/.local/share/ro-launcher/runners/.',
+    heading: 'Si Gepard da error, cambia a Wine 7.16',
+    body: 'Wine 7.16 Staging/TkG es el fallback para ese caso. SakuraRO, por ejemplo, lo necesita. El cambio es por servidor, así que los demás siguen con nndsk-ro-proton. El launcher no borra el prefix anterior.',
   },
   {
-    lead: 'Gepard',
-    rest: 'recomendación de runner solo si el SHA-256 de gepard.dll coincide con la matriz validada. Un hash desconocido muestra advertencia y no elige runner.',
+    heading: 'DirectX 7 con dgVoodoo',
+    body: 'Es la combinación con mejor rendimiento. También puedes jugar sin dgVoodoo o con DirectX 9, y el launcher prepara las dos rutas.',
+  },
+];
+
+const technicalDiagrams = [
+  {
+    label: 'Procesos',
+    tree: `ro-launcher
+├── ro-inputd        evdev → uinput
+└── ro-sessiond      subreaper
+    ├── wineserver
+    ├── patcher / OpenSetup
+    └── ragexe.exe   ← AutoPot y AutoBuff leen memoria`,
+    caption:
+      'Con ptrace_scope=1, solo un proceso ancestro puede leer memoria. ro-sessiond adopta los procesos de Wine, así que el launcher sigue siendo su ancestro.',
   },
   {
-    lead: 'Cliente',
-    rest: 'no modifica Gepard, ragexe ni el tráfico.',
+    label: 'Datos',
+    tree: `~/.local/share/ro-launcher/
+├── servers.json
+├── runtime/
+│   ├── nndsk-ro-proton-0.1.0-dev.2
+│   ├── wine-7.16-staging-tkg-amd64
+│   ├── umu-launcher-1.4.4
+│   └── dxvk-2.6.2
+└── prefixes/
+    ├── <servidor>-v3-<fingerprint>   nndsk-ro-proton
+    └── <servidor>-v3-<fingerprint>   Wine 7.16`,
+    caption:
+      'El launcher verifica el SHA-256 de cada runtime. Cada servidor tiene un prefix por runner, y cambiar de runner no borra el anterior.',
   },
 ];
 
@@ -141,37 +199,30 @@ const pipelineRoutes: string[][] = [
   ['DirectDraw', 'dgVoodoo', 'D3D11', 'DXVK', 'Vulkan'],
 ];
 
-const pipelinePillClass =
+const pillClass =
   'inline-flex px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono';
-
-const technicalHerramientas = [
-  {
-    lead: 'AutoPot y AutoBuff',
-    rest: 'lectura de memoria con perfiles 4RTools.',
-  },
-  {
-    lead: 'Spammer',
-    rest: 'sidecar evdev y ydotool, hotkeys F1 a F9 y 0 a 9.',
-  },
-  {
-    lead: 'ro-sessiond',
-    rest: 'child subreaper, padre de wineserver, patcher y ragexe.exe.',
-  },
-];
 
 const stackChips = [
   'Tauri v2',
   'Rust',
   'React',
+  'nndsk-ro-proton',
   'Wine',
-  'Proton',
   'DXVK',
   'dgVoodoo',
   'UMU',
 ];
 
+const h2Class = 'text-xl font-semibold text-foreground mt-12 mb-4';
+const h3Class = 'text-base font-semibold text-foreground mt-6 mb-2';
+const bulletClass = 'flex gap-2 text-sm text-muted';
+const codeClass = 'font-mono text-xs text-foreground';
+const inlineLinkClass = 'text-foreground underline underline-offset-2 hover:text-accent';
+
 const galleryImage = project.data.gallery?.[0];
-const ogImageAlt = 'RO-Launcher en Linux, launcher de Ragnarok Online';
+const screenshotAlt =
+  'RO-Launcher en Linux con el servidor SakuraRO, runner nndsk-ro-proton, AutoPot y Spammer';
+const ogImageAlt = 'RO-Launcher, launcher de Ragnarok Online para Linux';
 ---
 
 <style is:global>
@@ -198,10 +249,15 @@ const ogImageAlt = 'RO-Launcher en Linux, launcher de Ragnarok Online';
         </nav>
 
         <h1 class="text-4xl md:text-5xl font-semibold text-foreground tracking-normal mb-3">
-          RO-Launcher
+          Cómo jugar Ragnarok Online en Linux
         </h1>
-        <p class="text-sm font-mono text-muted mb-6 md:mb-8">
-          Launcher de Ragnarok Online para Linux · 2026 · Tauri v2 · React · Rust
+        <p class="text-sm font-mono text-muted mb-6">
+          RO-Launcher · launcher de Ragnarok Online para Linux · Actualizado{' '}
+          <time datetime={dateModified}>{updatedLabel}</time>
+        </p>
+        <p class="text-muted leading-relaxed mb-6">
+          RO-Launcher prepara Wine, DXVK y dgVoodoo para cada servidor privado de Ragnarok Online. No
+          hace falta instalar Wine en el sistema.
         </p>
 
         <div class="mb-8">
@@ -214,224 +270,240 @@ const ogImageAlt = 'RO-Launcher en Linux, launcher de Ragnarok Online';
             Descargar AppImage (Linux x64)
           </a>
         </div>
-      </div>
 
-      {
-        project.data.thumbnail && (
-          <div id="demo" class="mt-8">
-            <p class="text-sm text-muted mb-3 max-w-3xl">
-              Esta demo no lanza el juego ni instala Wine.
-            </p>
-            <RoLauncherDemo client:load variant="full" />
-            <noscript>
-              <figure class="mt-4 max-w-3xl">
-                <OptimizedPicture
-                  src={project.data.thumbnail}
-                  alt="Interfaz de nndsk-ro-launcher (RO-Launcher) en Linux: servidor HoneyRO, runner proton-cachyos-slr, AutoPot y Spammer"
-                  width={1200}
-                  height={675}
-                  widths={[800, 1200]}
-                  sizes="(max-width: 768px) 100vw, 1200px"
-                  quality={80}
-                  loading="eager"
-                  decoding="async"
-                  class="w-full h-auto rounded-md border border-border"
-                />
-                <figcaption class="text-sm text-muted mt-2">
-                  Activa JavaScript para usar la demo.
-                </figcaption>
-              </figure>
-            </noscript>
-          </div>
-        )
-      }
+        <section id="requisitos" aria-labelledby="requisitos-heading">
+          <h2 id="requisitos-heading" class={h2Class}>Requisitos para jugar Ragnarok Online en Linux</h2>
+          <ul class="space-y-1.5 mb-4" aria-label="Requisitos">
+            {
+              requirements.map(item => (
+                <li class={bulletClass}>
+                  <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
+                    –
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="text-muted leading-relaxed">
+            El launcher descarga el resto. Si falta algo del sistema, el diagnóstico dice qué es y
+            cómo instalarlo. Lo probé en CachyOS y Omarchy.
+          </p>
+        </section>
 
-      <div class="max-w-3xl">
-      <section id="instalar" aria-labelledby="instalar-heading">
-        <h2 id="instalar-heading" class="text-xl font-semibold text-foreground mt-12 mb-4">
-          Instalar
-        </h2>
-        <p class="text-muted leading-relaxed mb-4">AppImage para Linux amd64.</p>
-        <ul class="space-y-1.5" aria-label="Instalar">
-          <li class="flex gap-2 text-sm text-muted">
-            <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
-            <span>
-              <span class="text-foreground font-medium">chmod +x:</span> el AppImage de la última
-              release
-            </span>
-          </li>
-          <li class="flex gap-2 text-sm text-muted">
-            <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
-            <span>
-              <span class="text-foreground font-medium">ejecutar:</span> ./
-              {RO_LAUNCHER_RELEASE.appImageFilePattern}
-            </span>
-          </li>
-          <li class="flex gap-2 text-sm text-muted">
-            <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">–</span>
-            <span>
-              <span class="text-foreground font-medium">SHA-256:</span>{' '}
-              <a
-                href={RO_LAUNCHER_RELEASE.checksumUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={backLinkClass}
-              >
-                {RO_LAUNCHER_RELEASE.checksumFileName}
-              </a>
-              <span class="mx-2" aria-hidden="true">·</span>
+        <section id="pasos" aria-labelledby="pasos-heading">
+          <h2 id="pasos-heading" class={h2Class}>Paso a paso</h2>
+          <ol class="list-decimal pl-5 space-y-2 text-muted leading-relaxed marker:text-muted">
+            <li>
+              Descarga el AppImage desde{' '}
               <a
                 href={RO_LAUNCHER_RELEASE.releasesUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class={backLinkClass}
-              >
-                Releases
-              </a>
-            </span>
-          </li>
-        </ul>
-      </section>
+                class={inlineLinkClass}
+                >Releases</a
+              >. Dale permiso de ejecución con{' '}
+              <code class={codeClass}>chmod +x {RO_LAUNCHER_RELEASE.appImageFilePattern}</code> y
+              ábrelo. El SHA-256 está en{' '}
+              <a
+                href={RO_LAUNCHER_RELEASE.checksumUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`font-mono text-xs ${inlineLinkClass}`}
+                >{RO_LAUNCHER_RELEASE.checksumFileName}</a
+              >.
+            </li>
+            <li>Agrega el servidor con el botón + y elige el <code class={codeClass}>.exe</code> del cliente.</li>
+            <li>
+              Pulsa Preparar entorno. El launcher descarga nndsk-ro-proton, verifica su SHA-256 y
+              crea el WINEPREFIX del servidor.
+            </li>
+            <li>
+              Instala dgVoodoo desde Herramientas. Viene desinstalado y trae una configuración lista,
+              así que déjala como está.
+            </li>
+            <li>
+              Abre OpenSetup desde Herramientas. Elige DirectX 7, la resolución y el dispositivo
+              gráfico.
+            </li>
+            <li>Si el servidor tiene patcher, ábrelo desde Herramientas y deja que actualice.</li>
+            <li>Pulsa Jugar.</li>
+          </ol>
+        </section>
+      </div>
 
-      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Problema</h2>
-      <p class="text-muted leading-relaxed">
-        En Linux cada servidor privado trae runner, WINEPREFIX y a veces un anticheat distinto. Armar
-        Wine, DXVK y dgVoodoo a mano falla al cambiar de máquina. AutoPot por lectura de HP y SP del
-        cliente suele pedir ptrace_scope=0. Este launcher no lo pide.
-      </p>
+      <div id="demo" class="mt-12">
+        <p class="text-sm text-muted mb-3 max-w-3xl">
+          Prueba la interfaz. Esta demo no lanza el juego ni instala Wine.
+        </p>
+        <RoLauncherDemo client:load variant="full" />
+        <noscript>
+          <p class="text-sm text-muted mt-2">Activa JavaScript para usar la demo.</p>
+        </noscript>
+      </div>
 
-      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Enfoque</h2>
-      <p class="text-muted leading-relaxed">
-        Tauri v2 y React en la UI, Rust en el host. Un perfil por servidor guarda runner, WINEPREFIX,
-        DXVK y dgVoodoo si el cliente es DirectDraw. AutoPot, AutoBuff y el spammer arrancan al
-        pulsar Jugar. ro-sessiond es padre de wineserver, patcher y ragexe.exe, y lee memoria con
-        Yama en default.
-      </p>
-
-      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Técnico</h2>
-
-      <h3 class="text-base font-semibold text-foreground mt-6 mb-3">Runtime</h3>
-      <div class="mb-6" aria-label="Pipeline gráfico">
-        <p class="text-xs font-mono text-muted mb-2">Pipeline</p>
-        <div class="flex flex-col gap-2">
+      <div class="max-w-3xl">
+        <section id="consejos" aria-labelledby="consejos-heading">
+          <h2 id="consejos-heading" class={h2Class}>Consejos</h2>
           {
-            pipelineRoutes.map((route) => (
-              <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                {route.map((stage, i) => (
-                  <li class="inline-flex items-center gap-x-1.5">
-                    {i > 0 && (
-                      <span class="text-xs font-mono text-muted select-none" aria-hidden="true">
-                        →
-                      </span>
-                    )}
-                    <span class={pipelinePillClass}>{stage}</span>
-                  </li>
-                ))}
-              </ol>
+            tips.map(tip => (
+              <div>
+                <h3 class={h3Class}>{tip.heading}</h3>
+                <p class="text-muted leading-relaxed">{tip.body}</p>
+              </div>
             ))
           }
-        </div>
-      </div>
-      <ul class="space-y-1.5" aria-label="Runtime">
-        {
-          technicalRuntime.map((item) => (
-            <li class="flex gap-2 text-sm text-muted">
-              <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
-                –
-              </span>
-              <span>
-                <span class="text-foreground font-medium">{item.lead}:</span>{' '}{item.rest}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
+        </section>
 
-      <h3 class="text-base font-semibold text-foreground mt-8 mb-3">Herramientas</h3>
-      <ul class="space-y-1.5" aria-label="Herramientas">
-        {
-          technicalHerramientas.map((item) => (
-            <li class="flex gap-2 text-sm text-muted">
-              <span class="text-muted mt-0.5 shrink-0" aria-hidden="true">
-                –
-              </span>
-              <span>
-                <span class="text-foreground font-medium">{item.lead}:</span>{' '}{item.rest}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
+        <section id="problemas" aria-labelledby="problemas-heading">
+          <h2 id="problemas-heading" class={h2Class}>Si algo falla</h2>
+          <p class="text-muted leading-relaxed mb-4">
+            Si Preparar entorno falla, casi siempre falta algo en el sistema. Abre el diagnóstico.
+            Separa los problemas en Sistema, Runtime, Gráficos, Funciones opcionales y
+            Compatibilidad, y sugiere cómo resolver cada uno.
+          </p>
+          <p class="text-muted leading-relaxed">
+            Rearmar entorno reconstruye el WINEPREFIX del servidor y conserva el anterior hasta que
+            termina.
+          </p>
+        </section>
 
-      <section aria-labelledby="faq-heading">
-        <h2 id="faq-heading" class="text-xl font-semibold text-foreground mt-12 mb-4">
-          Preguntas frecuentes
-        </h2>
-        {
-          faqs.map((faq) => (
-            <div>
-              <h3 class="text-base font-semibold text-foreground mt-6 mb-2">{faq.question}</h3>
-              <p class="text-muted leading-relaxed">{faq.answer}</p>
+        <section id="faq" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" class={h2Class}>Preguntas frecuentes</h2>
+          {
+            faqs.map(faq => (
+              <div>
+                <h3 class={h3Class}>{faq.question}</h3>
+                <p class="text-muted leading-relaxed">{faq.answer}</p>
+              </div>
+            ))
+          }
+        </section>
+
+        <section id="tecnico" aria-labelledby="tecnico-heading">
+          <h2 id="tecnico-heading" class={h2Class}>Cómo funciona por dentro</h2>
+          <p class="text-muted leading-relaxed mb-6">
+            La UI usa Tauri v2 y React. El host es un workspace de Rust con dos sidecars, ro-sessiond
+            y ro-inputd.
+          </p>
+
+          <div class="mb-6" aria-label="Pipeline gráfico">
+            <p class="text-xs font-mono text-muted mb-2">Pipeline</p>
+            <div class="flex flex-col gap-2">
+              {
+                pipelineRoutes.map(route => (
+                  <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                    {route.map((stage, i) => (
+                      <li class="inline-flex items-center gap-x-1.5">
+                        {i > 0 && (
+                          <span class="text-xs font-mono text-muted select-none" aria-hidden="true">
+                            →
+                          </span>
+                        )}
+                        <span class={pillClass}>{stage}</span>
+                      </li>
+                    ))}
+                  </ol>
+                ))
+              }
             </div>
-          ))
-        }
-      </section>
+          </div>
 
-      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Stack</h2>
-      <ul class="flex flex-wrap gap-2" aria-label="Stack técnico">
-        {
-          stackChips.map((tech) => (
-            <li>
-              <span class="px-2 py-0.5 text-xs rounded-sm bg-transparent text-muted border border-border font-mono">
-                {tech}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
+          {
+            technicalDiagrams.map(diagram => (
+              <figure class="mt-8">
+                <p class="text-xs font-mono text-muted mb-2">{diagram.label}</p>
+                <pre class="overflow-x-auto rounded-md border border-border px-4 py-3 text-xs leading-relaxed font-mono text-foreground">{diagram.tree}</pre>
+                <figcaption class="text-sm text-muted mt-2">{diagram.caption}</figcaption>
+              </figure>
+            ))
+          }
 
-      {
-        galleryImage && (
+          <h3 class="text-base font-semibold text-foreground mt-8 mb-3">Stack</h3>
+          <ul class="flex flex-wrap gap-2" aria-label="Stack técnico">
+            {
+              stackChips.map(tech => (
+                <li>
+                  <span class={pillClass}>{tech}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          {
+            galleryImage && (
+              <figure class="mt-8">
+                <OptimizedPicture
+                  src={galleryImage}
+                  alt="Ragnarok Online abierto en Linux con RO-Launcher encima y AutoPot activo. Muestra la interfaz anterior del launcher."
+                  width={1200}
+                  height={675}
+                  widths={[800, 1200]}
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  quality={80}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-auto rounded-md border border-border"
+                />
+                <figcaption class="text-sm text-muted mt-2">
+                  Ragnarok Online abierto con RO-Launcher encima y AutoPot activo. La captura muestra
+                  la interfaz anterior del launcher.
+                </figcaption>
+              </figure>
+            )
+          }
+
           <figure class="mt-8">
             <OptimizedPicture
-              src={galleryImage}
-              alt="nndsk-ro-launcher superpuesto sobre el cliente de Ragnarok Online en Linux, con AutoPot activo"
+              src={project.data.thumbnail}
+              alt={screenshotAlt}
               width={1200}
-              height={675}
+              height={750}
               widths={[800, 1200]}
-              sizes="(max-width: 768px) 100vw, 1200px"
+              sizes="(max-width: 768px) 100vw, 768px"
               quality={80}
               loading="lazy"
               decoding="async"
               class="w-full h-auto rounded-md border border-border"
             />
             <figcaption class="text-sm text-muted mt-2">
-              RO-Launcher encima del cliente, AutoPot activo.
+              RO-Launcher con el entorno listo para jugar.
             </figcaption>
           </figure>
-        )
-      }
+        </section>
 
-      <h2 class="text-xl font-semibold text-foreground mt-12 mb-4">Links</h2>
-      <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-        {
-          project.data.github && (
-            <a
-              href={project.data.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={ctaPrimary}
-              aria-label="Ver código en GitHub: nndsk-ro-launcher"
-            >
-              <GitHubIcon class="w-4 h-4" />
-              Repo
-            </a>
-          )
-        }
-        <a href="/#work" class={ctaGhost}>
-          ← Trabajos
-        </a>
-      </div>
+        <h2 class={h2Class}>Links</h2>
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+          {
+            project.data.github && (
+              <a
+                href={project.data.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={ctaPrimary}
+                aria-label="Repo de nndsk-ro-launcher en GitHub"
+              >
+                <GitHubIcon class="w-4 h-4" />
+                Repo
+              </a>
+            )
+          }
+          {
+            project.data.github && (
+              <a
+                href={`${project.data.github}/tree/main/docs/adr`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={ctaGhost}
+              >
+                Decisiones de arquitectura (ADR)
+              </a>
+            )
+          }
+          <a href="/#work" class={ctaGhost}>
+            ← Trabajos
+          </a>
+        </div>
       </div>
     </article>
   </main>

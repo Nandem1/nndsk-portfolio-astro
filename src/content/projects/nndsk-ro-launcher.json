@@ -1,15 +1,16 @@
 {
   "title": "nndsk-ro-launcher",
-  "description": "Launcher de Ragnarok Online para Linux. WINEPREFIX, DXVK y dgVoodoo hacia Vulkan. AutoPot lee memoria del cliente. Spammer con sidecar evdev. Varios servidores, runners Proton o Wine.",
+  "description": "Launcher de Ragnarok Online para Linux. Prepara Wine, DXVK y dgVoodoo para cada servidor privado. Usa nndsk-ro-proton por defecto y Wine 7.16 si Gepard da error. AutoPot lee la memoria del cliente sin ptrace_scope=0.",
   "tags": ["Gaming", "Desktop", "Linux"],
-  "stack": ["Tauri v2", "Rust", "React", "Wine", "Proton", "DXVK", "dgVoodoo"],
+  "stack": ["Tauri v2", "Rust", "React", "nndsk-ro-proton", "Wine", "DXVK", "dgVoodoo", "UMU"],
   "highlights": [
-    "AutoPot y AutoBuff leen memoria con perfiles 4RTools. Spammer usa evdev y ydotool.",
-    "ro-sessiond lee el cliente sin ptrace_scope=0.",
-    "Un WINEPREFIX por servidor. DXVK a Vulkan. dgVoodoo si hace falta.",
-    "El runner se recomienda si el SHA-256 de gepard.dll está en la matriz."
+    "Cada servidor tiene su WINEPREFIX, con DXVK hacia Vulkan y dgVoodoo si el cliente usa DirectDraw.",
+    "nndsk-ro-proton es el runner por defecto. Wine 7.16 queda como fallback por servidor.",
+    "AutoPot y AutoBuff leen la memoria con perfiles 4RTools. ro-sessiond no pide ptrace_scope=0.",
+    "El Spammer detecta las teclas con evdev y las envía con uinput.",
+    "El launcher recomienda runner si el SHA-256 de gepard.dll está en el catálogo validado."
   ],
-  "thumbnail": "./nndsk-ro-launcher/rolauncher1.png",
+  "thumbnail": "./nndsk-ro-launcher/rolauncher-prep.png",
   "gallery": ["./nndsk-ro-launcher/rolauncher2.png"],
   "github": "https://github.com/Nandem1/nndsk-ro-launcher",
   "spotlight": true,

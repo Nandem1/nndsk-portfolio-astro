@@ -1,7 +1,8 @@
 import { launchButtonDisabled, launchButtonLabel, launchButtonVariant } from '../demo.logic';
 import { getServerById } from '../mockData';
 import { captureWindowScrollFromPointer } from '../preserveWindowScroll';
-import { btnBase, btnDisabled, btnPrimary, btnSecondary, textDetail } from '../chrome/classes';
+import { btnBase, btnPrimary, btnPrimaryDisabled, textDetail } from '../chrome/classes';
+import { IconHammer, IconPlay } from '../chrome/DemoIcons';
 import type { DemoState } from '../types';
 
 interface Props {
@@ -16,7 +17,9 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
   const variant = launchButtonVariant(state, server);
   const { progress, playNotice } = state;
 
-  const variantClass = variant === 'primary' ? btnPrimary : btnSecondary;
+  // The desktop app paints "Preparar entorno" with the primary accent too; the
+  // variant only picks the icon (Hammer while building, Play when ready).
+  const Icon = variant === 'primary' ? IconPlay : IconHammer;
 
   return (
     <div className="flex shrink-0 flex-col gap-2 border-t border-[rgb(var(--ro-c-line))] pt-3">
@@ -41,7 +44,7 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
       )}
       <button
         type="button"
-        className={`${btnBase} ${variantClass} ${disabled ? btnDisabled : ''}`}
+        className={`${btnBase} ${disabled ? btnPrimaryDisabled : btnPrimary}`}
         aria-disabled={disabled}
         onPointerDownCapture={() => captureWindowScrollFromPointer()}
         onClick={() => {
@@ -49,6 +52,7 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
           onLaunchClick();
         }}
       >
+        {!disabled && <Icon />}
         {label}
       </button>
       {playNotice && (

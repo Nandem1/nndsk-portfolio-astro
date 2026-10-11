@@ -29,13 +29,13 @@ const ANTICHEAT_WARNING =
 
 export const DEMO_RUNNERS: DemoRunner[] = [
   {
-    id: 'proton-cachyos',
-    name: 'proton-cachyos-slr',
+    id: 'nndsk-ro-proton-0.1.0-dev.2',
+    name: 'nndsk-ro-proton 0.1.0-dev.2',
     kind: 'proton',
   },
   {
-    id: 'wine-7.16',
-    name: 'Wine 7.16 old-WoW64',
+    id: 'wine-7.16-staging-tkg-amd64',
+    name: 'Wine 7.16 Staging/TkG amd64 · old-WoW64',
     kind: 'wine',
   },
 ];
@@ -44,17 +44,18 @@ export const DEMO_SERVERS: DemoServer[] = [
   {
     id: 'honeyro',
     name: 'HoneyRO',
-    runnerId: 'proton-cachyos',
+    runnerId: 'nndsk-ro-proton-0.1.0-dev.2',
     gepard: {
       present: true,
       validated: true,
       productVersion: '3.0',
       fileVersion: '26.8.26.1',
-      profileLabel: 'Proton-CachyOS 11 + DXVK 3.0.1',
-      recommendedRunnerId: 'proton-cachyos',
+      profileLabel: 'nndsk-ro-proton 0.1.0-dev.2 + DXVK 3.0.1',
+      recommendedRunnerId: 'nndsk-ro-proton-0.1.0-dev.2',
       banner:
-        'Gepard Shield 3.0 (FileVersion 26.8.26.1) reconocido: perfil validado Proton-CachyOS 11 + DXVK 3.0.1.',
-      mismatchRemediation: 'Selecciona el Proton-CachyOS 11 administrado o un Proton moderno',
+        'Gepard Shield 3.0 (FileVersion 26.8.26.1) reconocido: perfil validado nndsk-ro-proton 0.1.0-dev.2 + DXVK 3.0.1.',
+      mismatchRemediation:
+        'Selecciona el nndsk-ro-proton 0.1.0-dev.2 administrado o un Proton moderno',
     },
     tools: {
       openSetup: { found: true, label: 'Setup.exe' },
@@ -65,7 +66,7 @@ export const DEMO_SERVERS: DemoServer[] = [
       architecture: 'PE32',
       graphicsApis: ['Direct3D'],
       warnings: [
-        'Gepard Shield 3.0 (FileVersion 26.8.26.1) reconocido: perfil validado Proton-CachyOS 11 + DXVK 3.0.1.',
+        'Gepard Shield 3.0 (FileVersion 26.8.26.1) reconocido: perfil validado nndsk-ro-proton 0.1.0-dev.2 + DXVK 3.0.1.',
         ANTICHEAT_WARNING,
       ],
     },
@@ -73,18 +74,18 @@ export const DEMO_SERVERS: DemoServer[] = [
   {
     id: 'sakuraro',
     name: 'SakuraRO',
-    runnerId: 'wine-7.16',
+    runnerId: 'wine-7.16-staging-tkg-amd64',
     gepard: {
       present: true,
       validated: true,
       productVersion: '3.0',
       fileVersion: '26.9.3.1',
-      profileLabel: 'Wine 7.16 old-WoW64 + DXVK 2.6.2',
-      recommendedRunnerId: 'wine-7.16',
+      profileLabel: 'Wine 7.16 Staging/TkG amd64 · old-WoW64 + DXVK 2.6.2',
+      recommendedRunnerId: 'wine-7.16-staging-tkg-amd64',
       banner:
-        'Gepard Shield 3.0 (FileVersion 26.9.3.1) reconocido: perfil validado Wine 7.16 old-WoW64 + DXVK 2.6.2.',
+        'Gepard Shield 3.0 (FileVersion 26.9.3.1) reconocido: perfil validado Wine 7.16 Staging/TkG amd64 · old-WoW64 + DXVK 2.6.2.',
       mismatchRemediation:
-        'Selecciona Wine 7.16 portable old-WoW64; DXVK 2.6.2 conservará Vulkan moderno',
+        'Selecciona Wine 7.16 Staging/TkG amd64 · old-WoW64; DXVK 2.6.2 conservará Vulkan moderno',
     },
     tools: {
       openSetup: { found: true, label: 'Setup.exe' },
@@ -95,7 +96,7 @@ export const DEMO_SERVERS: DemoServer[] = [
       architecture: 'PE32',
       graphicsApis: ['Direct3D'],
       warnings: [
-        'Gepard Shield 3.0 (FileVersion 26.9.3.1) reconocido: perfil validado Wine 7.16 old-WoW64 + DXVK 2.6.2.',
+        'Gepard Shield 3.0 (FileVersion 26.9.3.1) reconocido: perfil validado Wine 7.16 Staging/TkG amd64 · old-WoW64 + DXVK 2.6.2.',
         ANTICHEAT_WARNING,
       ],
     },
@@ -103,7 +104,7 @@ export const DEMO_SERVERS: DemoServer[] = [
   {
     id: 'unknown',
     name: 'Servidor (Gepard no validado)',
-    runnerId: 'proton-cachyos',
+    runnerId: 'nndsk-ro-proton-0.1.0-dev.2',
     gepard: {
       present: true,
       validated: false,

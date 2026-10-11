@@ -109,7 +109,7 @@ function KeyRow({
   onToggle: (key: string) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex gap-1">
       {keys.map(key => {
         const active = selected.has(key);
         return (

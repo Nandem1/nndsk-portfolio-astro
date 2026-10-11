@@ -40,7 +40,7 @@ export const btnXs =
   'inline-flex items-center justify-center rounded-[9px] bg-[rgb(var(--ro-c-panel-raised))] px-3 py-[5px] text-xs leading-normal text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:bg-[rgb(var(--ro-c-line))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))] disabled:pointer-events-none disabled:text-[rgb(var(--ro-c-muted))]';
 
 export const selectNative =
-  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] px-2 py-1.5 font-mono text-[12.5px] text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:border-[rgb(var(--ro-c-line-strong))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
+  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] px-2 py-1 font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:border-[rgb(var(--ro-c-line-strong))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
 
 export const tabBtn =
   'flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-7 py-1.5 text-center font-sans text-[12.5px] font-medium leading-normal transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
@@ -70,7 +70,7 @@ export const statusDotWarn =
   'inline-block h-2 w-2 shrink-0 rounded-full bg-[rgb(var(--ro-c-warn))]';
 
 export const keyChip =
-  'min-w-[2rem] rounded-[7px] px-1 py-1 text-[11.5px] font-semibold transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))] disabled:opacity-40';
+  'flex-1 h-7 p-0 font-mono rounded-[7px] text-[11.5px] font-semibold transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
 
 export const keyChipActive = 'bg-[rgb(var(--ro-c-accent))] text-[rgb(var(--ro-c-on-accent))]';
 
@@ -78,7 +78,7 @@ export const keyChipIdle =
   'bg-[rgb(var(--ro-c-panel-raised))] text-[rgb(var(--ro-c-muted))] hover:text-[rgb(var(--ro-c-ink))]';
 
 export const fieldCompact =
-  'w-12 rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] py-1 text-center font-mono text-[12.5px] text-[rgb(var(--ro-c-ink))] disabled:text-[rgb(var(--ro-c-muted))]';
+  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] py-1 pr-4 text-center font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] disabled:text-[rgb(var(--ro-c-muted))]';
 
 export const logWell =
   'mx-[18px] mb-4 min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-[9px] border border-[rgb(var(--ro-c-line-soft))] bg-[rgb(var(--ro-c-field))] px-[18px] py-2 font-mono text-xs leading-relaxed text-[rgb(var(--ro-c-muted))]';

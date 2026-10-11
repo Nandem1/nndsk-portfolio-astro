@@ -56,6 +56,39 @@ function StatBar({
   );
 }
 
+function PercentField({
+  value,
+  disabled,
+  ariaLabel,
+  onChange,
+}: {
+  value: number | string;
+  disabled: boolean;
+  ariaLabel: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div className="relative w-12">
+      <input
+        type="number"
+        min={1}
+        max={99}
+        disabled={disabled}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className={fieldCompact}
+        aria-label={ariaLabel}
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-1.5 flex items-center text-[10px] text-[rgb(var(--ro-c-muted))]"
+      >
+        %
+      </span>
+    </div>
+  );
+}
+
 export function DemoAutopot({ state, dispatch }: Props) {
   const server = getServerById(state.selectedServerId);
   const ready = toolsReady(state);
@@ -141,15 +174,29 @@ export function DemoAutopot({ state, dispatch }: Props) {
           <span className={`${textDetail} w-10 shrink-0 text-right`}>{state.autopotDelayMs}ms</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="space-y-1">
+          <div className="flex items-center justify-between gap-2">
+            <label htmlFor="ro-demo-autopot-memory-profile" className={microLabel}>
+              Perfil de memoria
+            </label>
+            <button type="button" disabled title="No disponible en demo" className={textDetail}>
+              Encontrar
+            </button>
+          </div>
+          <select id="ro-demo-autopot-memory-profile" className={selectNative} disabled value="">
+            <option value="">Auto</option>
+          </select>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1">
             <label htmlFor="ro-demo-autopot-hp-key" className={microLabel}>
               <span className="sr-only">Tecla de </span>HP
             </label>
-            <div className="flex gap-1">
+            <div className="flex items-center gap-1">
               <select
                 id="ro-demo-autopot-hp-key"
-                className={`${selectNative} py-1 text-[11px]`}
+                className={selectNative}
                 disabled={!ready}
                 value={state.autopotHpKey}
                 onChange={e =>
@@ -166,21 +213,17 @@ export function DemoAutopot({ state, dispatch }: Props) {
                   </option>
                 ))}
               </select>
-              <input
-                type="number"
-                min={1}
-                max={99}
-                disabled={!ready}
+              <PercentField
                 value={state.autopotHpPercent}
-                onChange={e =>
+                disabled={!ready}
+                ariaLabel="Porcentaje de HP"
+                onChange={value =>
                   dispatch({
                     type: 'setAutopotField',
                     field: 'hpPercent',
-                    value: e.target.value,
+                    value,
                   })
                 }
-                className={fieldCompact}
-                aria-label="Porcentaje de HP"
               />
             </div>
           </div>
@@ -188,10 +231,10 @@ export function DemoAutopot({ state, dispatch }: Props) {
             <label htmlFor="ro-demo-autopot-sp-key" className={microLabel}>
               <span className="sr-only">Tecla de </span>SP
             </label>
-            <div className="flex gap-1">
+            <div className="flex items-center gap-1">
               <select
                 id="ro-demo-autopot-sp-key"
-                className={`${selectNative} py-1 text-[11px]`}
+                className={selectNative}
                 disabled={!ready}
                 value={state.autopotSpKey}
                 onChange={e =>
@@ -208,38 +251,20 @@ export function DemoAutopot({ state, dispatch }: Props) {
                   </option>
                 ))}
               </select>
-              <input
-                type="number"
-                min={1}
-                max={99}
-                disabled={!ready}
+              <PercentField
                 value={state.autopotSpPercent}
-                onChange={e =>
+                disabled={!ready}
+                ariaLabel="Porcentaje de SP"
+                onChange={value =>
                   dispatch({
                     type: 'setAutopotField',
                     field: 'spPercent',
-                    value: e.target.value,
+                    value,
                   })
                 }
-                className={fieldCompact}
-                aria-label="Porcentaje de SP"
               />
             </div>
           </div>
-        </div>
-
-        <div className="space-y-1">
-          <div className="flex items-center justify-between gap-2">
-            <label htmlFor="ro-demo-autopot-memory-profile" className={microLabel}>
-              Perfil de memoria
-            </label>
-            <button type="button" disabled title="No disponible en demo" className={textDetail}>
-              Encontrar
-            </button>
-          </div>
-          <select id="ro-demo-autopot-memory-profile" className={selectNative} disabled value="">
-            <option value="">Auto</option>
-          </select>
         </div>
 
         <p className={`${textDetail} leading-snug`}>Valores de demostración. No hay cliente.</p>

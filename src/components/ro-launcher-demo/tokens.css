@@ -50,6 +50,17 @@
   background: rgb(var(--ro-c-line-strong));
 }
 
+.ro-demo input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.ro-demo input[type='number']::-webkit-inner-spin-button,
+.ro-demo input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
 .ro-demo input[type='range'] {
   appearance: none;
   height: 1rem;

@@ -73,7 +73,7 @@ export function DemoAutobuff({ state, dispatch }: Props) {
               </label>
               <select
                 id={`ro-demo-autobuff-key-${rule.id}`}
-                className={`${selectNative} w-16 shrink-0 py-1 text-[11px]`}
+                className={`${selectNative} w-16 shrink-0`}
                 disabled={!ready}
                 value={rule.key}
                 onChange={e =>

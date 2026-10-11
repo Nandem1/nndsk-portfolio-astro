@@ -1,4 +1,4 @@
-export type RunnerId = 'proton-cachyos' | 'wine-7.16';
+export type RunnerId = 'nndsk-ro-proton-0.1.0-dev.2' | 'wine-7.16-staging-tkg-amd64';
 
 export type ServerId = 'honeyro' | 'sakuraro' | 'unknown';
 

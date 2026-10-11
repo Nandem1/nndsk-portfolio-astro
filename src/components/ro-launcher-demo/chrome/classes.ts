@@ -42,9 +42,11 @@ export const btnXs =
 export const selectFace =
   'rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:border-[rgb(var(--ro-c-line-strong))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
 
-export const selectNative = `${selectFace} w-full pl-2 pr-7 py-1`;
+export const selectNative = `${selectFace} w-full pl-2.5 pr-9 py-1.5`;
 
-export const selectKeycap = `${selectFace} w-[68px] shrink-0 pl-2 pr-7 py-1`;
+export const selectKeycap = `${selectFace} w-[68px] shrink-0 pl-2 pr-8 py-1`;
+
+export const selectFlex = `${selectFace} min-w-0 flex-1 pl-2 pr-8 py-1`;
 
 export const tabBtn =
   'flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-7 py-1.5 text-center font-sans text-[12.5px] font-medium leading-normal transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';

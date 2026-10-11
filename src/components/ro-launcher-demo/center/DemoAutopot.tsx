@@ -8,6 +8,7 @@ import {
   panelShell,
   panelSuccess,
   panelTitle,
+  selectFlex,
   selectNative,
   textDetail,
   textInk,
@@ -68,7 +69,7 @@ function PercentField({
   onChange: (value: string) => void;
 }) {
   return (
-    <div className="relative w-12 shrink-0">
+    <div className="relative w-14 shrink-0">
       <input
         type="number"
         min={1}
@@ -196,7 +197,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
             <div className="flex items-center gap-1">
               <select
                 id="ro-demo-autopot-hp-key"
-                className={selectNative}
+                className={selectFlex}
                 disabled={!ready}
                 value={state.autopotHpKey}
                 onChange={e =>
@@ -234,7 +235,7 @@ export function DemoAutopot({ state, dispatch }: Props) {
             <div className="flex items-center gap-1">
               <select
                 id="ro-demo-autopot-sp-key"
-                className={selectNative}
+                className={selectFlex}
                 disabled={!ready}
                 value={state.autopotSpKey}
                 onChange={e =>

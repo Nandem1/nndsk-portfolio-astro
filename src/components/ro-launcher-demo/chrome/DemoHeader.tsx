@@ -1,14 +1,16 @@
 export function DemoHeader() {
   return (
-    <header className="flex items-end justify-between gap-3 px-4 py-2.5 border-b border-white/[0.06] bg-zinc-950/60 backdrop-blur-sm shrink-0">
-      <div>
-        <p className="text-xl font-bold tracking-tight">
-          <span className="text-amber-400">RO</span>
-          <span className="text-zinc-100">-Launcher</span>
-        </p>
-        <p className="text-xs text-zinc-500 mt-0.5">Ragnarok Online · Linux</p>
+    <header className="flex h-16 shrink-0 items-center justify-between bg-[rgb(var(--ro-c-surface))] px-4">
+      <div className="min-w-0 flex-1">
+        <h1 className="font-sans text-[17px] font-semibold leading-normal tracking-[-0.01em]">
+          <span className="text-[rgb(var(--ro-c-accent))]">RO</span>
+          <span className="text-[rgb(var(--ro-c-ink))]">-Launcher</span>
+        </h1>
+        <p className="mt-0.5 text-xs text-[rgb(var(--ro-c-muted))]">Ragnarok Online · Linux</p>
       </div>
-      <p className="text-[11px] text-zinc-600 shrink-0">Demo</p>
+      <p className="shrink-0 font-mono text-[11px] font-medium text-[rgb(var(--ro-c-muted))]">
+        Demo
+      </p>
     </header>
   );
 }

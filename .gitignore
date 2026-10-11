@@ -29,3 +29,6 @@ pnpm-debug.log*
 
 # local lighthouse / a11y audit artifacts (JSON/HTML reports)
 .audit/
+
+# local design/arena scratch (not for commit)
+.tmp-design-ref/

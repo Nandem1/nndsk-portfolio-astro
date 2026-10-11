@@ -1,7 +1,7 @@
 import type { Dispatch } from 'react';
 import { DEMO_RUNNERS, getServerById } from '../mockData';
 import { effectiveRunnerId, gepardMismatchMessage } from '../demo.logic';
-import { gepardBanner, selectNative } from '../chrome/classes';
+import { gepardBanner, selectNative, textDetail, textMuted } from '../chrome/classes';
 import type { DemoAction, DemoState } from '../types';
 
 interface Props {
@@ -33,16 +33,16 @@ export function DemoRunnerPanel({ state, dispatch }: Props) {
       </select>
       <p className={gepardBanner}>{server.gepard.banner}</p>
       {mismatch && (
-        <p className="text-[10px] leading-relaxed text-amber-300/90">
+        <p className={`${textDetail} leading-relaxed text-[rgb(var(--ro-c-warn))]`}>
           {mismatch}
           {server.gepard.mismatchRemediation ? ` ${server.gepard.mismatchRemediation}` : ''}
         </p>
       )}
-      <div className={`${gepardBanner} text-zinc-500`}>
-        <p className="text-[10px] leading-relaxed">
+      <div className={gepardBanner}>
+        <p className={`${textDetail} leading-relaxed ${textMuted}`}>
           Runner efectivo de {server.name}: {effectiveName}
         </p>
-        <p className="mt-0.5 text-[9px] leading-relaxed text-zinc-600">
+        <p className="mt-0.5 text-[11px] leading-relaxed text-[rgb(var(--ro-c-muted))]">
           Propio del servidor; el predeterminado global no lo reemplaza.
         </p>
       </div>

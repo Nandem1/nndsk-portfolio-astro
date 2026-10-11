@@ -1,28 +1,35 @@
 .ro-demo {
   color-scheme: dark;
   overflow-anchor: none;
-  background-color: #09090b;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(245 158 11 / 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgb(245 158 11 / 0.04), transparent);
-}
-
-.ro-demo .ro-shadow-glass {
-  box-shadow:
-    inset 0 1px 0 0 rgb(255 255 255 / 0.05),
-    0 8px 24px -12px rgb(0 0 0 / 0.7);
-}
-
-.ro-demo .ro-shadow-glow-amber {
-  box-shadow: 0 0 20px -6px rgb(245 158 11 / 0.3);
-}
-
-.ro-demo .ro-shadow-glow-emerald {
-  box-shadow: 0 0 20px -6px rgb(16 185 129 / 0.3);
-}
-
-.ro-demo .ro-shadow-glow-red {
-  box-shadow: 0 0 20px -6px rgb(239 68 68 / 0.3);
+  --ro-c-surface: 14 15 17;
+  --ro-c-panel: 21 22 24;
+  --ro-c-panel-raised: 28 29 32;
+  --ro-c-field: 10 11 12;
+  --ro-c-line: 38 40 44;
+  --ro-c-line-strong: 52 55 58;
+  --ro-c-line-soft: 31 33 36;
+  --ro-c-track: 42 44 49;
+  --ro-c-track-fill: 107 111 118;
+  --ro-c-outline: 107 111 118;
+  --ro-c-ink: 230 231 233;
+  --ro-c-muted: 139 143 150;
+  --ro-c-accent: 255 92 57;
+  --ro-c-on-accent: 20 17 15;
+  --ro-c-warn: 226 163 58;
+  --ro-c-ok: 127 176 105;
+  --ro-c-bad: 224 96 74;
+  --ro-c-info: 91 155 213;
+  --ro-c-special: 79 179 169;
+  --ro-radius-control: 9px;
+  --ro-radius-panel: 14px;
+  --ro-radius-action: 11px;
+  --ro-radius-segmented: 11px;
+  --ro-radius-segment: 8px;
+  --ro-radius-control-compact: 7px;
+  --ro-radius-pill: 9999px;
+  --ro-radius-notice: 11px;
+  background-color: rgb(var(--ro-c-surface));
+  color: rgb(var(--ro-c-ink));
 }
 
 .ro-demo ::-webkit-scrollbar {
@@ -35,16 +42,179 @@
 }
 
 .ro-demo ::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-  border-radius: 9999px;
+  background: rgb(var(--ro-c-line-strong));
+  border-radius: var(--ro-radius-pill);
 }
 
 .ro-demo ::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
+  background: rgb(var(--ro-c-line-strong));
+}
+
+/* Native OS chevrons sit on the border; paint an inset chevron like DarkSelect. */
+.ro-demo select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgb(139,143,150)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px 14px;
+}
+
+.ro-demo select:disabled {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgb(107,111,118)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+}
+
+.ro-demo input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.ro-demo input[type='number']::-webkit-inner-spin-button,
+.ro-demo input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.ro-demo input[type='range'] {
+  appearance: none;
+  height: 1rem;
+  background: transparent;
+}
+
+.ro-demo input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border: 0;
+  border-radius: var(--ro-radius-pill);
+  background-color: rgb(var(--ro-c-track));
+}
+
+.ro-demo input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 1px solid rgb(var(--ro-c-ink));
+  border-radius: var(--ro-radius-pill);
+  background: rgb(var(--ro-c-ink));
+}
+
+.ro-demo input[type='range']::-moz-range-track {
+  height: 4px;
+  border: 0;
+  border-radius: var(--ro-radius-pill);
+  background: rgb(var(--ro-c-track));
+}
+
+.ro-demo input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgb(var(--ro-c-ink));
+  border-radius: var(--ro-radius-pill);
+  background: rgb(var(--ro-c-ink));
+}
+
+.ro-demo input[type='range']:focus-visible {
+  outline: 2px solid rgb(var(--ro-c-accent));
+  outline-offset: 2px;
+}
+
+.ro-demo input[type='checkbox'],
+.ro-demo input[type='radio'] {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid rgb(var(--ro-c-outline));
+  border-radius: var(--ro-radius-pill);
+  background-color: transparent;
+}
+
+.ro-demo input[type='checkbox']:checked,
+.ro-demo input[type='radio']:checked {
+  border-color: rgb(var(--ro-c-accent));
+}
+
+.ro-demo input[type='checkbox']:checked::after,
+.ro-demo input[type='radio']:checked::after {
+  content: '';
+  display: block;
+  width: 45%;
+  height: 45%;
+  margin: 27.5%;
+  border-radius: var(--ro-radius-pill);
+  background-color: rgb(var(--ro-c-accent));
+}
+
+.ro-demo input[type='checkbox']:focus-visible,
+.ro-demo input[type='radio']:focus-visible {
+  outline: 2px solid rgb(var(--ro-c-accent));
+  outline-offset: 2px;
+}
+
+.ro-demo .ro-notice-warn {
+  position: relative;
+  display: block;
+  border-radius: var(--ro-radius-notice);
+  background-color: rgb(var(--ro-c-warn) / 0.09);
+  padding: 11px 14px 11px 2rem;
+  color: rgb(var(--ro-c-muted));
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.ro-demo .ro-notice-warn::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 11px;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--ro-radius-pill);
+  background-color: rgb(var(--ro-c-warn));
 }
 
 .ro-demo-progress-fill {
   @starting-style {
     width: 0%;
   }
+}
+
+.ro-demo .ro-ink {
+  color: rgb(var(--ro-c-ink));
+}
+
+.ro-demo .ro-ok {
+  color: rgb(var(--ro-c-ok));
+}
+
+.ro-demo .ro-bad {
+  color: rgb(var(--ro-c-bad));
+}
+
+.ro-demo .ro-warn {
+  color: rgb(var(--ro-c-warn));
+}
+
+.ro-demo .ro-info {
+  color: rgb(var(--ro-c-info));
+}
+
+.ro-demo .ro-special {
+  color: rgb(var(--ro-c-special));
+}
+
+.ro-demo .panel-idle {
+  color: rgb(var(--ro-c-muted));
+}
+
+.ro-demo .panel-idle .ro-ink:not(.ro-panel-title),
+.ro-demo .panel-idle .ro-ok,
+.ro-demo .panel-idle .ro-bad,
+.ro-demo .panel-idle .ro-warn,
+.ro-demo .panel-idle .ro-info,
+.ro-demo .panel-idle .ro-special {
+  color: rgb(var(--ro-c-muted));
+}
+
+.ro-demo .panel-idle .ro-panel-title {
+  color: rgb(var(--ro-c-ink));
 }

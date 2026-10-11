@@ -42,7 +42,7 @@ export const LOG_RESET = '[demo] Rearmar simulado — no borra un WINEPREFIX.';
 
 export const initialDemoState: DemoState = {
   selectedServerId: 'honeyro',
-  selectedRunnerId: 'proton-cachyos',
+  selectedRunnerId: 'nndsk-ro-proton-0.1.0-dev.2',
   runnerOverride: {},
   prefixByKey: {},
   progress: null,

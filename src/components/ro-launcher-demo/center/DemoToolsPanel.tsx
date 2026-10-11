@@ -1,6 +1,15 @@
-import { btnXs } from '../chrome/classes';
+import {
+  btnXs,
+  panelBody,
+  panelHeader,
+  panelShell,
+  panelTitle,
+  statusDotOk,
+  statusDotPending,
+  textDetail,
+  textInk,
+} from '../chrome/classes';
 import { getServerById } from '../mockData';
-import { panelBody, panelHeader, panelShell, panelTitle } from '../chrome/classes';
 import type { DemoState } from '../types';
 
 interface Props {
@@ -8,8 +17,7 @@ interface Props {
 }
 
 function StatusDot({ ok }: { ok: boolean }) {
-  const cls = ok ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)]' : 'bg-zinc-600';
-  return <span className={`inline-block w-2 h-2 rounded-full shrink-0 ${cls}`} aria-hidden />;
+  return <span className={ok ? statusDotOk : statusDotPending} aria-hidden />;
 }
 
 function ToolCard({
@@ -24,12 +32,12 @@ function ToolCard({
   dotOk: boolean;
 }) {
   return (
-    <div className="rounded-lg border border-white/[0.04] bg-zinc-950/40 px-2.5 py-2 flex flex-col gap-1.5 min-w-0">
-      <div className="flex items-center gap-1.5 min-w-0">
+    <div className="flex min-w-0 flex-col gap-1 px-2.5 py-1">
+      <div className="flex min-w-0 flex-wrap items-center gap-1.5">
         <StatusDot ok={dotOk} />
-        <span className="text-[11px] text-zinc-300 font-medium shrink-0">{label}</span>
+        <span className={`shrink-0 text-[11px] font-medium ${textInk}`}>{label}</span>
         <span
-          className="text-[10px] text-zinc-600 truncate font-mono min-w-0 flex-1"
+          className={`min-w-0 flex-1 truncate font-mono text-[11px] text-[rgb(var(--ro-c-muted))]`}
           title={detail}
         >
           {detail}
@@ -52,7 +60,7 @@ export function DemoToolsPanel({ state }: Props) {
         <p className={panelTitle}>Herramientas</p>
       </div>
       <div className={`${panelBody} max-h-28 overflow-x-auto overflow-y-auto`}>
-        <div className="grid grid-cols-3 gap-2 min-w-[28rem]">
+        <div className="grid min-w-[28rem] grid-cols-3 gap-2">
           <ToolCard
             label="OpenSetup"
             detail={server.tools.openSetup.label}
@@ -81,13 +89,13 @@ export function DemoToolsPanel({ state }: Props) {
 function Diagnostics({ server }: { server: ReturnType<typeof getServerById> }) {
   const apis = server.diagnostics.graphicsApis.join(' + ');
   return (
-    <div className="mt-2 rounded-lg border border-white/[0.04] bg-zinc-950/30 px-2.5 py-2 space-y-1">
-      <p className="text-[10px] text-zinc-500">
+    <div className="mt-1 space-y-1 py-1">
+      <p className={`${textDetail} font-mono`}>
         Cliente {server.diagnostics.architecture}
         {apis ? ` · ${apis}` : ''}
       </p>
       {server.diagnostics.warnings.map(warning => (
-        <p key={warning} className="text-[10px] leading-snug text-amber-400/80">
+        <p key={warning} className="ro-notice-warn text-[11px] leading-snug">
           {warning}
         </p>
       ))}

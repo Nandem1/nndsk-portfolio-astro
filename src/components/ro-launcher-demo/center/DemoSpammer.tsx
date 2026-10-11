@@ -1,13 +1,17 @@
 import type { Dispatch } from 'react';
 import {
-  focusRing,
-  innerWell,
-  toolPanelBody,
+  keyChip,
+  keyChipActive,
+  keyChipIdle,
+  microLabel,
   panelHeader,
   panelIdle,
   panelShell,
   panelTitle,
   panelWarning,
+  textDetail,
+  textInk,
+  toolPanelBody,
 } from '../chrome/classes';
 import { formatSpammerKeysLabel, toolsReady } from '../demo.logic';
 import type { DemoAction, DemoState } from '../types';
@@ -41,39 +45,40 @@ export function DemoSpammer({ state, dispatch }: Props) {
       <div className={`${toolPanelBody} flex-1 overflow-y-auto`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-zinc-100 truncate">{statusLine1}</p>
-            <p className="text-[10px] text-zinc-600">{statusLine2}</p>
+            <p className={`truncate text-sm font-semibold ${textInk}`}>{statusLine1}</p>
+            <p className={textDetail}>{statusLine2}</p>
           </div>
           <DemoToggle
             checked={state.spammerEnabled && ready}
             disabled={!ready || state.spammerKeys.length === 0}
-            tone="amber"
             labelledBy="ro-demo-spammer-title"
             onChange={() => dispatch({ type: 'toggleSpammer' })}
           />
         </div>
 
-        <div className={`${innerWell} space-y-1.5`}>
-          <div className="flex justify-between text-[10px]">
-            <span className="text-zinc-600 uppercase tracking-wide">Teclas</span>
-            <span className="text-zinc-700 truncate ml-2">{keysLabel}</span>
+        <div className="space-y-1 py-2">
+          <div className={`flex justify-between ${textDetail}`}>
+            <span className={microLabel}>Teclas</span>
+            <span className="ml-2 truncate text-[rgb(var(--ro-c-muted))]">{keysLabel}</span>
           </div>
-          <KeyRow
-            keys={FUNCTION_KEYS}
-            selected={selected}
-            disabled={!ready}
-            onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
-          />
-          <KeyRow
-            keys={NUMBER_KEYS}
-            selected={selected}
-            disabled={!ready}
-            onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
-          />
+          <div className="space-y-1">
+            <KeyRow
+              keys={FUNCTION_KEYS}
+              selected={selected}
+              disabled={!ready}
+              onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
+            />
+            <KeyRow
+              keys={NUMBER_KEYS}
+              selected={selected}
+              disabled={!ready}
+              onToggle={key => dispatch({ type: 'toggleSpammerKey', key })}
+            />
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 min-w-0 overflow-hidden">
-          <span className="text-[10px] text-zinc-600 uppercase tracking-wide shrink-0">Delay</span>
+        <div className="flex min-w-0 items-center gap-2 overflow-hidden">
+          <span className={`${microLabel} shrink-0`}>Delay</span>
           <input
             type="range"
             min={16}
@@ -82,12 +87,10 @@ export function DemoSpammer({ state, dispatch }: Props) {
             disabled={!ready}
             value={state.spammerDelayMs}
             onChange={e => dispatch({ type: 'setSpammerDelay', delayMs: Number(e.target.value) })}
-            className="flex-1 min-w-0 w-full accent-amber-500 disabled:opacity-50"
+            className="min-w-0 w-full flex-1 disabled:opacity-50"
             aria-label="Delay del spammer"
           />
-          <span className="text-[10px] text-zinc-500 w-8 text-right shrink-0">
-            {state.spammerDelayMs}ms
-          </span>
+          <span className={`${textDetail} w-8 shrink-0 text-right`}>{state.spammerDelayMs}ms</span>
         </div>
       </div>
     </section>
@@ -106,7 +109,7 @@ function KeyRow({
   onToggle: (key: string) => void;
 }) {
   return (
-    <div className="flex gap-1 flex-wrap">
+    <div className="flex gap-1">
       {keys.map(key => {
         const active = selected.has(key);
         return (
@@ -115,11 +118,7 @@ function KeyRow({
             type="button"
             disabled={disabled}
             onClick={() => onToggle(key)}
-            className={`min-w-[2rem] px-1 py-1 rounded-md text-[10px] font-semibold border transition-colors duration-200 ${focusRing} disabled:opacity-40 ${
-              active
-                ? 'border-amber-500/70 bg-amber-500/15 text-amber-200'
-                : 'border-zinc-800/80 bg-zinc-950/50 text-zinc-600 hover:text-zinc-400'
-            }`}
+            className={`${keyChip} ${active ? keyChipActive : keyChipIdle}`}
           >
             {key}
           </button>

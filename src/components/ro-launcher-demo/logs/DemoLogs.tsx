@@ -1,5 +1,14 @@
 import { useLayoutEffect, useRef, type Dispatch } from 'react';
-import { btnXs, panelBody, panelHeader, panelShell, panelTitle } from '../chrome/classes';
+import {
+  btnXs,
+  logWell,
+  panelHeader,
+  panelShell,
+  panelTitle,
+  tabActive,
+  tabInactive,
+  tabList,
+} from '../chrome/classes';
 import type { DemoAction, DemoState, LogChannel } from '../types';
 
 interface Props {
@@ -20,10 +29,8 @@ function LogTab({
     <button
       type="button"
       onClick={onClick}
-      className={`px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 ${
-        active
-          ? 'bg-amber-500/15 text-amber-300 border border-amber-500/25'
-          : 'text-zinc-500 hover:text-zinc-300 border border-transparent'
+      className={`inline-flex h-5 items-center justify-center rounded-[7px] px-2 text-xs font-medium leading-normal transition-colors duration-120 ${
+        active ? tabActive : tabInactive
       }`}
     >
       {children}
@@ -48,11 +55,11 @@ export function DemoLogs({ state, dispatch }: Props) {
   };
 
   return (
-    <section className={`${panelShell} shrink-0 flex flex-col min-h-[7rem] max-h-32`}>
+    <section className={`${panelShell} flex max-h-32 min-h-[7rem] shrink-0 flex-col`}>
       <div className={`${panelHeader} flex-wrap gap-y-1`}>
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex min-w-0 items-center gap-2">
           <p className={panelTitle}>Logs</p>
-          <div className="flex gap-1">
+          <div className={`${tabList} h-7`}>
             <LogTab active={state.logChannel === 'game'} onClick={() => setChannel('game')}>
               Juego
             </LogTab>
@@ -62,24 +69,17 @@ export function DemoLogs({ state, dispatch }: Props) {
           </div>
         </div>
         {logs.length > 0 && (
-          <button
-            type="button"
-            className={`${btnXs} uppercase tracking-wider`}
-            onClick={() => dispatch({ type: 'clearLogs' })}
-          >
+          <button type="button" className={btnXs} onClick={() => dispatch({ type: 'clearLogs' })}>
             Limpiar
           </button>
         )}
       </div>
-      <div
-        ref={scrollRootRef}
-        className={`${panelBody} flex-1 min-h-0 bg-zinc-950/50 rounded-lg border border-white/[0.04] overflow-y-auto overscroll-contain font-mono text-[11px] leading-relaxed mx-3 mb-2`}
-      >
+      <div ref={scrollRootRef} className={logWell}>
         {logs.length === 0 ? (
-          <p className="text-zinc-600 select-none">{emptyLabel}</p>
+          <p className="select-none text-[rgb(var(--ro-c-muted))]">{emptyLabel}</p>
         ) : (
           logs.map((line, index) => (
-            <div key={`${index}-${line}`} className="break-all text-zinc-500">
+            <div key={`${index}-${line}`} className="break-all">
               {line}
             </div>
           ))

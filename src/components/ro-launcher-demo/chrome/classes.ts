@@ -1,60 +1,94 @@
 export const demoChrome =
-  'ro-demo @container rounded-xl border border-white/[0.06] overflow-hidden bg-zinc-950 ro-shadow-glass';
+  'ro-demo @container overflow-hidden rounded-[14px] border border-[rgb(var(--ro-c-line-soft))] bg-[rgb(var(--ro-c-surface))]';
 
 export const panelShell =
-  'rounded-xl border bg-gradient-to-b from-zinc-800/30 to-zinc-900/50 backdrop-blur-sm ro-shadow-glass flex flex-col min-h-0 border-white/[0.06]';
+  'flex min-h-0 flex-col rounded-[14px] border border-[rgb(var(--ro-c-line-soft))] bg-[rgb(var(--ro-c-panel))] transition-colors duration-120';
 
-export const panelIdle = 'border-white/[0.04] opacity-60';
+export const panelIdle = 'panel-idle';
 
-export const panelSuccess = 'border-emerald-500/30 ro-shadow-glow-emerald';
+export const panelSuccess = '';
 
-export const panelWarning = 'border-amber-500/30 ro-shadow-glow-amber';
+export const panelWarning = '';
 
-export const panelHeader =
-  'flex items-center justify-between gap-2 border-b border-white/[0.05] px-3 py-1.5 shrink-0';
+export const panelHeader = 'flex shrink-0 items-center justify-between gap-2 px-[18px] pb-2 pt-4';
 
 export const panelTitle =
-  'text-[10px] font-semibold text-zinc-500 uppercase tracking-[0.14em] shrink-0';
+  'ro-panel-title ro-ink shrink-0 font-sans text-[15px] font-semibold leading-5 tracking-normal';
 
-export const panelBody = 'px-3 py-2 flex flex-col gap-2 min-h-0';
+export const panelBody = 'flex min-h-0 flex-col gap-2 px-[18px] pb-4 pt-2';
 
-export const toolPanelBody = 'px-4 py-2 flex flex-col gap-2.5 min-h-0';
+export const toolPanelBody = 'flex min-h-0 flex-col gap-2.5 px-[18px] pb-4 pt-2';
 
 export const row =
-  'flex items-center gap-2 px-2 py-2 rounded-lg border border-transparent hover:bg-zinc-800/60 transition-colors duration-200';
+  'flex min-h-10 items-center gap-2.5 rounded-[9px] px-3 transition-colors duration-120 hover:bg-[rgb(var(--ro-c-panel-raised))]';
 
-export const rowSelected =
-  'bg-amber-500/10 border-amber-500/20 text-amber-100 ro-shadow-glow-amber';
+export const rowSelected = 'bg-[rgb(var(--ro-c-panel-raised))]';
 
 export const btnBase =
-  'w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg transition-[transform,background-color,border-color,color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 disabled:opacity-50 disabled:pointer-events-none';
+  'inline-flex w-full items-center justify-center gap-1.5 font-medium select-none transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))] disabled:pointer-events-none';
 
 export const btnPrimary =
-  'border border-amber-500/30 bg-amber-500/10 text-amber-100 hover:bg-amber-500/15 hover:border-amber-500/50 hover:ro-shadow-glow-amber';
+  'rounded-[11px] bg-[rgb(var(--ro-c-accent))] p-[13px] text-sm font-semibold leading-normal text-[rgb(var(--ro-c-on-accent))] hover:brightness-110';
 
 export const btnSecondary =
-  'border border-zinc-700/60 bg-zinc-900/40 text-zinc-300 hover:border-amber-500/40 hover:text-amber-300 hover:bg-amber-500/5';
+  'rounded-[9px] bg-[rgb(var(--ro-c-panel-raised))] px-3.5 py-2 text-sm leading-normal text-[rgb(var(--ro-c-ink))] hover:bg-[rgb(var(--ro-c-line))]';
 
-export const btnDisabled = 'opacity-50 pointer-events-none';
+export const btnDisabled =
+  'pointer-events-none bg-[rgb(var(--ro-c-panel-raised))] text-[rgb(var(--ro-c-muted))]';
 
 export const btnXs =
-  'inline-flex items-center justify-center px-2 py-0.5 text-[10px] text-zinc-300 border border-zinc-700/60 rounded-md bg-zinc-900/40 hover:border-amber-500/40 hover:text-amber-300 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 disabled:opacity-50 disabled:pointer-events-none';
+  'inline-flex items-center justify-center rounded-[9px] bg-[rgb(var(--ro-c-panel-raised))] px-3 py-[5px] text-xs leading-normal text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:bg-[rgb(var(--ro-c-line))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))] disabled:pointer-events-none disabled:text-[rgb(var(--ro-c-muted))]';
 
-export const selectNative =
-  'w-full border border-zinc-700/80 bg-zinc-950 text-zinc-100 text-sm rounded-lg px-2 py-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 focus-visible:border-amber-500/60';
+export const selectFace =
+  'rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:border-[rgb(var(--ro-c-line-strong))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
+
+export const selectNative = `${selectFace} w-full pl-2.5 pr-9 py-1.5`;
+
+export const selectKeycap = `${selectFace} w-[68px] shrink-0 pl-2 pr-8 py-1`;
+
+export const selectFlex = `${selectFace} min-w-0 flex-1 pl-2 pr-8 py-1`;
 
 export const tabBtn =
-  'flex-1 flex items-center justify-center gap-1.5 text-center px-2 py-1.5 text-[11px] font-medium rounded-md border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40';
+  'flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-7 py-1.5 text-center font-sans text-[12.5px] font-medium leading-normal transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
 
-export const tabActive = 'bg-amber-500/15 text-amber-200 border-amber-500/40';
+export const tabActive = 'bg-[rgb(var(--ro-c-line))] text-[rgb(var(--ro-c-ink))]';
 
 export const tabInactive =
-  'border-transparent text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]';
+  'text-[rgb(var(--ro-c-muted))] hover:bg-[rgb(var(--ro-c-panel-raised))] hover:text-[rgb(var(--ro-c-ink))]';
+
+export const tabList =
+  'flex shrink-0 gap-1 rounded-[11px] border border-[rgb(var(--ro-c-line-soft))] bg-[rgb(var(--ro-c-panel))] p-[3px]';
 
 export const focusRing =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
 
-export const innerWell = 'rounded-lg bg-zinc-950/40 border border-zinc-800/60 px-4 py-2';
+export const gepardBanner = 'ro-notice-warn';
 
-export const gepardBanner =
-  'rounded-lg border border-amber-500/15 bg-amber-500/5 px-2.5 py-2 text-[10px] leading-relaxed text-amber-300/90';
+export const microLabel =
+  'self-center font-sans text-xs font-medium leading-normal text-[rgb(var(--ro-c-muted))] normal-case';
+
+export const statusDotOk = 'inline-block h-2 w-2 shrink-0 rounded-full bg-[rgb(var(--ro-c-ok))]';
+
+export const statusDotPending =
+  'inline-block h-2 w-2 shrink-0 rounded-full bg-[rgb(var(--ro-c-muted))]';
+
+export const statusDotWarn =
+  'inline-block h-2 w-2 shrink-0 rounded-full bg-[rgb(var(--ro-c-warn))]';
+
+export const keyChip =
+  'flex-1 h-7 p-0 font-mono rounded-[7px] text-[11.5px] font-semibold transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
+
+export const keyChipActive = 'bg-[rgb(var(--ro-c-accent))] text-[rgb(var(--ro-c-on-accent))]';
+
+export const keyChipIdle =
+  'bg-[rgb(var(--ro-c-panel-raised))] text-[rgb(var(--ro-c-muted))] hover:text-[rgb(var(--ro-c-ink))]';
+
+export const fieldCompact =
+  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] py-1 pl-1.5 pr-4 text-center font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] disabled:text-[rgb(var(--ro-c-muted))]';
+
+export const logWell =
+  'mx-[18px] mb-4 min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-[9px] border border-[rgb(var(--ro-c-line-soft))] bg-[rgb(var(--ro-c-field))] px-[18px] py-2 font-mono text-xs leading-relaxed text-[rgb(var(--ro-c-muted))]';
+
+export const textInk = 'ro-ink';
+export const textMuted = 'text-[rgb(var(--ro-c-muted))]';
+export const textDetail = 'text-[11px] text-[rgb(var(--ro-c-muted))]';

@@ -1,7 +1,7 @@
 import { launchButtonDisabled, launchButtonLabel, launchButtonVariant } from '../demo.logic';
 import { getServerById } from '../mockData';
 import { captureWindowScrollFromPointer } from '../preserveWindowScroll';
-import { btnBase, btnDisabled, btnPrimary, btnSecondary, focusRing } from '../chrome/classes';
+import { btnBase, btnDisabled, btnPrimary, btnSecondary, textDetail } from '../chrome/classes';
 import type { DemoState } from '../types';
 
 interface Props {
@@ -19,16 +19,16 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
   const variantClass = variant === 'primary' ? btnPrimary : btnSecondary;
 
   return (
-    <div className="flex flex-col gap-2 shrink-0 border-t border-white/[0.06] pt-3">
+    <div className="flex shrink-0 flex-col gap-2 border-t border-[rgb(var(--ro-c-line))] pt-3">
       {progress && (
         <div className="space-y-1">
-          <div className="flex justify-between gap-2 text-[10px] text-zinc-500">
+          <div className={`flex justify-between gap-2 ${textDetail}`}>
             <span className="truncate">{progress.step}</span>
-            <span className="shrink-0 tabular-nums">{progress.percent}%</span>
+            <span className="shrink-0 font-mono tabular-nums">{progress.percent}%</span>
           </div>
-          <div className="w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-[rgb(var(--ro-c-panel-raised))]">
             <div
-              className="ro-demo-progress-fill h-full bg-gradient-to-r from-amber-600 via-amber-300 to-amber-400 rounded-full"
+              className="ro-demo-progress-fill h-full rounded-full bg-[rgb(var(--ro-c-muted))]"
               style={{
                 width: `${progress.percent}%`,
                 transitionProperty: 'width',
@@ -41,7 +41,7 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
       )}
       <button
         type="button"
-        className={`${btnBase} ${variantClass} ${disabled ? btnDisabled : ''} ${focusRing}`}
+        className={`${btnBase} ${variantClass} ${disabled ? btnDisabled : ''}`}
         aria-disabled={disabled}
         onPointerDownCapture={() => captureWindowScrollFromPointer()}
         onClick={() => {
@@ -52,7 +52,7 @@ export function DemoLaunchBar({ state, onLaunchClick }: Props) {
         {label}
       </button>
       {playNotice && (
-        <p className="text-[11px] text-zinc-500 text-center px-2 leading-relaxed" role="status">
+        <p className={`${textDetail} px-2 text-center leading-relaxed`} role="status">
           {playNotice}
         </p>
       )}

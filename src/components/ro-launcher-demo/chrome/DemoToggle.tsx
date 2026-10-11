@@ -1,11 +1,8 @@
-import { focusRing } from './classes';
-
 type DemoToggleName = { label: string; labelledBy?: never } | { labelledBy: string; label?: never };
 
 interface DemoToggleBase {
   checked: boolean;
   disabled?: boolean;
-  tone?: 'emerald' | 'amber';
   onChange: (checked: boolean) => void;
 }
 
@@ -14,16 +11,10 @@ type DemoToggleProps = DemoToggleBase & DemoToggleName;
 export function DemoToggle({
   checked,
   disabled = false,
-  tone = 'emerald',
   onChange,
   label,
   labelledBy,
 }: DemoToggleProps) {
-  const onClass =
-    tone === 'emerald'
-      ? 'bg-emerald-500/80 border-emerald-400/50 ro-shadow-glow-emerald'
-      : 'bg-amber-500/80 border-amber-400/50 ro-shadow-glow-amber';
-
   return (
     <button
       type="button"
@@ -32,13 +23,15 @@ export function DemoToggle({
       {...(labelledBy !== undefined ? { 'aria-labelledby': labelledBy } : { 'aria-label': label })}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative w-9 h-5 rounded-full border transition-[background-color,border-color,box-shadow] duration-200 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed ${focusRing} ${
-        checked ? onClass : 'bg-zinc-800 border-zinc-700/80'
+      className={`relative h-5 w-9 shrink-0 rounded-full transition-colors duration-120 disabled:cursor-not-allowed ${
+        checked ? 'bg-[rgb(var(--ro-c-ok))]' : 'bg-[rgb(var(--ro-c-track))]'
       }`}
     >
       <span
-        className={`absolute top-0.5 left-0.5 w-3.5 h-3.5 rounded-full bg-white shadow transition-transform duration-200 ${
-          checked ? 'translate-x-4' : 'translate-x-0'
+        className={`absolute top-0.5 h-4 w-4 rounded-full transition-colors duration-120 ${
+          checked
+            ? 'left-[18px] bg-[rgb(var(--ro-c-surface))]'
+            : 'left-0.5 bg-[rgb(var(--ro-c-muted))]'
         }`}
       />
     </button>

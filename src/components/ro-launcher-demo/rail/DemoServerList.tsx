@@ -1,5 +1,5 @@
 import type { Dispatch } from 'react';
-import { focusRing, row, rowSelected } from '../chrome/classes';
+import { focusRing, row, rowSelected, textInk } from '../chrome/classes';
 import { DEMO_SERVERS } from '../mockData';
 import type { DemoAction, DemoState } from '../types';
 
@@ -10,7 +10,7 @@ interface Props {
 
 export function DemoServerList({ state, dispatch }: Props) {
   return (
-    <ul className="flex flex-col gap-0.5 max-h-40 overflow-y-auto -mx-1" aria-label="Servidores">
+    <ul className="flex max-h-40 flex-col gap-1 overflow-y-auto -mx-1" aria-label="Servidores">
       {DEMO_SERVERS.map(server => {
         const selected = state.selectedServerId === server.id;
         return (
@@ -22,10 +22,12 @@ export function DemoServerList({ state, dispatch }: Props) {
                 value={server.id}
                 checked={selected}
                 onChange={() => dispatch({ type: 'selectServer', serverId: server.id })}
-                className="w-3.5 h-3.5 shrink-0 accent-amber-500"
+                className="h-4 w-4 shrink-0"
               />
               <span
-                className={`text-sm truncate ${selected ? 'text-amber-100 font-medium' : 'text-zinc-200'}`}
+                className={`min-w-0 flex-1 break-words text-sm leading-4 ${textInk} ${
+                  selected ? 'font-medium' : ''
+                }`}
               >
                 {server.name}
               </span>

@@ -6,7 +6,7 @@ import {
   panelShell,
   panelSuccess,
   panelTitle,
-  selectNative,
+  selectKeycap,
   textDetail,
   textInk,
   toolPanelBody,
@@ -64,7 +64,7 @@ export function DemoAutobuff({ state, dispatch }: Props) {
                   onChange={() => dispatch({ type: 'toggleAutobuffRule', ruleId: rule.id })}
                   className="h-4 w-4 shrink-0"
                 />
-                <span className="truncate text-[11px] text-[rgb(var(--ro-c-ink))]">
+                <span className={`truncate text-[12.5px] font-medium ${textInk}`}>
                   {rule.label}
                 </span>
               </label>
@@ -73,7 +73,7 @@ export function DemoAutobuff({ state, dispatch }: Props) {
               </label>
               <select
                 id={`ro-demo-autobuff-key-${rule.id}`}
-                className={`${selectNative} w-16 shrink-0`}
+                className={selectKeycap}
                 disabled={!ready}
                 value={rule.key}
                 onChange={e =>

@@ -39,8 +39,12 @@ export const btnDisabled =
 export const btnXs =
   'inline-flex items-center justify-center rounded-[9px] bg-[rgb(var(--ro-c-panel-raised))] px-3 py-[5px] text-xs leading-normal text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:bg-[rgb(var(--ro-c-line))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))] disabled:pointer-events-none disabled:text-[rgb(var(--ro-c-muted))]';
 
-export const selectNative =
-  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] px-2 py-1 font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:border-[rgb(var(--ro-c-line-strong))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
+export const selectFace =
+  'rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] transition-colors duration-120 hover:border-[rgb(var(--ro-c-line-strong))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
+
+export const selectNative = `${selectFace} w-full pl-2 pr-7 py-1`;
+
+export const selectKeycap = `${selectFace} w-[68px] shrink-0 pl-2 pr-7 py-1`;
 
 export const tabBtn =
   'flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-7 py-1.5 text-center font-sans text-[12.5px] font-medium leading-normal transition-colors duration-120 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[rgb(var(--ro-c-accent))]';
@@ -78,7 +82,7 @@ export const keyChipIdle =
   'bg-[rgb(var(--ro-c-panel-raised))] text-[rgb(var(--ro-c-muted))] hover:text-[rgb(var(--ro-c-ink))]';
 
 export const fieldCompact =
-  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] py-1 pr-4 text-center font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] disabled:text-[rgb(var(--ro-c-muted))]';
+  'w-full rounded-[9px] border border-[rgb(var(--ro-c-line))] bg-[rgb(var(--ro-c-field))] py-1 pl-1.5 pr-4 text-center font-mono text-[12.5px] leading-[normal] text-[rgb(var(--ro-c-ink))] disabled:text-[rgb(var(--ro-c-muted))]';
 
 export const logWell =
   'mx-[18px] mb-4 min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-[9px] border border-[rgb(var(--ro-c-line-soft))] bg-[rgb(var(--ro-c-field))] px-[18px] py-2 font-mono text-xs leading-relaxed text-[rgb(var(--ro-c-muted))]';

@@ -68,7 +68,7 @@ function PercentField({
   onChange: (value: string) => void;
 }) {
   return (
-    <div className="relative w-12">
+    <div className="relative w-12 shrink-0">
       <input
         type="number"
         min={1}
@@ -81,7 +81,7 @@ function PercentField({
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-1.5 flex items-center text-[10px] text-[rgb(var(--ro-c-muted))]"
+        className="pointer-events-none absolute inset-y-0 right-1.5 flex items-center font-mono text-[11px] tabular-nums text-[rgb(var(--ro-c-muted))]"
       >
         %
       </span>

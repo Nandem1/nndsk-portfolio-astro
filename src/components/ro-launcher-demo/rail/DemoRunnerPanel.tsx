@@ -18,7 +18,7 @@ export function DemoRunnerPanel({ state, dispatch }: Props) {
   return (
     <div className="space-y-2">
       <select
-        className={selectNative}
+        className={`${selectNative} pr-8`}
         value={effectiveId}
         aria-label="Runner predeterminado"
         onChange={e =>
